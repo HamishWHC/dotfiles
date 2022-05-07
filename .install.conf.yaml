@@ -10,8 +10,7 @@
       - gh
       - cmake
       - git
-      - n
-      - pyenv
+      - asdf
       - starship
       - fzf
 
@@ -20,22 +19,24 @@
       ~/.config:
           recursive: true
 
+- asdf:
+      - plugin: python
+        global: latest
+        versions:
+            - latest
+      - plugin: nodejs
+        global: latest
+        versions:
+            - latest
+
+- shell:
+      - command: asdf exec pip install pipenv && asdf reshim
+        description: Installs pipenv into latest version of python
+
 - link:
       ~/.zshrc:
       ~/.dotfiles: ""
       ~/.config/starship.toml: config/starship.toml
-
-- shell:
-      - [chsh -s $(which zsh), Making zsh the default shell]
-      - [
-            pyenv install -s 3.10.3,
-            Install latest version of Python available to pyenv if missing,
-        ]
-      - [pyenv global 3.10.3, Set global python version]
-      - [
-            eval "$(pyenv init -)" && pyenv shell 3.10.3 && pip install pipenv,
-            Installs pipenv into latest version of python,
-        ]
 
 - create:
       ~/.ssh/config:
