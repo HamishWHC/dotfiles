@@ -6,9 +6,6 @@
 - install-brew: true
 
 - brew:
-      - certbot
-      - gh
-      - cmake
       - git
       - asdf
       - starship
