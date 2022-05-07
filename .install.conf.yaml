@@ -16,7 +16,7 @@
       - fzf
 
 - clean:
-      ~:
+      ~/:
       ~/.config:
           recursive: true
 
@@ -33,7 +33,7 @@
         ]
       - [pyenv global 3.10.3, Set global python version]
       - [
-            pyenv shell 3.10.3 && pip install pipenv,
+            eval "$(pyenv init -)" && pyenv shell 3.10.3 && pip install pipenv,
             Installs pipenv into latest version of python,
         ]
 
