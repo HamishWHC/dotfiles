@@ -1,0 +1,9 @@
+[python]
+python_binary = ["python3", "python", "python2"]
+pyenv_version_name = true
+
+[sudo]
+disabled = false
+
+[time]
+disabled = false

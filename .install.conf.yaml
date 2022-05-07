@@ -1,0 +1,41 @@
+- defaults:
+      link:
+          create: true
+          relink: true
+
+- install-brew: true
+
+- brew:
+      - certbot
+      - gh
+      - cmake
+      - git
+      - n
+      - pyenv
+      - starship
+      - fzf
+
+- clean:
+      ~:
+      ~/.config:
+          recursive: true
+
+- link:
+      ~/.zshrc:
+      ~/.dotfiles: ""
+      ~/.config/starship.toml: config/starship.toml
+
+- shell:
+      - [chsh -s $(which zsh), Making zsh the default shell]
+      - [
+            pyenv install -s 3.10.3,
+            Install latest version of Python available to pyenv if missing,
+        ]
+      - [pyenv global 3.10.3, Set global python version]
+      - [
+            pyenv shell 3.10.3 && pip install pipenv,
+            Installs pipenv into latest version of python,
+        ]
+
+- create:
+      ~/.ssh/config:

@@ -1,0 +1,12 @@
+[submodule ".dotbot"]
+path = .dotbot
+url = https://github.com/anishathalye/dotbot
+[submodule "plugins/z"]
+path = plugins/z
+url = https://github.com/rupa/z.git
+[submodule "plugins/fzf-tab"]
+path = plugins/fzf-tab
+url = https://github.com/Aloxaf/fzf-tab
+[submodule ".dotbot-plugins/dotbot-brew"]
+	path = .dotbot-plugins/dotbot-brew
+	url = https://github.com/wren/dotbot-brew.git
