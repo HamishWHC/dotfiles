@@ -11,6 +11,9 @@ alias l='ls'
 alias cp='cp -i'
 alias mv='mv -i'
 
+# Restart shell.
+alias restart='exec "$SHELL"'
+
 # Update dotfiles
 dfu() {
     (
