@@ -2,6 +2,9 @@
 python_binary = ["python3", "python", "python2"]
 pyenv_version_name = true
 
+[gcloud]
+disabled = true
+
 [sudo]
 disabled = false
 
