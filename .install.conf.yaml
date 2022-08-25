@@ -1,39 +1,40 @@
 - defaults:
-      link:
-          create: true
-          relink: true
+    link:
+      create: true
+      relink: true
 
 - install-brew: true
 
 - brew:
-      - git
-      - asdf
-      - starship
-      - fzf
+    - git
+    - asdf
+    - starship
+    - fzf
 
 - clean:
-      ~/:
-      ~/.config:
-          recursive: true
+    ~/:
+    ~/.config:
+      recursive: true
 
 - asdf:
-      - plugin: python
-        global: latest
-        versions:
-            - latest
-      - plugin: nodejs
-        global: latest
-        versions:
-            - latest
+    - plugin: python
+      global: latest
+      versions:
+        - latest
+    - plugin: nodejs
+      global: latest
+      versions:
+        - latest
 
 - shell:
-      - command: asdf exec pip install pipenv && asdf reshim
-        description: Installs pipenv into latest version of python
+    - command: asdf exec pip install pipenv && asdf reshim
+      description: Installs pipenv into latest version of python
 
 - link:
-      ~/.zshrc:
-      ~/.dotfiles: ""
-      ~/.config/starship.toml: config/starship.toml
+    ~/.zshrc:
+    ~/.dotfiles: ""
+    ~/.config/starship.toml: config/starship.toml
 
 - create:
-      ~/.ssh/config:
+    ~/.ssh:
+      mode: 0700
