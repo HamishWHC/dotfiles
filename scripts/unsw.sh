@@ -4,7 +4,7 @@
 _SSHFS_ZID=z5361056
 # Your desired mountpoint for your CSE home directory
 _SSHFS_CSE_MOUNT="$HOME/Documents/UNSW/cse-files"
-_SSHFS_NAME="unsw_cse"
+_SSHFS_NAME="unsw"
 
 alias csemnt="sshfs -o idmap=user -C ${_SSHFS_NAME}: ${_SSHFS_CSE_MOUNT}"
 alias cseumount="umount ${_SSHFS_CSE_MOUNT}"
