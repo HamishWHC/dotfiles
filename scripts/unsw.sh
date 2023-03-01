@@ -6,8 +6,8 @@ _SSHFS_ZID=z5361056
 _SSHFS_CSE_MOUNT="$HOME/Documents/UNSW/cse-files"
 _SSHFS_NAME="unsw"
 
-alias csemnt="sshfs -o idmap=user -C ${_SSHFS_NAME}: ${_SSHFS_CSE_MOUNT}"
-alias cseumount="umount ${_SSHFS_CSE_MOUNT}"
+alias cse-mount="sshfs -o idmap=user -C ${_SSHFS_NAME}: ${_SSHFS_CSE_MOUNT}"
+alias cse-umount="umount ${_SSHFS_CSE_MOUNT}"
 
 function cse() {
     # determine where we are relative to the mountpoint (thanks @ralismark)
