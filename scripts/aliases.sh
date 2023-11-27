@@ -14,6 +14,12 @@ alias mv='mv -i'
 # Restart shell.
 alias restart='exec "$SHELL"'
 
+# Use bat instead of cat.
+alias cat='bat --paging=never'
+
+# Make bat used for help.
+alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+
 # Update dotfiles
 dfu() {
     (

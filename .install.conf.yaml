@@ -10,6 +10,8 @@
     - asdf
     - starship
     - fzf
+    - bat
+    - poetry
 
 - clean:
     ~/:
@@ -25,10 +27,6 @@
       global: latest
       versions:
         - latest
-
-- shell:
-    - command: asdf exec pip install pipenv && asdf reshim
-      description: Installs pipenv into latest version of python
 
 - link:
     ~/.zshrc:
