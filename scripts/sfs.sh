@@ -7,6 +7,7 @@ sfs() {
     target="$1"
 
     mkdir -p $HOME/mounts/${target}
+    umount -f $HOME/mounts/${target}
     sshfs -o idmap=user -C ${target}: $HOME/mounts/${target}
 }
 
@@ -17,5 +18,5 @@ usfs() {
     fi
 
     target="$1"
-    umount $HOME/mounts/${target}
+    umount -f $HOME/mounts/${target}
 }

@@ -3,8 +3,10 @@
 [url "git@github.com:"]
     insteadOf = https://github.com/
 
-[includeIf "hasconfig:remote.*.url:https://github.com/**"]
-	path = foo.inc
+[pull]
+	rebase = false
+[init]
+	defaultBranch = main
 
 [include]
     path = .gitlocalconfig
