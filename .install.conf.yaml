@@ -32,6 +32,8 @@
     ~/.zshrc:
     ~/.dotfiles: ""
     ~/.config/starship.toml: config/starship.toml
+    ~/.ssh/config: config/.ssh/config
+    ~/.gitconfig: config/.gitconfig
 
 - create:
     ~/.ssh:
