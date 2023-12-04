@@ -21,6 +21,10 @@ source $HOME/.dotfiles/plugins/fzf-tab/fzf-tab.plugin.zsh
 # Set editor to nano for things like git messages and similar.
 export EDITOR=nano
 
+export BAT_PAGER="less -RF"
+export PAGER="bat"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
 # Starship Shell
 eval "$(starship init zsh)"
 

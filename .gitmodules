@@ -13,3 +13,9 @@ url = https://github.com/Aloxaf/fzf-tab
 [submodule ".dotbot-plugins/dotbot-asdf"]
 	path = .dotbot-plugins/dotbot-asdf
 	url = https://github.com/sobolevn/dotbot-asdf.git
+[submodule ".dotbot-plugins/dotbot-ifplatform"]
+	path = .dotbot-plugins/dotbot-ifplatform
+	url = https://github.com/ssbanerje/dotbot-ifplatform.git
+[submodule ".dotbot-plugins/dotbot-apt"]
+	path = .dotbot-plugins/dotbot-apt
+	url = https://github.com/bryant1410/dotbot-apt

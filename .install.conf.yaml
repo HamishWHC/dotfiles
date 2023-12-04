@@ -3,15 +3,29 @@
       create: true
       relink: true
 
-- install-brew: true
+- shell:
+    - command: "command -v rustup || curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile default"
+      description: "Installs rustup and the latest rust toolchain (and cargo)."
+    - command: "command -v starship || curl -sS https://starship.rs/install.sh | sh"
+      description: "Installs starship if not already installed."
+    - command: "[ -d ~/.asdf ] || git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.13.1"
+      description: "Clones asdf if not there already."
+    - command: "command -v poetry || "
 
-- brew:
-    - git
-    - asdf
-    - starship
-    - fzf
-    - bat
-    - poetry
+- ifmacos:
+    - brew:
+        - git
+        - coreutils
+        - curl
+        - fzf
+        - bat
+        - poetry
+
+- ifdebian:
+    - apt:
+        - git
+        - net-tools
+        - curl
 
 - clean:
     ~/:
@@ -24,6 +38,11 @@
       versions:
         - latest
     - plugin: nodejs
+      global: latest
+      versions:
+        - latest
+    - plugin: golang
+      url: https://github.com/asdf-community/asdf-golang.git
       global: latest
       versions:
         - latest

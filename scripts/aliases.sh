@@ -14,13 +14,11 @@ alias mv='mv -i'
 # Restart shell.
 alias restart='exec "$SHELL"'
 
-# Use bat instead of cat.
+# Use bat instead of cat/man.
 alias cat='bat --paging=never'
 
 # Make bat used for help.
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
-
-alias dns-flush='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
 
 # Update dotfiles
 dfu() {
