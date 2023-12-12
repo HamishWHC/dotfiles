@@ -32,6 +32,21 @@ dfu() {
 # cd to git root directory
 alias cdgr='cd "$(git root)"'
 
+listening() {
+    # The grep . is to make it return faster. IDK why it works lol.
+    if [ "$#" -eq 0 ]; then
+        sudo lsof -i -P | grep . | awk 'NR == 1 || /LISTEN/'
+        return 1
+    fi
+    if [ "$#" -eq 1 ]; then
+        sudo lsof -i -P | grep . | awk 'NR == 1 || (/LISTEN/ && /'"$1"'/)'
+        return 0
+    fi
+
+    echo "Usage: listening [port]"
+    return 1
+}
+
 # Create a directory and cd into it
 mcd() {
     mkdir "${1}" && cd "${1}"
