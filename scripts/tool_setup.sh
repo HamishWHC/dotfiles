@@ -3,6 +3,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
 # zsh autocompletion
+autoload bashcompinit && bashcompinit
 autoload -U compinit
 compinit
 
