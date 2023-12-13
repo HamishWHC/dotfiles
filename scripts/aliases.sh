@@ -29,6 +29,14 @@ dfu() {
     )
 }
 
+hist() {
+    local COMMAND="$(sed -r "s/^: [0-9]+:[0-9]+;//g" ~/.zsh_history | fzf --tac)"
+    if [ "$COMMAND" != "" ]; then
+        echo $COMMAND | tr -d '\n' | pbcopy
+        echo "Copied:" $COMMAND
+    fi
+}
+
 # cd to git root directory
 alias cdgr='cd "$(git root)"'
 
