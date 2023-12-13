@@ -22,6 +22,9 @@ alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 
 alias dns-flush='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
 
+alias docker-ka='docker kill $(docker ps -q)'
+alias docker-kra='docker rm -f $(docker ps -aq)'
+
 # Update dotfiles
 dfu() {
     (
