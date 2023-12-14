@@ -7,9 +7,6 @@ autoload bashcompinit && bashcompinit
 autoload -U compinit
 compinit
 
-# asdf
-. $(brew --prefix asdf)/libexec/asdf.sh && asdf reshim
-
 # fzf-tab for nice autocompletion interface
 source $HOME/.dotfiles/plugins/fzf-tab/fzf-tab.plugin.zsh
 
@@ -21,13 +18,3 @@ source $HOME/.dotfiles/plugins/fzf-tab/fzf-tab.plugin.zsh
 
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
-
-# Set editor to nano for things like git messages and similar.
-export EDITOR=nano
-
-export BAT_PAGER="less -RF"
-export PAGER="bat"
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
-# Starship Shell
-eval "$(starship init zsh)"

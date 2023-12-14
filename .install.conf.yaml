@@ -8,7 +8,6 @@
 - brew:
     - git
     - asdf
-    - starship
     - fzf
     - bat
     - poetry
@@ -34,7 +33,8 @@
 
 - link:
     ~/.zshrc:
+    ~/.zshenv:
+    ~/.zimrc:
     ~/.dotfiles: ""
-    ~/.config/starship.toml: config/starship.toml
     ~/.ssh/config: config/.ssh/config
     ~/.gitconfig: config/.gitconfig
