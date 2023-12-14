@@ -1,4 +1,3 @@
-source ~/.dotfiles/scripts/functions.sh
 source ~/.dotfiles/scripts/bootstrap.sh
 source ~/.dotfiles/scripts/tool_setup.sh
 source ~/.dotfiles/scripts/aliases.sh

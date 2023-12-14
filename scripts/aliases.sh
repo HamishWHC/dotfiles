@@ -22,6 +22,9 @@ alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 
 alias dns-flush='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
 
+# cd to git root directory
+alias cdgr='cd "$(git root)"'
+
 alias docker-ka='docker kill $(docker ps -q)'
 alias docker-kra='docker rm -f $(docker ps -aq)'
 
@@ -39,9 +42,6 @@ hist() {
         echo "Copied:" $COMMAND
     fi
 }
-
-# cd to git root directory
-alias cdgr='cd "$(git root)"'
 
 listening() {
     # The grep . is to make it return faster. IDK why it works lol.

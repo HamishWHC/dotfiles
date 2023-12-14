@@ -31,5 +31,3 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # Starship Shell
 eval "$(starship init zsh)"
-
-source $HOME/.dotfiles/scripts/sfs.sh
