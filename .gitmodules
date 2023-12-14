@@ -1,12 +1,12 @@
 [submodule ".dotbot"]
-path = .dotbot
-url = https://github.com/anishathalye/dotbot
+	path = .dotbot
+	url = https://github.com/anishathalye/dotbot
 [submodule "plugins/z"]
-path = plugins/z
-url = https://github.com/rupa/z.git
+	path = plugins/z
+	url = https://github.com/rupa/z.git
 [submodule "plugins/fzf-tab"]
-path = plugins/fzf-tab
-url = https://github.com/Aloxaf/fzf-tab
+	path = plugins/fzf-tab
+	url = https://github.com/Aloxaf/fzf-tab
 [submodule ".dotbot-plugins/dotbot-brew"]
 	path = .dotbot-plugins/dotbot-brew
 	url = https://github.com/wren/dotbot-brew.git
@@ -19,3 +19,6 @@ url = https://github.com/Aloxaf/fzf-tab
 [submodule ".dotbot-plugins/dotbot-apt"]
 	path = .dotbot-plugins/dotbot-apt
 	url = https://github.com/bryant1410/dotbot-apt
+[submodule "plugins/complete-alias"]
+	path = plugins/complete-alias
+	url = https://github.com/cykerway/complete-alias

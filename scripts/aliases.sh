@@ -20,6 +20,9 @@ alias cat='bat --paging=never'
 # Make bat used for help.
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 
+alias docker-ka='docker kill $(docker ps -q)'
+alias docker-kra='docker rm -f $(docker ps -aq)'
+
 # Update dotfiles
 dfu() {
     (
@@ -27,8 +30,31 @@ dfu() {
     )
 }
 
+hist() {
+    local COMMAND="$(sed -r "s/^: [0-9]+:[0-9]+;//g" ~/.zsh_history | fzf --tac)"
+    if [ "$COMMAND" != "" ]; then
+        echo $COMMAND | tr -d '\n' | pbcopy
+        echo "Copied:" $COMMAND
+    fi
+}
+
 # cd to git root directory
 alias cdgr='cd "$(git root)"'
+
+listening() {
+    # The grep . is to make it return faster. IDK why it works lol.
+    if [ "$#" -eq 0 ]; then
+        sudo lsof -i -P | grep . | awk 'NR == 1 || /LISTEN/'
+        return 1
+    fi
+    if [ "$#" -eq 1 ]; then
+        sudo lsof -i -P | grep . | awk 'NR == 1 || (/LISTEN/ && /'"$1"'/)'
+        return 0
+    fi
+
+    echo "Usage: listening [port]"
+    return 1
+}
 
 # Create a directory and cd into it
 mcd() {
