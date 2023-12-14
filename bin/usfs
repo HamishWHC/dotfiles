@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ "$#" -ne 1 ]; then
+    echo "Usage: usfs <target>"
+    return 1
+fi
+
+target="$1"
+umount -f $HOME/mounts/${target}
