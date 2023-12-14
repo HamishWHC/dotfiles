@@ -35,6 +35,7 @@
     ~/.zshrc:
     ~/.zshenv:
     ~/.zimrc:
+    ~/.p10k.zsh:
     ~/.dotfiles: ""
     ~/.ssh/config: config/.ssh/config
     ~/.gitconfig: config/.gitconfig
