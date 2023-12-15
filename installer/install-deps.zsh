@@ -26,3 +26,17 @@ if ! has_command gum; then
 else
     echo Found existing gum installation.
 fi
+
+# We need GNU realpath to resolve symlinks.
+if [[ $OS == "macos" ]]; then
+    if ! has_command grealpath; then
+        echo Installing coreutils...
+        brew install coreutils
+        echo Installed coreutils!
+    else
+        echo Found existing coreutils installation.
+    fi
+
+    alias realpath='grealpath'
+    echo Aliased realpath to GNU realpath.
+fi

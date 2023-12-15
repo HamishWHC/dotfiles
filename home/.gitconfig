@@ -12,4 +12,4 @@
     path = .gitlocalconfig
 
 [includeIf "hasconfig:remote.*.url:https://github.com/**"]
-    path = .dotfiles/config/gitconfigs/github
+    path = .dotfiles/configs/git/github
