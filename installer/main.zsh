@@ -27,21 +27,28 @@ log info "Initialised logger!"
 
 log info "Installing modules..."
 
-run_module package git fzf bat poetry
-run_module_if_platform macos package openssl readline sqlite3 xz zlib tcl-tk
+# some useful tools
+run_module package git fzf bat poetry xh
 
+# python dependencies
+run_module_if_platform macos package openssl readline sqlite3 xz zlib tcl-tk
+run_module_if_platform debian package build-essential libssl-dev zlib1g-dev \
+    libbz2-dev libreadline-dev libsqlite3-dev curl \
+    libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+
+# asdf version manager
 run_module asdf v0.13.1
 
-run_module asdf-plugin python
-asdf global python latest:3.12
-
-run_module asdf-plugin nodejs
-asdf global nodejs latest:20
+# setup asdf plugins
+run_module asdf-plugin python latest:3.12
+run_module asdf-plugin nodejs latest:20.10
+run_module asdf-plugin-git golang https://github.com/asdf-community/asdf-golang.git latest:1.21
 
 asdf reshim
 
 run_module clear-symlinks
 run_module create-ssh-dir
-run_module add-home-symlinks
+run_module home-symlinks
+run_module dotfiles-symlink
 
 log info "Finished module installation."

@@ -1,6 +1,6 @@
 clear_symlink() {
     file=$1
-    real=$(realpath $1)
+    real=$(realpath -m $1)
     if [[ $real == $DOTFILES_DIR* ]]; then
         log info "Removing broken symlink." path $file realpath $real
         rm $file

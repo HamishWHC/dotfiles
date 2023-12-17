@@ -27,12 +27,14 @@ source ~/.dotfiles/scripts/aliases.sh
 
 # Add bin directories.
 path_prepend "$HOME/.local/bin"
-path_prepend "$HOME/.dotfiles/bin"
+path_prepend "$HOME/.dotfiles/bin/common"
+path_prepend "$HOME/.dotfiles/bin/macos"
+path_prepend "$(go env GOPATH)/bin"
 
 source ~/.dotfiles/scripts/tool_setup.sh
 
 if [ -f ~/.zshrc_local ]; then
-    source ~/.zshrc_local
+  source ~/.zshrc_local
 fi
 
 # Load zim plugins.
