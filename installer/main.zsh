@@ -28,7 +28,7 @@ log info "Initialised logger!"
 log info "Installing modules..."
 
 # some useful tools
-run_module package git fzf bat poetry xh
+run_module package git fzf bat poetry xh go
 
 # python dependencies
 run_module_if_platform macos package openssl readline sqlite3 xz zlib tcl-tk
@@ -42,7 +42,6 @@ run_module asdf v0.13.1
 # setup asdf plugins
 run_module asdf-plugin python latest:3.12
 run_module asdf-plugin nodejs latest:20.10
-run_module asdf-plugin-git golang https://github.com/asdf-community/asdf-golang.git latest:1.21
 
 asdf reshim
 
