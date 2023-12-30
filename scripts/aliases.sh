@@ -43,10 +43,14 @@ alias cdgr='cd "$(git root)"'
 alias docker-ka='docker kill $(docker ps -q)'
 alias docker-kra='docker rm -f $(docker ps -aq)'
 
+alias kc='kubectl'
+alias kcc='kubectl ctx'
+alias kcn='kubectl ns'
+
 # Update dotfiles
 dfu() {
     (
-        cd ~/.dotfiles && git pull --ff-only && ./install -q
+        cd ~/.dotfiles && git pull --ff-only && ./install.sh
     )
 }
 
