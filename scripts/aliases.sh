@@ -102,5 +102,5 @@ up() {
 
 ntfy() {
     local topic=$1
-    xhs ntfy.hamishwhc.com/$topic/publish -A basic -a $NTFY_USER:$NTFY_PASS ${@:2}
+    https ntfy.hamishwhc.com/$topic/publish -A basic -a $NTFY_USER:$NTFY_PASS ${@:2}
 }
