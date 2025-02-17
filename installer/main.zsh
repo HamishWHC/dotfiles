@@ -28,7 +28,7 @@ log info "Initialised logger!"
 log info "Installing modules..."
 
 # some useful tools
-run_module package git fzf bat xh go
+run_module package git fzf bat xh
 
 # python dependencies, also just nice to have
 run_module_if_platform macos package openssl readline sqlite3 xz zlib tcl-tk

@@ -30,9 +30,6 @@ source ~/.dotfiles/scripts/tool_setup.sh
 
 zle_highlight+=(paste:none)
 
-# Do this after loading brew.
-path_prepend "$(go env GOPATH)/bin"
-
 if [ -f ~/.zshrc_local ]; then
   source ~/.zshrc_local
 fi
