@@ -18,10 +18,6 @@ fi
 
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
-# Load asdf.
-. "$HOME/.asdf/asdf.sh"
-fpath=(${ASDF_DIR}/completions $fpath)
-
 # Load aliases and stuff.
 source ~/.dotfiles/scripts/aliases.sh
 

@@ -14,4 +14,4 @@ source $HOME/.dotfiles/plugins/fzf-tab/fzf-tab.plugin.zsh
 . $HOME/.dotfiles/plugins/z/z.sh
 
 # completions for aliases
-. $HOME/.dotfiles/plugins/complete-alias/complete_alias
+# . $HOME/.dotfiles/plugins/complete-alias/complete_alias

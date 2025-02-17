@@ -1,0 +1,6 @@
+[submodule "plugins/z"]
+path = plugins/z
+url = https://github.com/rupa/z.git
+[submodule "plugins/fzf-tab"]
+path = plugins/fzf-tab
+url = https://github.com/Aloxaf/fzf-tab
