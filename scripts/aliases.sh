@@ -14,11 +14,11 @@ path_prepend() {
 }
 
 # Use colors in coreutils utilities output
-alias ls='ls --color=auto'
+alias ls='ls -h --color=auto'
 alias grep='grep --color'
 
 # ls aliases
-alias ll='ls -lah'
+alias ll='ls -lA'
 alias la='ls -A'
 alias l='ls'
 
@@ -35,7 +35,7 @@ alias cat='bat --paging=never'
 # Make bat used for help.
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 
-alias dns-flush='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
+alias flush-dns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
 
 # cd to git root directory
 alias cdgr='cd "$(git root)"'

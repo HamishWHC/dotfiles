@@ -15,6 +15,3 @@ source $HOME/.dotfiles/plugins/fzf-tab/fzf-tab.plugin.zsh
 
 # completions for aliases
 . $HOME/.dotfiles/plugins/complete-alias/complete_alias
-
-# bun completions
-[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
