@@ -38,6 +38,7 @@ run_module_if_platform debian package build-essential libssl-dev zlib1g-dev \
 
 run_module clear-symlinks
 run_module create-ssh-dir
+run_module create-config-dirs
 run_module home-symlinks
 run_module dotfiles-symlink
 
