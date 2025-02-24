@@ -30,12 +30,12 @@ source ~/.dotfiles/scripts/tool_setup.sh
 
 zle_highlight+=(paste:none)
 
+# Load zim plugins.
+source $ZIM_HOME/init.zsh
+
 if [ -f ~/.zshrc_local ]; then
   source ~/.zshrc_local
 fi
-
-# Load zim plugins.
-source $ZIM_HOME/init.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
