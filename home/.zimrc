@@ -1,4 +1,5 @@
 zmodule completion
+zmodule environment
 zmodule zdharma-continuum/fast-syntax-highlighting
 zmodule zsh-users/zsh-autosuggestions
 zmodule romkatv/powerlevel10k

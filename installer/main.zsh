@@ -28,13 +28,16 @@ log info "Initialised logger!"
 log info "Installing modules..."
 
 # some useful tools
-run_module package git fzf bat xh
+run_module package git fzf bat xh kubectx
 
 # python dependencies, also just nice to have
 run_module_if_platform macos package openssl readline sqlite3 xz zlib tcl-tk
 run_module_if_platform debian package build-essential libssl-dev zlib1g-dev \
     libbz2-dev libreadline-dev libsqlite3-dev curl \
     libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+
+# Install kubectl on macOS. Linux is a pain.
+run_module_if_platform macos package kubectl
 
 run_module clear-symlinks
 run_module create-ssh-dir

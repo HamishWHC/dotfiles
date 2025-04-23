@@ -108,3 +108,16 @@ ntfy() {
     local topic=$1
     https ntfy.hamishwhc.com/$topic/publish -A basic -a $NTFY_USER:$NTFY_PASS ${@:2}
 }
+
+notes() {
+    local title=$@
+    local dir="$HOME/Desktop/quick-notes/$(date "+%Y-%m-%d")"
+    mkdir -p $dir
+    if [[ $title != "" ]]; then
+        local file="$dir/$title.md"
+        echo "# $title" >$file
+    else
+        local file="$dir/$(date "+%H.%M").md"
+    fi
+    code -n $file
+}
