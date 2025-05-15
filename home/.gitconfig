@@ -13,7 +13,5 @@
 
 [includeIf "hasconfig:remote.*.url:https://github.com/**"]
     path = .dotfiles/configs/git/github
-
-[user]
-	name = HamishWHC
-	email = 20359560+HamishWHC@users.noreply.github.com
+[includeIf "hasconfig:remote.*.url:git@github.com:*/**"]
+    path = .dotfiles/configs/git/github
