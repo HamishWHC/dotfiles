@@ -3,6 +3,7 @@
 font-size = 16
 theme = Monokai Remastered
 minimum-contrast = 3
+background = #000000
 
 window-padding-balance = true
 window-inherit-font-size = false

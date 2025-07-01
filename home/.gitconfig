@@ -1,17 +1,14 @@
 [url "git@bitbucket.org:"]
-    insteadOf = https://bitbucket.org/
+	insteadOf = https://bitbucket.org/
 [url "git@github.com:"]
-    insteadOf = https://github.com/
-
+	insteadOf = https://github.com/
 [pull]
 	rebase = false
 [init]
 	defaultBranch = main
-
 [include]
-    path = .gitlocalconfig
-
+	path = .gitlocalconfig
 [includeIf "hasconfig:remote.*.url:https://github.com/**"]
-    path = .dotfiles/configs/git/github
+	path = .dotfiles/configs/git/github
 [includeIf "hasconfig:remote.*.url:git@github.com:*/**"]
-    path = .dotfiles/configs/git/github
+	path = .dotfiles/configs/git/github
