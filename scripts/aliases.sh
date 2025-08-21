@@ -121,3 +121,13 @@ notes() {
     fi
     code -n $file
 }
+
+scratch() {
+    local title=$1
+    local dir="$HOME/Desktop/scratch/$(date "+%Y-%m-%d")"
+    if [[ $title != "" ]]; then
+        dir="$dir-$title"
+    fi
+    mkdir -p $dir
+    code $dir
+}

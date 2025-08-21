@@ -21,6 +21,8 @@ ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 # Load aliases and stuff.
 source ~/.dotfiles/scripts/aliases.sh
 
+# Set GOPATH to be sane, regardless of whether its installed.
+export GOPATH="$HOME/.go"
 # Add bin directories.
 path_prepend "$HOME/.local/bin"
 path_prepend "$HOME/.dotfiles/bin/common"
@@ -39,4 +41,3 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
