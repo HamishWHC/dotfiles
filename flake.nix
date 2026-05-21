@@ -3,9 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    wrappers.url = "github:Lassulus/wrappers";
 
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
@@ -17,8 +18,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
       flake = false;
@@ -28,13 +27,12 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
-
-    wrappers.url = "github:Lassulus/wrappers";
   };
 
   outputs = inputs@{ flake-parts, import-tree, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
+        inputs.flake-parts.flakeModules.modules
         inputs.nix-darwin.flakeModules.default
         inputs.home-manager.flakeModules.home-manager
         (import-tree ./modules)
