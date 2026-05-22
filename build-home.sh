@@ -9,4 +9,5 @@ if [ -z "$HOST_NAME" ] || [ -z "$USER_NAME" ]; then
   exit 1
 fi
 
+rm -rf result
 nix build ".#darwinConfigurations.${HOST_NAME}.config.home-manager.users.${USER_NAME}.home.activationPackage"

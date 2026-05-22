@@ -8,4 +8,5 @@ if [ -z "$HOST_NAME" ]; then
   exit 1
 fi
 
+rm -rf result
 nix build ".#darwinConfigurations.${HOST_NAME}.system"
