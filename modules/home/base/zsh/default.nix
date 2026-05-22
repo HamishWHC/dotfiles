@@ -38,7 +38,7 @@
         mv = "mv -i";
         cdgr = "cd \"$(git rev-parse --show-toplevel)\"";
         restart = "exec \"$SHELL\"";
-        flush-dns = lib.mkIf lib.isDarwin "sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder";
+        flush-dns = lib.mkIf pkgs.stdenv.isDarwin "sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder";
         docker-ka = "docker kill $(docker ps -q)";
         docker-kra = "docker rm -f $(docker ps -aq)";
         kc = "kubectl";

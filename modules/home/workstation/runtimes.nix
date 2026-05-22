@@ -10,6 +10,6 @@
     programs.cargo.enable = true;
     programs.bun.enable = true;
     programs.go.enable = true;
-    programs.go.env.GOPATH = "${config.xdg.dataDir}/go";
+    programs.go.env.GOPATH = "${config.xdg.dataHome}/go";
   };
 }
