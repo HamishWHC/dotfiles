@@ -2,8 +2,8 @@
 
 set -euo pipefail
 
-local HOST_NAME="$1"
-local USER_NAME="$2"
+HOST_NAME="$1"
+USER_NAME="$2"
 if [ -z "$HOST_NAME" ] || [ -z "$USER_NAME" ]; then
   echo "Usage: $0 <host-name> <user-name>"
   exit 1
