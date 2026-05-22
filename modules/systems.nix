@@ -1,5 +1,3 @@
 {
-  systems = ["aarch64-darwin"];
-
-
+  systems = [ "aarch64-darwin" ];
 }

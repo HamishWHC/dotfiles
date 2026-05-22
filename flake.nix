@@ -1,41 +1,35 @@
+# DO-NOT-EDIT. This file was auto-generated using github:vic/flake-file.
+# Use `nix run .#write-flake` to regenerate it.
 {
-  description = "Hamish's macOS dotfiles as a nix-darwin flake";
+  description = "My personal dotfiles configuration.";
+
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    atuin.url = "github:atuinsh/atuin";
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
+    flake-file.url = "github:vic/flake-file";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    import-tree.url = "github:vic/import-tree";
-    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-    wrappers.url = "github:Lassulus/wrappers";
-
-    nix-darwin = {
-      url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
+    gum.url = "github:charmbracelet/gum";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    homebrew-core = {
-      url = "github:homebrew/homebrew-core";
-      flake = false;
-    };
-
     homebrew-cask = {
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
-  };
-
-  outputs = inputs@{ flake-parts, import-tree, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [
-        inputs.flake-parts.flakeModules.modules
-        inputs.nix-darwin.flakeModules.default
-        inputs.home-manager.flakeModules.home-manager
-        (import-tree ./modules)
-      ];
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
     };
+    import-tree.url = "github:vic/import-tree";
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    wrappers.url = "github:Lassulus/wrappers";
+  };
 }
