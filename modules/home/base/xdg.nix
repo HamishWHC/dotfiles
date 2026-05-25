@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.xdg = {...}: {
+  flake.modules.homeManager.xdg = {
     home.preferXdgDirectories = true;
 
     xdg.enable = true;

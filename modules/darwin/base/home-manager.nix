@@ -21,9 +21,10 @@
         users.${username} = {
           imports = [
             self.modules.homeManager.base
-          ] ++ homeManagerModules;
+          ]
+          ++ homeManagerModules;
 
-          home =  {
+          home = {
             inherit username;
             stateVersion = "26.05";
             homeDirectory = "/Users/${username}";

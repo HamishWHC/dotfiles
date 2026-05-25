@@ -1,4 +1,5 @@
-{self, ...}: {
+{ self, ... }:
+{
   flake.modules.homeManager.base = {
     imports = [
       self.modules.homeManager.xdg

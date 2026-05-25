@@ -1,4 +1,5 @@
-{self, ...}:{
+{ self, ... }:
+{
   flake.modules.homeManager.workstation = {
     imports = [
       self.modules.homeManager.runtimes

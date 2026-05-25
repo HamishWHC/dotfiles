@@ -1,4 +1,5 @@
-{ inputs, self, ... }: {
+{ inputs, self, ... }:
+{
   flake.darwinConfigurations.atlassian = self.lib.mkDarwinHost "atlassian" {
     system = "aarch64-darwin";
     username = "hcox";

@@ -3,7 +3,7 @@
     programs.ssh = {
       enable = true;
       enableDefaultConfig = false;
-      
+
       includes = [
         "dns_host_config"
         "dev_env_config"

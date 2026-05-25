@@ -1,5 +1,8 @@
-{ 
-inputs, self, ... }:
+{
+  inputs,
+  self,
+  ...
+}:
 {
   flake-file.inputs = {
     gum.url = "github:charmbracelet/gum";
@@ -25,7 +28,7 @@ inputs, self, ... }:
 
       # Intentionally do not set networking.hostName, networking.computerName, or
       # networking.localHostName. The flake host names are friendly names only.
-    
+
       environment.systemPackages = with pkgs; [
         gum
       ];

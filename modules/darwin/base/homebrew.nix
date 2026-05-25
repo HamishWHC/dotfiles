@@ -2,7 +2,7 @@
 {
   flake-file.inputs = {
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-    
+
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
       flake = false;
@@ -26,7 +26,7 @@
         enable = true;
         autoMigrate = true;
         mutableTaps = true;
-        
+
         user = username;
         taps = {
           "homebrew/homebrew-core" = inputs.homebrew-core;
