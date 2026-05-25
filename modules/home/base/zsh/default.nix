@@ -3,6 +3,8 @@
     config,
     lib,
     pkgs,
+    configDir,
+    host,
     ...
   }:
   {
@@ -38,12 +40,13 @@
         mv = "mv -i";
         cdgr = "cd \"$(git rev-parse --show-toplevel)\"";
         restart = "exec \"$SHELL\"";
-        flush-dns = lib.mkIf pkgs.stdenv.isDarwin "sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder";
         docker-ka = "docker kill $(docker ps -q)";
         docker-kra = "docker rm -f $(docker ps -aq)";
         kc = "kubectl";
         kcc = "kubectl ctx";
         kcn = "kubectl ns";
+        flush-dns = lib.mkIf pkgs.stdenv.isDarwin "sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder";
+        drs = lib.mkIf pkgs.stdenv.isDarwin "sudo /nix/var/nix/profiles/default/bin/nix run nix-darwin#darwin-rebuild -- switch --flake '${configDir}/.#${host}'";
       };
 
       plugins = [

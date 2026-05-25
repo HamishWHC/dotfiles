@@ -25,7 +25,7 @@
       nix-homebrew = {
         enable = true;
         autoMigrate = true;
-        mutableTaps = false;
+        mutableTaps = true;
         
         user = username;
         taps = {

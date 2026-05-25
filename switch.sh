@@ -8,6 +8,4 @@ if [ -z "$HOST_NAME" ]; then
   exit 1
 fi
 
-NIX_PATH="$(which nix)"
-
-sudo $NIX_PATH run nix-darwin -- switch --flake ".#${HOST_NAME}"
+sudo nix run nix-darwin#darwin-rebuild -- switch --flake ".#${HOST_NAME}"

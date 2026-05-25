@@ -1,4 +1,5 @@
-{ inputs, self, ... }:
+{ 
+inputs, self, ... }:
 {
   flake-file.inputs = {
     gum.url = "github:charmbracelet/gum";

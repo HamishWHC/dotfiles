@@ -4,6 +4,9 @@
     {
       username,
       homeManagerImports,
+      lib,
+      configDir,
+      host,
       ...
     }:
     {
@@ -14,7 +17,7 @@
         useUserPackages = true;
         backupFileExtension = "backup";
         extraSpecialArgs = {
-          inherit username;
+          inherit username configDir host;
         };
 
         users.${username} = {
@@ -30,6 +33,8 @@
 
           # Enable the home-manager binary.
           programs.home-manager.enable = true;
+          # Disable nix in home-manager since Determinate is incompatible: https://github.com/DeterminateSystems/determinate#home-manager
+          nix.package = null;
         };
       };
     };
