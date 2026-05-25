@@ -3,15 +3,13 @@
   flake.modules.darwin.home-manager =
     {
       username,
-      homeManagerImports,
+      homeManagerModules,
       lib,
       configDir,
       host,
       ...
     }:
     {
-      imports = [ inputs.home-manager.darwinModules.home-manager ];
-
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
@@ -23,7 +21,7 @@
         users.${username} = {
           imports = [
             self.modules.homeManager.base
-          ] ++ homeManagerImports;
+          ] ++ homeManagerModules;
 
           home =  {
             inherit username;

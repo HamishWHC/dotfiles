@@ -1,22 +1,18 @@
 { inputs, self, ... }:
 {
-  flake.darwinConfigurations.personal = inputs.nix-darwin.lib.darwinSystem {
+  flake.darwinConfigurations.personal = self.lib.mkDarwinHost "personal" {
     system = "aarch64-darwin";
-    specialArgs = {
-      host = "personal";
-      configDir = "/Users/hamishwhc/Documents/Projects/dotfiles";
-      username = "hamishwhc";
-      homeManagerImports = [
-        self.modules.homeManager.workstation
-      ];
-    };
-    modules = [
-      self.modules.darwin.base
+    username = "hamishwhc";
+    configDir = "/Users/hamishwhc/Documents/Projects/dotfiles";
+    darwinModules = [
       {
         security.pam.services.sudo_local.enable = true;
         security.pam.services.sudo_local.reattach = true;
         security.pam.services.sudo_local.touchIdAuth = true;
       }
+    ];
+    homeManagerModules = [
+      self.modules.homeManager.workstation
     ];
   };
 }

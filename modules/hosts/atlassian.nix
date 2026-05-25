@@ -1,20 +1,16 @@
-{ inputs, self, ... }:
-{
-  flake.darwinConfigurations.atlassian = inputs.nix-darwin.lib.darwinSystem {
+{ inputs, self, ... }: {
+  flake.darwinConfigurations.atlassian = self.lib.mkDarwinHost "atlassian" {
     system = "aarch64-darwin";
-    specialArgs = {
-      host = "atlassian";
-      configDir = "/Users/hcox/Documents/Personal/dotfiles";
-      username = "hcox";
-      homeManagerImports = [
-        self.modules.homeManager.workstation
-      ];
-    };
-    modules = [
-      self.modules.darwin.base
+    username = "hcox";
+    configDir = "/Users/hcox/Documents/Personal/dotfiles";
+    usesCyberark = true;
+    darwinModules = [
       {
         security.pam.services.sudo_local.enable = false;
       }
+    ];
+    homeManagerModules = [
+      self.modules.homeManager.workstation
     ];
   };
 }
