@@ -16,7 +16,7 @@
         enableCompletion = true;
 
         history = {
-          path = "$HOME/.zsh_history";
+          path = "${config.xdg.configHome}/zsh/.zsh_history";
           size = 100000;
           save = 100000;
           share = false;
@@ -30,7 +30,7 @@
         };
 
         envExtra = ''
-          [[ -f ~/.zshenv_local ]] && source ~/.zshenv_local
+          [[ -f "${config.xdg.configHome}/zsh/.zshenv_local" ]] && source "${config.xdg.configHome}/zsh/.zshenv_local"
         '';
 
         shellAliases = {
@@ -103,7 +103,7 @@
               return 1
             }
 
-            [[ -f ~/.zshrc_local ]] && source ~/.zshrc_local
+            [[ -f "${config.xdg.configHome}/zsh/.zshrc_local" ]] && source "${config.xdg.configHome}/zsh/.zshrc_local"
 
             source ${./p10k.zsh}
           ''

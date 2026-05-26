@@ -8,6 +8,9 @@
     darwinModules = [
       {
         security.pam.services.sudo_local.enable = false;
+        # security.pam.services.sudo_local.enable = true;
+        # security.pam.services.sudo_local.reattach = true;
+        # security.pam.services.sudo_local.touchIdAuth = true;
       }
     ];
     homeManagerModules = [

@@ -6,6 +6,7 @@
         pkgs.nodejs_25
         pkgs.rustc
         pkgs.rust-analyzer
+        pkgs.pnpm
       ];
 
       programs.uv.enable = true;

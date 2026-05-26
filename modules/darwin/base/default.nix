@@ -32,5 +32,7 @@
       environment.systemPackages = with pkgs; [
         gum
       ];
+
+      programs.zsh.enableGlobalCompInit = false;
     };
 }
