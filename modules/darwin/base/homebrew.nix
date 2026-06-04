@@ -19,19 +19,23 @@
       username,
       ...
     }:
+    let
+      taps = {
+        "homebrew/homebrew-core" = inputs.homebrew-core;
+        "homebrew/homebrew-cask" = inputs.homebrew-cask;
+      };
+    in
     {
       imports = [ inputs.nix-homebrew.darwinModules.nix-homebrew ];
 
       nix-homebrew = {
+        inherit taps;
+
         enable = true;
         autoMigrate = true;
         mutableTaps = true;
 
         user = username;
-        taps = {
-          "homebrew/homebrew-core" = inputs.homebrew-core;
-          "homebrew/homebrew-cask" = inputs.homebrew-cask;
-        };
       };
 
       homebrew = {
@@ -47,6 +51,10 @@
 
         enableZshIntegration = true;
 
+        taps = builtins.attrNames taps;
+        casks = [
+          "thaw"
+        ];
         # brews = [
         #   # "bat"
         #   # "fzf"
