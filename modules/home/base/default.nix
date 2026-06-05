@@ -15,6 +15,8 @@
         bat
         fzf
         ripgrep
+        kubectl
+        kubectx
       ];
     };
 }

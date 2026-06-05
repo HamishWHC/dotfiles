@@ -21,6 +21,7 @@
         users.${username} = {
           imports = [
             self.modules.homeManager.base
+            self.modules.homeManager.darwin
           ]
           ++ homeManagerModules;
 
