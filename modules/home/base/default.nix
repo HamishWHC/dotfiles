@@ -11,6 +11,8 @@
         self.modules.homeManager.atuin
       ];
 
+      home.file.".hushlogin".text = "";
+
       home.packages = with pkgs; [
         bat
         fzf

@@ -1,6 +1,6 @@
 {
   flake.modules.homeManager.nix-tools =
-    { config, pkgs, ... }:
+    { pkgs, ... }:
     {
       home.packages = with pkgs; [
         nixfmt
