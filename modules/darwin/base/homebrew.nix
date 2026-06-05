@@ -17,6 +17,8 @@
   flake.modules.darwin.homebrew =
     {
       username,
+      host,
+      lib,
       ...
     }:
     let
@@ -44,7 +46,7 @@
         global.brewfile = true;
         global.autoUpdate = false;
         onActivation = {
-          autoUpdate = true;
+          autoUpdate = false;
           upgrade = true;
           cleanup = "uninstall";
         };
@@ -52,23 +54,32 @@
         enableZshIntegration = true;
 
         taps = builtins.attrNames taps;
+        masApps = {
+          "Black Out" = 1319884285;
+          "HEIC Converter" = 1294126402;
+          "Shareful" = 1522267256;
+          "UTC Time" = 1538245904;
+          "Velja" = 1607635845;
+        };
         casks = [
           "thaw"
+          "aptakube"
+          "burp-suite"
+          "firefox"
+        ]
+        ++ (lib.lists.optional (host != "atlassian") "ungoogled-chromium")
+        ++ [
+          "grandperspective"
+          "mac-mouse-fix"
+          "mission-control-plus"
+          "raycast"
+          "rectangle"
+          "shottr"
+          "wireshark-app"
         ];
-        # brews = [
-        #   # "bat"
-        #   # "fzf"
-        #   # "git"
-        #   # "kubectl"
-        #   # "kubectx"
-        #   # "openssl"
-        #   # "readline"
-        #   # "sqlite3"
-        #   # "tcl-tk"
-        #   # "xh"
-        #   # "xz"
-        #   # "zlib"
-        # ];
+        brews = [
+          "mas"
+        ];
       };
     };
 }
