@@ -1,6 +1,7 @@
 #!/bin/sh
 
 set -euo pipefail
+cd "$(dirname "$0")"
 
 HOST_NAME="$1"
 if [ -z "$HOST_NAME" ]; then

@@ -19,19 +19,17 @@
       username,
       host,
       lib,
+      config,
       ...
     }:
-    let
-      taps = {
-        "homebrew/homebrew-core" = inputs.homebrew-core;
-        "homebrew/homebrew-cask" = inputs.homebrew-cask;
-      };
-    in
     {
       imports = [ inputs.nix-homebrew.darwinModules.nix-homebrew ];
 
       nix-homebrew = {
-        inherit taps;
+        taps = {
+          "homebrew/homebrew-core" = inputs.homebrew-core;
+          "homebrew/homebrew-cask" = inputs.homebrew-cask;
+        };
 
         enable = true;
         autoMigrate = true;
@@ -53,7 +51,7 @@
 
         enableZshIntegration = true;
 
-        taps = builtins.attrNames taps;
+        taps = lib.attrNames config.nix-homebrew.taps;
         masApps = {
           "Black Out" = 1319884285;
           "HEIC Converter" = 1294126402;

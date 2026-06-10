@@ -304,6 +304,22 @@
         "type": "github"
       }
     },
+    "homebrew-acli": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1780304159,
+        "narHash": "sha256-WgOuaQHXEuXrcGmpvxByJLa+eNnu5XAseKdDLHGhXzQ=",
+        "owner": "atlassian",
+        "repo": "homebrew-acli",
+        "rev": "386c45f307f62a00039c0b18d6724995ee966f9f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "atlassian",
+        "repo": "homebrew-acli",
+        "type": "github"
+      }
+    },
     "homebrew-cask": {
       "flake": false,
       "locked": {
@@ -557,6 +573,7 @@
         "flake-parts": "flake-parts_2",
         "gum": "gum",
         "home-manager": "home-manager",
+        "homebrew-acli": "homebrew-acli",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
         "import-tree": "import-tree",

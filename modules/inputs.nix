@@ -9,7 +9,6 @@
       nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
       flake-parts.url = "github:hercules-ci/flake-parts";
       import-tree.url = "github:vic/import-tree";
-      nix-homebrew.url = "github:zhaofengli/nix-homebrew";
       wrappers.url = "github:Lassulus/wrappers";
       flake-file.url = "github:vic/flake-file";
       determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
@@ -22,16 +21,6 @@
       home-manager = {
         url = "github:nix-community/home-manager";
         inputs.nixpkgs.follows = "nixpkgs";
-      };
-
-      homebrew-core = {
-        url = "github:homebrew/homebrew-core";
-        flake = false;
-      };
-
-      homebrew-cask = {
-        url = "github:homebrew/homebrew-cask";
-        flake = false;
       };
     };
   };
