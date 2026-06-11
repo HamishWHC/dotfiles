@@ -8,6 +8,7 @@
   inputs = {
     atuin.url = "github:atuinsh/atuin";
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
+    direnv-instant.url = "github:Mic92/direnv-instant";
     flake-file.url = "github:vic/flake-file";
     flake-parts.url = "github:hercules-ci/flake-parts";
     gum.url = "github:charmbracelet/gum";

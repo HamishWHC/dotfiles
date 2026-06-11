@@ -9,6 +9,7 @@
         self.modules.homeManager.git
         self.modules.homeManager.ssh
         self.modules.homeManager.atuin
+        self.modules.homeManager.direnv
       ];
 
       home.file.".hushlogin".text = "";
