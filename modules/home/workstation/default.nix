@@ -7,5 +7,9 @@
       self.modules.homeManager.vscode
       self.modules.homeManager.nix-tools
     ];
+
+    home.packages = with self.pkgs; [
+      ghidra
+    ];
   };
 }
