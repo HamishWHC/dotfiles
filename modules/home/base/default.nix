@@ -20,6 +20,8 @@
         ripgrep
         kubectl
         kubectx
+        cmake
+        pkg-config
       ];
     };
 }
