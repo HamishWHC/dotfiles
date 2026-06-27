@@ -3,7 +3,7 @@
     { config, pkgs, ... }:
     {
       home.packages = [
-        pkgs.nodejs_25
+        pkgs.nodejs_26
         pkgs.rustc
         pkgs.rust-analyzer
         pkgs.pnpm
