@@ -13,6 +13,8 @@
     let
       pkgs = inputs.nixpkgs.legacyPackages.${system};
 
+      # Necessary for devices using Cyberark EPM, which modifies the PATH when running commands with elevated privileges.
+      # This patch ensures that the PATH is preserved when running the home-manager activation script.
       patchedHomeManager = pkgs.applyPatches {
         name = "home-manager-darwin-preserve-path";
         src = inputs.home-manager;
