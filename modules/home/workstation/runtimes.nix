@@ -2,11 +2,11 @@
   flake.modules.homeManager.runtimes =
     { config, pkgs, ... }:
     {
-      home.packages = [
-        pkgs.nodejs_26
-        pkgs.rustc
-        pkgs.rust-analyzer
-        pkgs.pnpm
+      home.packages = with pkgs; [
+        nodejs
+        rustc
+        rust-analyzer
+        pnpm
       ];
 
       programs.uv.enable = true;
