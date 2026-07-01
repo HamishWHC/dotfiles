@@ -20,8 +20,13 @@
         # security.pam.services.sudo_local.touchIdAuth = true;
       }
       {
-        nix-homebrew.taps = {
-          "atlassian/homebrew-acli" = inputs.homebrew-acli;
+        nix-homebrew = {
+          taps = {
+            "atlassian/homebrew-acli" = inputs.homebrew-acli;
+          };
+          trust.formulae = [
+            "atlassian/acli/acli"
+          ];
         };
         homebrew.brews = [ "acli" ];
       }
