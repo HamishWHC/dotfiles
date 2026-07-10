@@ -22,6 +22,7 @@
         kubectx
         cmake
         pkg-config
+        custom.sfs
       ];
     };
 }

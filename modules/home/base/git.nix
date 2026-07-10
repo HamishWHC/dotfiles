@@ -28,7 +28,15 @@
           url."git@github.com:".insteadOf = "https://github.com/";
           pull.rebase = false;
           init.defaultBranch = "main";
+          core.excludesfile = "${config.xdg.configHome}/ignore";
         };
       };
+
+      xdg.configFile."git/ignore".text = ''
+        .DS_Store
+        Thumbs.db
+        node_modules
+        _scratch
+      '';
     };
 }

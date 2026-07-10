@@ -34,8 +34,24 @@
     in
     inputs.nix-darwin.lib.darwinSystem {
       inherit system;
+
+      pkgs = import inputs.nixpkgs-darwin {
+        inherit system;
+        overlays = [
+          self.overlays.custom
+          self.overlays.unstable
+          inputs.nix-vscode-extensions.overlays.default
+        ];
+        config.allowUnfree = true;
+      };
+
       specialArgs = {
-        inherit configDir username homeManagerModules;
+        inherit
+          configDir
+          username
+          homeManagerModules
+          system
+          ;
         host = name;
       };
       modules = realDarwinModules;

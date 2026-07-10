@@ -1,5 +1,12 @@
-{ inputs, self, ... }:
+{ self, inputs, ... }:
 {
+  flake.overlays.unstable = final: prev: {
+    unstable = import inputs.nixpkgs-unstable {
+      system = prev.stdenv.hostPlatform.system;
+      config.allowUnfree = true;
+    };
+  };
+
   flake.overlays.custom =
     final: _prev:
     let

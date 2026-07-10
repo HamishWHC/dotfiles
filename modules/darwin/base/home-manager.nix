@@ -1,10 +1,10 @@
-{ inputs, self, ... }:
+{ self, ... }:
 {
   flake.modules.darwin.home-manager =
     {
       username,
       homeManagerModules,
-      lib,
+      system,
       configDir,
       host,
       ...
@@ -15,7 +15,12 @@
         useUserPackages = true;
         backupFileExtension = "backup";
         extraSpecialArgs = {
-          inherit username configDir host;
+          inherit
+            username
+            configDir
+            host
+            system
+            ;
         };
 
         users.${username} = {
