@@ -14,7 +14,7 @@
     };
   };
 
-  flake.modules.darwin.homebrew =
+  flake.features.homebrew.darwin =
     {
       username,
       host,

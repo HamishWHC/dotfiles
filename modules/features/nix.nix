@@ -16,19 +16,21 @@ in
     };
   };
 
-  flake.modules.nixos.nix = shared // {
-    nix.settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      trusted-users = [ "@admin" ];
+  flake.features.nix = {
+    nixos = shared // {
+      nix.settings = {
+        experimental-features = [
+          "nix-command"
+          "flakes"
+        ];
+        trusted-users = [ "@admin" ];
+      };
     };
-  };
 
-  flake.modules.darwin.nix = shared // {
-    imports = [ inputs.determinate.darwinModules.default ];
-    nix.enable = false;
-    determinateNix.enable = true;
+    darwin = shared // {
+      imports = [ inputs.determinate.darwinModules.default ];
+      nix.enable = false;
+      determinateNix.enable = true;
+    };
   };
 }

@@ -12,27 +12,26 @@
     username = "hcox";
     configDir = "/Users/hcox/Documents/Personal/dotfiles";
     usesCyberark = true;
-    darwinModules = [
+    features = [
+      self.profiles.workstation
       {
-        security.pam.services.sudo_local.enable = false;
-        # security.pam.services.sudo_local.enable = true;
-        # security.pam.services.sudo_local.reattach = true;
-        # security.pam.services.sudo_local.touchIdAuth = true;
-      }
-      {
-        nix-homebrew = {
-          taps = {
-            "atlassian/homebrew-acli" = inputs.homebrew-acli;
+        darwin = {
+          security.pam.services.sudo_local.enable = false;
+          # security.pam.services.sudo_local.enable = true;
+          # security.pam.services.sudo_local.reattach = true;
+          # security.pam.services.sudo_local.touchIdAuth = true;
+
+          nix-homebrew = {
+            taps = {
+              "atlassian/homebrew-acli" = inputs.homebrew-acli;
+            };
+            trust.formulae = [
+              "atlassian/acli/acli"
+            ];
           };
-          trust.formulae = [
-            "atlassian/acli/acli"
-          ];
+          homebrew.brews = [ "acli" ];
         };
-        homebrew.brews = [ "acli" ];
       }
-    ];
-    homeManagerModules = [
-      self.modules.homeManager.workstation
     ];
   };
 }

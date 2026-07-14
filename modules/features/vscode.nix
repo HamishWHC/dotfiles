@@ -5,7 +5,7 @@
     };
   };
 
-  flake.modules.homeManager.vscode =
+  flake.features.vscode.homeManager =
     {
       configDir,
       pkgs,

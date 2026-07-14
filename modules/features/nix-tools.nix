@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.nix-tools =
+  flake.features.nix-tools.homeManager =
     { pkgs, ... }:
     {
       home.packages = with pkgs; [

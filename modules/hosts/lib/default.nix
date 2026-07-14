@@ -1,4 +1,9 @@
-{ self, inputs, ... }:
+{
+  self,
+  inputs,
+  lib,
+  ...
+}:
 {
   flake.lib.mkDarwinHost =
     name:
@@ -6,11 +11,14 @@
       system,
       username,
       configDir,
-      darwinModules ? [ ],
+      features ? [ ],
       usesCyberark ? false,
-      homeManagerModules ? null,
     }:
     let
+      modules = builtins.zipAttrsWith (class: modules: modules) (
+        lib.flatten ([ self.profiles.default ] ++ features)
+      );
+
       pkgs = inputs.nixpkgs.legacyPackages.${system};
 
       # Necessary for devices using Cyberark EPM, which modifies the PATH when running commands with elevated privileges.
@@ -21,16 +29,11 @@
         patches = [ ./home-manager-darwin-preserve-path.patch ];
       };
 
-      realDarwinModules = [
-        self.modules.darwin.base
-      ]
-      ++ (
+      homeManager =
         if usesCyberark then
-          [ "${patchedHomeManager}/nix-darwin" ]
+          "${patchedHomeManager}/nix-darwin"
         else
-          [ inputs.home-manager.darwinModules.home-manager ]
-      )
-      ++ darwinModules;
+          inputs.home-manager.darwinModules.home-manager;
     in
     inputs.nix-darwin.lib.darwinSystem {
       inherit system;
@@ -49,11 +52,16 @@
         inherit
           configDir
           username
-          homeManagerModules
           system
           ;
         host = name;
       };
-      modules = realDarwinModules;
+      modules = [
+        homeManager
+        {
+          imports = modules.darwin;
+          home-manager.users.${username}.imports = modules.homeManager;
+        }
+      ];
     };
 }

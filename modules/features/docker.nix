@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.docker =
+  flake.features.docker.homeManager =
     { lib, pkgs, ... }:
     {
       home.packages =

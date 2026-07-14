@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  flake.modules.homeManager.runtimes =
+  flake.features.node.homeManager =
     {
       config,
       pkgs,
@@ -44,10 +44,5 @@
       # The generated shims exec corepack.cjs directly (not via the wrapper),
       # so expose COREPACK_HOME to the session too.
       home.sessionVariables.COREPACK_HOME = corepackHome;
-
-      programs.uv.enable = true;
-      programs.bun.enable = true;
-      programs.go.enable = true;
-      programs.go.env.GOPATH = "${config.xdg.dataHome}/go";
     };
 }

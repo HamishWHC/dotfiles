@@ -14,7 +14,6 @@
     direnv-instant.url = "github:Mic92/direnv-instant";
     flake-file.url = "github:vic/flake-file";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    gum.url = "github:charmbracelet/gum";
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -40,7 +39,6 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-26.05-darwin";
-    nixpkgs-darwin-old-for-nodejs.url = "github:NixOS/nixpkgs/705e9929918b43bd7b715dc0a878ac870449bb03";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     wrappers.url = "github:Lassulus/wrappers";
   };

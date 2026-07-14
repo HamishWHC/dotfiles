@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  flake.modules.homeManager.base =
+  flake.features.terminal.homeManager =
     { pkgs, ... }:
     {
       imports = [
