@@ -73,7 +73,7 @@
     in
     {
       programs.vscode.enable = true;
-      programs.vscode.package = pkgs.unstable.vscode;
+      programs.vscode.package = pkgs.vscode;
       programs.vscodium = shared;
       programs.zsh.shellAliases.cdf = "code ${configDir}";
     };
