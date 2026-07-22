@@ -30,6 +30,9 @@
             ];
           };
           homebrew.brews = [ "acli" ];
+          homebrew.masApps = {
+            "MeetingBar" = 1532419400;
+          };
         };
       }
     ];
