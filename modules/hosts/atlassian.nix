@@ -32,6 +32,7 @@
           homebrew.brews = [ "acli" ];
           homebrew.masApps = {
             "MeetingBar" = 1532419400;
+            "Okta Verify" = 490179405;
           };
         };
       }
