@@ -6,6 +6,7 @@
     configDir = "/Users/hamishwhc/Documents/Projects/dotfiles";
     features = [
       self.profiles.workstation
+      self.features.microslop
       {
         darwin = {
           security.pam.services.sudo_local.enable = true;
