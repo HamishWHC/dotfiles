@@ -74,6 +74,7 @@
           "rectangle"
           "shottr"
           "wireshark-app"
+          "hex-fiend"
         ];
         brews = [
           "mas"
