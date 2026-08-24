@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.ssh = {
+  flake.features.ssh-client.homeManager = {
     programs.ssh = {
       enable = true;
       enableDefaultConfig = false;

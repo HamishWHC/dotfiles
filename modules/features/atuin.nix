@@ -1,9 +1,5 @@
 {
-  flake-file.inputs = {
-    atuin.url = "github:atuinsh/atuin";
-  };
-
-  flake.modules.homeManager.atuin =
+  flake.features.atuin.homeManager =
     { pkgs, ... }:
     {
       home.packages = [ pkgs.atuin ];

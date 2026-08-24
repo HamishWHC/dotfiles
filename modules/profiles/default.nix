@@ -7,10 +7,16 @@
     # Darwin core features
     self.features.nix-darwin
     self.features.homebrew
-
-    # Always-on features
     self.features.mac-mouse-fix
     self.features.automator
-    self.features.terminal
+
+    # Packages and terminal features
+    self.features.zsh
+    self.features.atuin
+    self.features.git
+    self.features.hushlogin
+    self.features.xdg
+    self.features.ssh-client
+    self.features.misc-base-packages
   ];
 }
