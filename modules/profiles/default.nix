@@ -18,5 +18,6 @@
     self.features.xdg
     self.features.ssh-client
     self.features.misc-base-packages
+    self.features.kube
   ];
 }

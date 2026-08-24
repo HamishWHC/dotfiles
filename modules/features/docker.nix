@@ -17,5 +17,10 @@
             docker-client
           ])
         );
+
+      programs.zsh.shellAliases = {
+        docker-ka = "docker kill $(docker ps -q)";
+        docker-kra = "docker rm -f $(docker ps -aq)";
+      };
     };
 }

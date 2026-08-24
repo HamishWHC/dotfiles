@@ -5,10 +5,14 @@
       home.packages = with pkgs; [
         kubectl
         kubectx
+        kubecm
+        pkgs.unstable.k3d
       ];
 
-      home.file.".kube/config".text = ''
-
-      '';
+      programs.zsh.shellAliases = {
+        kc = "kubectl";
+        kcc = "kubectx";
+        kcn = "kubens";
+      };
     };
 }
