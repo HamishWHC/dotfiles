@@ -15,12 +15,14 @@
     features = [
       self.profiles.workstation
       {
+        # Disable sudo Touch ID management
         darwin = {
           security.pam.services.sudo_local.enable = false;
-          # security.pam.services.sudo_local.enable = true;
-          # security.pam.services.sudo_local.reattach = true;
-          # security.pam.services.sudo_local.touchIdAuth = true;
-
+        };
+      }
+      {
+        # Host-specific apps
+        darwin = {
           nix-homebrew = {
             taps = {
               "atlassian/homebrew-acli" = inputs.homebrew-acli;
@@ -35,6 +37,40 @@
             "Okta Verify" = 490179405;
           };
         };
+      }
+      {
+        # KITT kubeconfig handling
+        homeManager =
+          {
+            config,
+            lib,
+            pkgs,
+            ...
+          }:
+          let
+            kittExternalKubeconfig = "${config.home.homeDirectory}/.kube/kitt/external/config";
+          in
+          {
+            dotfiles.kube.k3d.package = inputs.wrappers.lib.wrapPackage {
+              inherit pkgs;
+              package = pkgs.unstable.k3d;
+              runtimeInputs = [ pkgs.coreutils ];
+              preHook = ''
+                case "''${KUBECONFIG-}" in
+                  "" | "$HOME/.kube/kitt/context-pool/"*)
+                    mkdir -p "$HOME/.kube/kitt/external"
+                    export KUBECONFIG="$HOME/.kube/kitt/external/config"
+                    ;;
+                esac
+              '';
+            };
+
+            home.file.".kube/config".source = config.lib.file.mkOutOfStoreSymlink kittExternalKubeconfig;
+
+            programs.zsh.initContent = lib.mkAfter ''
+              export KUBECONFIG="$(atlas kitt context:create --pid=$$)"
+            '';
+          };
       }
     ];
   };
