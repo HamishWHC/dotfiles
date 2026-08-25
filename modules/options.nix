@@ -33,6 +33,11 @@ let
 in
 {
   options = {
+    flake.lib = lib.mkOption {
+      type = lib.types.attrsOf lib.types.unspecified;
+      default = { };
+    };
+
     flake.profiles = mkOption {
       type = types.lazyAttrsOf (types.listOf types.unspecified);
       description = ''
