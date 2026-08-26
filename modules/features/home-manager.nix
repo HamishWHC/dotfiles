@@ -1,14 +1,24 @@
 {
   flake.features.home-manager = {
-    homeManager = { username, ... }: {
-      home = {
-        inherit username;
-        stateVersion = "26.05";
-      };
+    homeManager =
+      {
+        host,
+        username,
+        ...
+      }:
+      {
+        home = {
+          inherit username;
+          stateVersion = "26.05";
+        };
 
-      # Enable the home-manager binary.
-      programs.home-manager.enable = true;
-    };
+        # Used as the default targets by the repository justfile.
+        xdg.configFile."dotfiles/host".text = host;
+        xdg.configFile."dotfiles/username".text = username;
+
+        # Enable the home-manager binary.
+        programs.home-manager.enable = true;
+      };
 
     darwin =
       {
