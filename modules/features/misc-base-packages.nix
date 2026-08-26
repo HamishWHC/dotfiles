@@ -10,6 +10,7 @@
         bat
         fzf
         ripgrep
+        cloc
         cmake
         pkg-config
         custom.sfs
