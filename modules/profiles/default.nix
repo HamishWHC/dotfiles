@@ -2,6 +2,7 @@
   flake.profiles.default = [
     # Shared core features
     self.features.nix
+    self.features.secrets
     self.features.home-manager
 
     # Darwin core features

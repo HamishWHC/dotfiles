@@ -37,6 +37,13 @@
             "Okta Verify" = 490179405;
           };
         };
+
+        homeManager = { config, ... }: {
+          home.sessionPath = [
+            "/opt/atlassian/bin"
+            "${config.home.homeDirectory}/.orbit/bin"
+          ];
+        };
       }
       {
         # KITT kubeconfig handling

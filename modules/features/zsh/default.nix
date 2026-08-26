@@ -70,34 +70,6 @@
             fi
           '')
           ''
-            path_remove() {
-              PATH=$(echo -n "$PATH" | awk -v RS=: -v ORS=: "\$0 != \"$1\"" | sed 's/:$//')
-            }
-
-            path_append() {
-              path_remove "$1"
-              PATH="''${PATH:+"$PATH:"}$1"
-            }
-
-            path_prepend() {
-              path_remove "$1"
-              PATH="$1''${PATH:+":$PATH"}"
-            }
-
-            listening() {
-              if [ "$#" -eq 0 ]; then
-                sudo lsof -i -P | grep . | awk 'NR == 1 || /LISTEN/'
-                return 1
-              fi
-              if [ "$#" -eq 1 ]; then
-                sudo lsof -i -P | grep . | awk 'NR == 1 || (/LISTEN/ && /'"$1"'/)'
-                return 0
-              fi
-
-              echo "Usage: listening [port]"
-              return 1
-            }
-
             [[ -f "${config.xdg.configHome}/zsh/.zshrc_local" ]] && source "${config.xdg.configHome}/zsh/.zshrc_local"
 
             source ${./p10k.zsh}

@@ -3,6 +3,8 @@
     { pkgs, ... }:
     {
       home.packages = with pkgs; [
+        unstable.just
+        unstable.just-lsp
         bat
         fzf
         ripgrep

@@ -1,0 +1,10 @@
+# See README.md for instructions on onboarding new devices.
+
+definitions:
+  keys: &all_devices
+    # Atlassian Work Laptop (NWNNHQ73P7)
+    - &atlassian age10uqazprqk5jfkvh2snlc8yavmacmzhlsxhn0tdpxa5j9ptf97q4sejxehq
+
+creation_rules:
+  # Secrets default to all devices.
+  - age: *all_devices
