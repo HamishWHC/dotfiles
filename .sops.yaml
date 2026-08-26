@@ -2,6 +2,8 @@
 
 definitions:
   keys: &all_devices
+    # Personal Macbook Pro
+    - &personal age1q4xrt58ufwd422kcefqumqmtnf4lc344cytdejzfm86vlm4aavfq9tve68
     # Atlassian Work Laptop (NWNNHQ73P7)
     - &atlassian age10uqazprqk5jfkvh2snlc8yavmacmzhlsxhn0tdpxa5j9ptf97q4sejxehq
 
