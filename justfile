@@ -15,6 +15,11 @@ check:
 update:
     nix flake update
 
+[doc("counts the line of code in this project")]
+cloc:
+    @# Excludes automator workflows and plists, because 40k lines of XML is not representative of this repo.
+    cloc --vcs=git --exclude-ext=wflow,plist
+
 # Build / Switch
 
 [doc("builds the darwin system configuration")]
@@ -60,7 +65,7 @@ update-hosts:
 [doc("generate new device key")]
 [group("Secrets")]
 new-key:
-    # Probably best to just run this script directly, since a new device likely doesn't have `just` installed!
+    @# Probably best to just run this script directly, since a new device likely doesn't have `just` installed!
     scripts/new-key.sh
 
 [doc("syncs secrets with changed device keys")]
