@@ -5,6 +5,7 @@
       home.packages = with pkgs; [
         unstable.just
         unstable.just-lsp
+        gum
         jq
         bat
         fzf

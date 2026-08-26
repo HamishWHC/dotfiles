@@ -23,8 +23,9 @@
 
     homeManager = { pkgs, ... }: {
       home.packages = with pkgs; [
-        age
         sops
+        age
+        unstable.age-plugin-se
       ];
     };
   };
