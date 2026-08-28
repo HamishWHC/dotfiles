@@ -14,6 +14,10 @@
     self.features.nix-tools
     self.features.docker
 
+    # Cloud Tooling
+    self.features.aws
+    self.features.terraform
+
     # Pentest Tools
     self.features.ghidra
 
