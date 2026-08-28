@@ -7,12 +7,21 @@
 
   flake.features.vscode.homeManager =
     {
+      config,
       configDir,
+      lib,
       pkgs,
       ...
     }:
     let
       extensions = pkgs.nix-vscode-extensions.usingFixesFrom pkgs.unstable;
+      vscodeCli = pkgs.runCommand "vscode-cli" { } ''
+        mkdir -p "$out/bin"
+        ln -s ${
+          lib.escapeShellArg
+            "${config.home.homeDirectory}/Applications/Home Manager Apps/Visual Studio Code.app/Contents/Resources/app/bin/code"
+        } "$out/bin/code"
+      '';
       shared = {
         enable = true;
         mutableExtensionsDir = false;
@@ -72,6 +81,10 @@
       };
     in
     {
+      # The VS Code package's CLI resolves its app bundle in the Nix store, while
+      # Home Manager copies the bundle into Applications. Point the CLI at that
+      # installed copy so macOS does not treat them as separate applications.
+      home.packages = [ (lib.hiPrio vscodeCli) ];
       programs.vscode.enable = true;
       programs.vscode.package = pkgs.unstable.vscode;
       programs.vscodium = shared;
