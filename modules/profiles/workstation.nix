@@ -18,10 +18,9 @@
     self.features.aws
     self.features.terraform
 
-    # Pentest Tools
+    # Misc
     self.features.ghidra
-
-    # oh boy ai time
     self.features.ai
+    self.features.lima
   ];
 }
