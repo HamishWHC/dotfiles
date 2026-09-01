@@ -58,6 +58,8 @@
           "Shareful" = 1522267256;
           "UTC Time" = 1538245904;
           "Velja" = 1607635845;
+          "The Unarchiver" = 425424353;
+          "Presentify" = 1507246666;
         };
         casks = [
           "thaw"
