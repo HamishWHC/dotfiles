@@ -1,0 +1,42 @@
+# NixOS image and guest support are provided by nixos-lima:
+# https://github.com/nixos-lima/nixos-lima
+minimumLimaVersion: 2.0.0
+
+vmType: vz
+arch: aarch64
+
+images:
+  - location: "https://github.com/nixos-lima/nixos-lima/releases/download/v0.2.1/nixos-lima-v0.2.1-aarch64.qcow2"
+    arch: aarch64
+    digest: "sha512:748c723b69dbdec40a9acaf78cc9070ae784dcb64b0856ab906efdac822d9abcc65565b8f8dfa4cf8b49cc6c12c372072e83bb5ed9247330a7c22675d9e141ce"
+
+cpus: 4
+memory: 8GiB
+disk: 100GiB
+
+user:
+  name: hamishwhc
+  home: /home/hamishwhc
+
+mountType: virtiofs
+mounts:
+  # lima-start replaces this placeholder with the current worktree path.
+  - location: /tmp/lima-dotfiles-placeholder
+    mountPoint: /home/hamishwhc/dotfiles
+    writable: true
+
+# Every profile has a graphical console. With the VZ backend Lima presents it
+# in a native window; the server profile can simply be treated as unmonitored.
+video:
+  display: vz
+
+portForwards:
+  # Avoid intercepting host DHCP traffic; see nixos-lima issue #50.
+  - proto: udp
+    guestPort: 68
+    guestIP: 0.0.0.0
+    ignore: true
+
+containerd:
+  system: false
+  user: false

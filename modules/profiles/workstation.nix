@@ -1,8 +1,10 @@
 { self, ... }: {
   flake.profiles.workstation = [
-    # Desktop Apps
+    # Inherits from desktop profile
+    self.profiles.desktop
+
+    # IDE
     self.features.vscode
-    self.features.ghostty
 
     # Runtimes and Language Tooling
     self.features.bun
@@ -17,10 +19,12 @@
     # Cloud Tooling
     self.features.aws
     self.features.terraform
+    self.features.kube
 
     # Misc
     self.features.ghidra
     self.features.ai
     self.features.lima
+    self.features.just
   ];
 }

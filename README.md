@@ -7,7 +7,7 @@ My personal dotfiles for my macOS devices as a nix flake configured with nix-dar
 Secrets are encrypted with [sops-nix](https://github.com/Mic92/sops-nix) and age.
 
 ### Adding a new device
-To onboard a new device, run `scripts/new-key.sh` (or `just new-key`, but a new device hasn't had `just` installed yet!).
+To onboard a new device, run `./just.sh new-key`.
 
 Communicate the public key you get to an already onboarded device and add it to `.sops.yaml`'s `definitions.keys` list.
 Then run `just update-keys` and push the changes to the `secrets/` directory.

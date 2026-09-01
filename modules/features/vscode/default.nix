@@ -17,10 +17,7 @@
       extensions = pkgs.nix-vscode-extensions.usingFixesFrom pkgs.unstable;
       vscodeCli = pkgs.runCommand "vscode-cli" { } ''
         mkdir -p "$out/bin"
-        ln -s ${
-          lib.escapeShellArg
-            "${config.home.homeDirectory}/Applications/Home Manager Apps/Visual Studio Code.app/Contents/Resources/app/bin/code"
-        } "$out/bin/code"
+        ln -s ${lib.escapeShellArg "${config.home.homeDirectory}/Applications/Home Manager Apps/Visual Studio Code.app/Contents/Resources/app/bin/code"} "$out/bin/code"
       '';
       shared = {
         enable = true;
@@ -89,5 +86,10 @@
       programs.vscode.package = pkgs.unstable.vscode;
       programs.vscodium = shared;
       programs.zsh.shellAliases.cdf = "code ${configDir}";
+
+      home.file = lib.mkIf (pkgs.stdenv.isDarwin) {
+        "Library/Services/Open in Visual Studio Code.workflow".source =
+          ./${"Open in Visual Studio Code.workflow"};
+      };
     };
 }

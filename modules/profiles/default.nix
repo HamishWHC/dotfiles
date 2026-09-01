@@ -4,12 +4,14 @@
     self.features.nix
     self.features.secrets
     self.features.home-manager
+    self.features.dotfiles
+
+    # NixOS core features
+    self.features.nixos
 
     # Darwin core features
     self.features.nix-darwin
     self.features.homebrew
-    self.features.mac-mouse-fix
-    self.features.automator
 
     # Packages and terminal features
     self.features.zsh
@@ -18,7 +20,5 @@
     self.features.hushlogin
     self.features.xdg
     self.features.ssh-client
-    self.features.misc-base-packages
-    self.features.kube
   ];
 }

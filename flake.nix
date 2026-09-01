@@ -35,6 +35,10 @@
     };
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    nixos-lima = {
+      url = "github:nixos-lima/nixos-lima/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-26.05-darwin";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
