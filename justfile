@@ -6,7 +6,8 @@ import '.just-hosts.just'
 system_config_dir := x'${XDG_CONFIG_HOME:-$HOME/.config}/dotfiles'
 default_host := if path_exists(system_config_dir / "host") == "true" { trim(read(system_config_dir / "host")) } else { "" }
 default_username := if path_exists(system_config_dir / "username") == "true" { trim(read(system_config_dir / "username")) } else { "" }
-lima_guest_config_dir := "/home/hamishwhc/dotfiles"
+lima_username := env("USER")
+lima_guest_config_dir := "/home/" + lima_username + "/dotfiles"
 
 [doc("check that the nix code is syntactically correct and is not completely insane")]
 check:
@@ -100,15 +101,32 @@ lima-name host:
 lima-start host:
     host={{ quote(host) }}
     instance="$(scripts/lima-instance-name.sh "$host")"
+    project_dir="$(pwd -P)"
+    username={{ quote(lima_username) }}
+    guest_home="/home/${username}"
+    guest_config_dir="${guest_home}/dotfiles"
+
+    jq --null-input \
+        --arg username "$username" \
+        --arg hostPath "$project_dir" \
+        '{ username: $username, hostPath: $hostPath }' \
+        > lima/runtime.json
 
     if limactl list --quiet | grep -Fxq "$instance"; then
         limactl start "$instance"
         exit
     fi
 
-    project_dir="$(pwd -P)"
     project_dir_json="$(jq --null-input --arg value "$project_dir" '$value')"
-    set_expression=".mounts[0].location = ${project_dir_json}"
+    username_json="$(jq --null-input --arg value "$username" '$value')"
+    guest_home_json="$(jq --null-input --arg value "$guest_home" '$value')"
+    guest_config_dir_json="$(jq --null-input --arg value "$guest_config_dir" '$value')"
+    set_expression="
+        .mounts[0].location = ${project_dir_json}
+        | .mounts[0].mountPoint = ${guest_config_dir_json}
+        | .user.name = ${username_json}
+        | .user.home = ${guest_home_json}
+    "
     limactl start --yes \
         --name "$instance" \
         --set "$set_expression" \
@@ -148,7 +166,7 @@ lima-build-home host:
     limactl shell --workdir {{ quote(lima_guest_config_dir) }} "$instance" -- \
         nix shell --inputs-from "path:." \
             "nixpkgs-unstable#just" "nixpkgs#jq" \
-            --command just build-home "lima-nixos-${host}" hamishwhc
+            --command just build-home "lima-nixos-${host}" {{ quote(lima_username) }}
 
 [doc("applies the mounted worktree to its NixOS Lima VM")]
 [group("Lima NixOS")]

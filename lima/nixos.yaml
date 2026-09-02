@@ -15,14 +15,16 @@ memory: 8GiB
 disk: 100GiB
 
 user:
-  name: hamishwhc
-  home: /home/hamishwhc
+  # lima-start replaces these placeholders with the host user and guest home.
+  name: lima
+  home: /home/lima
 
 mountType: virtiofs
 mounts:
-  # lima-start replaces this placeholder with the current worktree path.
+  # lima-start replaces these placeholders with the current worktree and the
+  # generated guest user's configuration directory.
   - location: /tmp/lima-dotfiles-placeholder
-    mountPoint: /home/hamishwhc/dotfiles
+    mountPoint: /home/lima/dotfiles
     writable: true
 
 # Every profile has a graphical console. With the VZ backend Lima presents it

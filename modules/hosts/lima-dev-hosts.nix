@@ -1,6 +1,26 @@
 { self, inputs, ... }: {
   flake.nixosConfigurations =
     let
+      runtimeFile = ../../lima/runtime.json;
+      runtime =
+        if builtins.pathExists runtimeFile then
+          builtins.fromJSON (builtins.readFile runtimeFile)
+        else
+          {
+            # Keep pure Git-flake evaluation working before lima-start has
+            # generated the instance-specific runtime values.
+            username = "hamishwhc";
+            hostPath = "/Users/hamishwhc/Documents/Projects/dotfiles";
+          };
+      username = runtime.username;
+      configDir = "/home/${username}/dotfiles";
+      mountTag =
+        "lima-${
+          builtins.substring 0 16 (
+            builtins.hashString "sha256" "${runtime.hostPath}:${configDir}"
+          )
+        }";
+
       limaGuestHostFeature = {
         nixos =
           {
@@ -31,6 +51,7 @@
                 isNormalUser = true;
                 home = "/home/${username}";
                 extraGroups = [ "wheel" ];
+                password = "verysecure";
               };
             };
 
@@ -70,20 +91,25 @@
                   "discard"
                 ];
               };
+              "${configDir}" = {
+                device = mountTag;
+                fsType = "virtiofs";
+                options = [
+                  "rw"
+                  "nofail"
+                ];
+              };
             };
           };
       };
 
-      # TODO: Make this a flake input somehow so it can be set to $USER to mirror lima's auto created user.
-      username = "hamishwhc";
       mkLimaHost =
         name: args:
         self.lib.mkNixosHost name (
           args
           // {
-            inherit username;
+            inherit username configDir;
             system = "aarch64-linux";
-            configDir = "/home/${username}/dotfiles";
             features = [
               limaGuestHostFeature
             ]
