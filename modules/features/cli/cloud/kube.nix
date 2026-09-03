@@ -1,4 +1,4 @@
-{ self, ... }: {
+{
   flake.features.kube.homeManager =
     {
       config,
