@@ -9,13 +9,20 @@
             (orbstack.overrideAttrs (previousAttrs: {
               postInstall = (previousAttrs.postInstall or "") + ''
                 rm "$out/bin/kubectl"
+                rm "$out/bin/docker"
+                rm "$out/bin/docker-buildx"
+                rm "$out/bin/docker-compose"
               '';
             }))
           ])
           ++ (lib.optionals stdenv.hostPlatform.isLinux [
             docker
-            docker-client
           ])
+          ++ [
+            docker-client
+            docker-buildx
+            docker-compose
+          ]
         );
 
       programs.zsh.shellAliases = {

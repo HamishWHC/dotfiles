@@ -10,6 +10,7 @@
       imports = [
         self.features.just.homeManager
         self.features.nix-tools.homeManager
+        self.features.jq.homeManager
       ];
 
       # Used as the default targets by the repository justfile.
@@ -18,7 +19,6 @@
 
       home.packages = with pkgs; [
         gum
-        jq
         bat
         fzf
         ripgrep
