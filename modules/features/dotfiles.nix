@@ -1,11 +1,21 @@
-{ self, ... }: {
+{ self, inputs, ... }: {
   flake.features.dotfiles.homeManager =
     {
       host,
+      configDir,
       username,
       pkgs,
+      lib,
+      system,
       ...
     }:
+    let
+      drs = pkgs.writeShellScriptBin "drs" ''
+        sudo -H ${
+          inputs.nix-darwin.packages.${system}.darwin-rebuild
+        }/bin/darwin-rebuild switch --flake '${configDir}/.#${host}' "$@"
+      '';
+    in
     {
       imports = [
         self.features.just.homeManager
@@ -17,12 +27,15 @@
       xdg.configFile."dotfiles/host".text = host;
       xdg.configFile."dotfiles/username".text = username;
 
-      home.packages = with pkgs; [
-        gum
-        bat
-        fzf
-        ripgrep
-        cloc
-      ];
+      home.packages =
+        with pkgs;
+        [
+          gum
+          bat
+          fzf
+          ripgrep
+          cloc
+        ]
+        ++ lib.optional pkgs.stdenv.isDarwin drs;
     };
 }

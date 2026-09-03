@@ -42,3 +42,13 @@ portForwards:
 containerd:
   system: false
   user: false
+
+provision:
+  - mode: system
+    script: |
+      #!/bin/sh
+      set -eu
+
+      if passwd --status "{{.User}}" | grep -q "^{{.User}} L "; then
+        printf '%s:%s\n' "{{.User}}" "verysecure" | chpasswd
+      fi

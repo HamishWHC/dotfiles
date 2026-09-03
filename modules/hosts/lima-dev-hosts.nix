@@ -14,12 +14,9 @@
           };
       username = runtime.username;
       configDir = "/home/${username}/dotfiles";
-      mountTag =
-        "lima-${
-          builtins.substring 0 16 (
-            builtins.hashString "sha256" "${runtime.hostPath}:${configDir}"
-          )
-        }";
+      mountTag = "lima-${
+        builtins.substring 0 16 (builtins.hashString "sha256" "${runtime.hostPath}:${configDir}")
+      }";
 
       limaGuestHostFeature = {
         nixos =
@@ -51,7 +48,6 @@
                 isNormalUser = true;
                 home = "/home/${username}";
                 extraGroups = [ "wheel" ];
-                password = "verysecure";
               };
             };
 

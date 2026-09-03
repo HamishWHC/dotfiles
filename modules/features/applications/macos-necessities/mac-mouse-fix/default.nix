@@ -8,5 +8,9 @@
           force = true;
         };
       };
+
+    darwin = {
+      homebrew.casks = [ "mac-mouse-fix" ];
+    };
   };
 }

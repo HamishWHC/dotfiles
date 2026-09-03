@@ -13,6 +13,10 @@
 
         # Enable the home-manager binary.
         programs.home-manager.enable = true;
+
+        # Seems every nix project fucks up its docs:
+        # https://github.com/nix-community/home-manager/issues/7935
+        manual.manpages.enable = false;
       };
 
     darwin =

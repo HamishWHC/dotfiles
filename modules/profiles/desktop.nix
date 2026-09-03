@@ -4,13 +4,15 @@
     self.profiles.default
 
     # Desktop Environment
-    self.features."greetd+wayland+sway"
+    self.features.gnome-keyring
+    self.features.tuigreet
+    self.features.sway
 
     # Desktop Apps
     self.features.ghostty
-    self.features.homebrew-apps
+    self.features.browsers
 
     # MacOS Configuration
-    self.features.mac-mouse-fix
+    self.features.macos-necessities
   ];
 }

@@ -77,7 +77,7 @@ build-home host=default_host username=default_username:
 [group("Build / Switch")]
 [arg("host", pattern=darwin_hosts, help="a hostname in the flake's darwinConfigurations")]
 switch host=default_host:
-    sudo nix run "nix-darwin#darwin-rebuild" -- switch --flake ".#{{ host }}"
+    sudo -H nix run "nix-darwin#darwin-rebuild" -- switch --flake ".#{{ host }}"
 
 [linux]
 [doc("applies a NixOS configuration to the local system")]

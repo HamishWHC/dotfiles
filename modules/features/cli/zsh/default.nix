@@ -12,8 +12,6 @@
         config,
         lib,
         pkgs,
-        configDir,
-        host,
         ...
       }:
       {
@@ -50,7 +48,6 @@
             cdgr = "cd \"$(git rev-parse --show-toplevel)\"";
             restart = "exec \"$SHELL\"";
             flush-dns = lib.mkIf pkgs.stdenv.isDarwin "sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder";
-            drs = lib.mkIf pkgs.stdenv.isDarwin "sudo /nix/var/nix/profiles/default/bin/nix run nix-darwin#darwin-rebuild -- switch --flake '${configDir}/.#${host}'";
           };
 
           plugins = [

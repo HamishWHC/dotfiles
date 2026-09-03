@@ -20,9 +20,10 @@
     self.features.aws
     self.features.terraform
     self.features.kube
+    self.features.aptakube
 
     # Misc
-    self.features.ghidra
+    self.features.cybersec
     self.features.ai
     self.features.lima
     self.features.just
