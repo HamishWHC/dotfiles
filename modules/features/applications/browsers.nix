@@ -1,7 +1,12 @@
 {
   flake.features.browsers = {
     darwin = {
-      homebrew.casks = [ "ungoogled-chromium" ];
+      homebrew = {
+        masApps = {
+          "Velja" = 1607635845;
+        };
+        casks = [ "ungoogled-chromium" ];
+      };
     };
     homeManager =
       { pkgs, ... }:
