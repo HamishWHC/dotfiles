@@ -5,7 +5,23 @@ set -eu
 host="$1"
 username="$2"
 host_users="$3"
-valid_users="$(printf '%s\n' "$host_users" | jq -ce --arg host "$host" '.[$host] // []')"
+repository="$(cd "$(dirname "$0")/.." && pwd -P)"
+lima_runtime="$repository/lima/runtime.json"
+
+case "$host" in
+  lima-nixos-*)
+    if [ -f "$lima_runtime" ]; then
+      runtime_username="$(jq -er '.username | select(type == "string" and length > 0)' "$lima_runtime")"
+      valid_users="$(jq -cn --arg username "$runtime_username" '[ $username ]')"
+    else
+      valid_users="$(printf '%s\n' "$host_users" | jq -ce --arg host "$host" '.[$host] // []')"
+    fi
+    ;;
+  *)
+    valid_users="$(printf '%s\n' "$host_users" | jq -ce --arg host "$host" '.[$host] // []')"
+    ;;
+esac
+
 user_count="$(printf '%s\n' "$valid_users" | jq 'length')"
 
 print_users() {

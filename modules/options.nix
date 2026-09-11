@@ -23,7 +23,7 @@ let
       # https://github.com/hercules-ci/flake-parts/issues/326
       { ... }:
       {
-        # TODO: set key?
+        key = "features.${moduleName}.${escapeNixIdentifier class}";
         _class = class;
         _file = "${toString moduleLocation}#features.${escapeNixIdentifier moduleName}.${escapeNixIdentifier class}";
         imports = [ module ];

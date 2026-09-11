@@ -18,6 +18,10 @@
           kubectl
           kubectx
           kubecm
+          kubernetes-helm
+          kapp
+          kbld
+          yq
           config.dotfiles.kube.k3d.package
         ];
 

@@ -10,7 +10,8 @@
         users.users.${username}.home = "/Users/${username}";
         system.stateVersion = 7;
 
-        # Workaround: nix-darwin/nix-darwin:#1817
+        # Workaround for:
+        # https://github.com/nix-darwin/nix-darwin/issues/1817
         documentation.enable = false;
         system.tools.darwin-uninstaller.enable = false;
 
