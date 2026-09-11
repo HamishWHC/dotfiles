@@ -226,7 +226,7 @@
 		<key>checkForPrereleases</key>
 		<false/>
 		<key>checkForUpdates</key>
-		<true/>
+		<false/>
 		<key>lockPointerDuringDrag</key>
 		<false/>
 		<key>scrollKillSwitch</key>

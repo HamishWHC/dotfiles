@@ -2,6 +2,8 @@
 
 My personal dotfiles for my macOS devices as a nix flake configured with nix-darwin and home-manager. It uses the dendritic flake pattern for organising modules.
 
+See [SETUP.md](SETUP.md) for manual setup notes and [docs/missing](docs/missing/README.md) for scoped configuration tickets and intentionally local settings.
+
 ## Secrets
 
 Secrets are encrypted with [sops-nix](https://github.com/Mic92/sops-nix) and age.
