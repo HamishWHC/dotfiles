@@ -27,5 +27,6 @@
     self.features.ai
     self.features.lima
     self.features.just
+    self.features.secretspec
   ];
 }
