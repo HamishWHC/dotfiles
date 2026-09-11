@@ -4,6 +4,20 @@ import plistlib
 import subprocess
 
 
+# To add a keyboard, compare the output of this command before and after selecting
+# that keyboard in System Settings → Keyboard → Keyboard Shortcuts → Modifier Keys
+# and assigning Caps Lock to Fn/Globe:
+#   defaults -currentHost read NSGlobalDomain | rg 'com\.apple\.keyboard\.modifiermapping\.'
+# Copy the new key's suffix after "com.apple.keyboard.modifiermapping." into this
+# tuple. Use the suffix exactly as reported by macOS, without quotes or " =".
+# These are keyboard identifiers, not host UUIDs or device serial numbers.
+CAPS_LOCK_TO_FN_KEYBOARDS = (
+    "1133-50503-0",
+    "1452-834-0",
+    "3141-25903-0",
+)
+
+
 def read_domain(domain, *, current_host=False):
     command = ["/usr/bin/defaults"]
     if current_host:
@@ -55,10 +69,9 @@ write_changed(
 global_domain = "NSGlobalDomain"
 host_preferences = read_domain(global_domain, current_host=True)
 
-# Vendor/product/interface tuples, not host UUIDs or device serial numbers.
-# Match the three keyboard models from the audit, leaving other models local.
+# Apply the remap only to the configured keyboard models.
 # The pinned nix-darwin keyboard module identifies 1095216660483 as Fn/Globe.
-for keyboard in ["1133-50503-0", "1452-834-0", "3141-25903-0"]:
+for keyboard in CAPS_LOCK_TO_FN_KEYBOARDS:
     key = f"com.apple.keyboard.modifiermapping.{keyboard}"
     mappings = [
         item
