@@ -100,7 +100,11 @@
       };
 
       mkLimaHost =
-        name: args:
+        name:
+        args@{
+          features ? [ ],
+          ...
+        }:
         self.lib.mkNixosHost name (
           args
           // {
@@ -109,7 +113,7 @@
             features = [
               limaGuestHostFeature
             ]
-            ++ args.features;
+            ++ features;
           }
         );
     in
