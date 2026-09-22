@@ -13,7 +13,7 @@
     self.features.browsers
 
     # MacOS Configuration
-    self.features.macos-preferences
+    self.features.macos
     self.features.macos-necessities
   ];
 }

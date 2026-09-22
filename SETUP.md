@@ -20,4 +20,3 @@
 10. Configure VS Code/VSCodium and install your preferred editor fonts.
 11. If using Burp with an external browser, import and trust its CA certificate in Keychain and the browser as needed; configure SwitchyOmega proxy profiles.
 12. Sign into and configure other apps you use, including Word/Excel. On the work Mac, complete Okta Verify, ACLI/KITT and MeetingBar setup.
-13. For a keyboard model not covered by the managed Caps Lock mapping, set Caps Lock to Fn/Globe in **System Settings → Keyboard → Keyboard Shortcuts → Modifier Keys**.
