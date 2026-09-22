@@ -8,7 +8,6 @@
             AppleICUForce24HourTime = true; # Use 24-hour time
             AppleInterfaceStyle = "Dark"; # Use dark appearance
             AppleShowAllExtensions = true; # Show all filename extensions
-            AppleReduceDesktopTinting = true; # Reduce wallpaper window tinting
 
             # Trackpad
             AppleEnableSwipeNavigateWithScrolls = false; # Swipe between pages
@@ -86,6 +85,9 @@
           CustomUserPreferences = {
             # These keys have no typed NSGlobalDomain options in our nix-darwin pin.
             NSGlobalDomain = {
+              # Supported in nix-darwin unstable, update when available.
+              AppleReduceDesktopTinting = true; # Reduce wallpaper window tinting
+
               # Disable more text features that are enabled by default.
               NSAutomaticTextCompletionEnabled = false; # Enable automatic text completion
               NSAutomaticTextCompletionCollapsed = false; # Collapsed text completion setting
