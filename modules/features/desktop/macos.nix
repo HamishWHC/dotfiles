@@ -1,8 +1,15 @@
 {
   flake.features.macos = {
     darwin =
-      { config, username, ... }:
+      { config, lib, username, ... }:
       {
+        # Reload user preferences so shortcuts take effect in the current session.
+        system.activationScripts.postActivation.text = ''
+          launchctl asuser "$(id -u ${lib.escapeShellArg username})" \
+            sudo -H -u ${lib.escapeShellArg username} \
+            /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+        '';
+
         system.defaults = {
           NSGlobalDomain = {
             AppleICUForce24HourTime = true; # Use 24-hour time
