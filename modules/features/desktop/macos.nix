@@ -1,7 +1,12 @@
 {
   flake.features.macos = {
     darwin =
-      { config, lib, username, ... }:
+      {
+        config,
+        lib,
+        username,
+        ...
+      }:
       {
         # Reload user preferences so shortcuts take effect in the current session.
         system.activationScripts.postActivation.text = ''
@@ -86,7 +91,8 @@
             ShowSeconds = true; # Show seconds in clock
           };
 
-          universalaccess.closeViewScrollWheelToggle = true; # Modifier-scroll zooms the screen
+          # TODO: Figure out why this fails on Atlassian laptops.
+          # universalaccess.closeViewScrollWheelToggle = true; # Modifier-scroll zooms the screen
           hitoolbox.AppleFnUsageType = "Do Nothing"; # Action when pressing Fn alone
 
           CustomUserPreferences = {
@@ -102,7 +108,8 @@
             };
 
             # Hold Option while scrolling to zoom
-            "com.apple.universalaccess".closeViewScrollWheelModifiersInt = 524288;
+            # TODO: Figure out why this fails on Atlassian laptops.
+            # "com.apple.universalaccess".closeViewScrollWheelModifiersInt = 524288;
 
             # Ordinary definitions allow other modules to override individual
             # fields with lib.mkForce, including enabled and value.parameters.
