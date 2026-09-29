@@ -40,11 +40,11 @@
           '';
 
           shellAliases = {
-            ll = "ls -lA";
-            la = "ls -A";
-            l = "ls";
+            ls = "ls --color=auto -h";
+            la = "ls -lA";
             cp = "cp -i";
             mv = "mv -i";
+            rm = "rm -I";
             cdgr = "cd \"$(git rev-parse --show-toplevel)\"";
             restart = "exec \"$SHELL\"";
             flush-dns = lib.mkIf pkgs.stdenv.isDarwin "sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder";

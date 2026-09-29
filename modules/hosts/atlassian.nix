@@ -15,9 +15,11 @@
     features = [
       self.profiles.workstation
       {
-        # Disable sudo Touch ID management
+        # Enable sudo Touch ID.
         darwin = {
-          security.pam.services.sudo_local.enable = false;
+          security.pam.services.sudo_local.enable = true;
+          security.pam.services.sudo_local.reattach = true;
+          security.pam.services.sudo_local.touchIdAuth = true;
         };
       }
       {
