@@ -68,6 +68,33 @@
             {
               agent_sock_paths = config.dotfiles.ssh-client.agents;
             };
+
+        home.activation.installSshAgentMuxService =
+          lib.hm.dag.entryAfter
+            [
+              "linkGeneration"
+              "createSshSocketDirectory"
+            ]
+            ''
+              # The installer invokes launchctl by name, but Home Manager's
+              # activation PATH excludes macOS system commands.
+              run ${pkgs.coreutils}/bin/env PATH="${lib.optionalString pkgs.stdenv.isDarwin "/bin:"}$PATH" \
+                ${lib.getExe pkgs.ssh-agent-mux} --install-service
+              ${
+                if pkgs.stdenv.isDarwin then
+                  ''
+                    # Version 0.2.0 installs a disabled launch agent; its restart command
+                    # also uses an invalid launchctl status target. Enable/load directly.
+                    if ! /bin/launchctl print "gui/$(id -u)/net.ross-williams.ssh-agent-mux" >/dev/null 2>&1; then
+                      run /bin/launchctl load -w ${lib.escapeShellArg "${config.home.homeDirectory}/Library/LaunchAgents/net.ross-williams.ssh-agent-mux.plist"}
+                    fi
+                  ''
+                else
+                  ''
+                    run ${lib.getExe pkgs.ssh-agent-mux} --restart-service
+                  ''
+              }
+            '';
       };
     };
 }
