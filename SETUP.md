@@ -14,7 +14,7 @@
 4. Configure Firefox/Chromium, install your extensions and sign into browser services. Configure Velja and select it as the default browser.
 5. Open and configure OrbStack using the **Free** edition; complete its initial setup.
 6. Sign into and configure Codex and Claude Code, including MCP servers and skills. Set up and pair Paseo.
-7. Restore SSH keys and local Git/SSH configuration. Create the directory required by SSH: `mkdir -p ~/.ssh/sockets && chmod 700 ~/.ssh/sockets`.
+7. Restore SSH keys and local Git/SSH configuration.
 8. Configure AWS credentials/SSO and local Kubernetes access. Select a Rust toolchain with `rustup default <toolchain>`.
 9. Configure Atuin and sign in if using history sync.
 10. Configure VS Code/VSCodium and install your preferred editor fonts.

@@ -29,5 +29,11 @@
         docker-ka = "docker kill $(docker ps -q)";
         docker-kra = "docker rm -f $(docker ps -aq)";
       };
+
+      programs.ssh = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
+        includes = [
+          "~/.orbstack/ssh/config"
+        ];
+      };
     };
 }

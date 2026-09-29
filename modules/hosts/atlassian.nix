@@ -79,6 +79,23 @@
             '';
           };
       }
+      {
+        # Devenv SSH config handling
+        homeManager = { lib, ... }: {
+          programs.ssh = {
+            includes = lib.mkBefore [
+              "dns_host_config"
+              "dev_env_config"
+            ];
+
+            settings = {
+              "devenv" = {
+                IdentitiesOnly = "yes";
+              };
+            };
+          };
+        };
+      }
     ];
   };
 }

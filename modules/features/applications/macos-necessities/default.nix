@@ -1,7 +1,10 @@
 { self, ... }: {
   flake.features.macos-necessities = {
     homeManager = { lib, pkgs, ... }: {
-      imports = [ self.features.mac-mouse-fix.homeManager ];
+      imports = [
+        self.features.mac-mouse-fix.homeManager
+        self.features.secretive.homeManager
+      ];
 
       home.packages = lib.mkIf (pkgs.stdenv.isDarwin) (
         with pkgs;
@@ -15,7 +18,10 @@
     };
 
     darwin = {
-      imports = [ self.features.mac-mouse-fix.darwin ];
+      imports = [
+        self.features.mac-mouse-fix.darwin
+        self.features.secretive.darwin
+      ];
 
       homebrew.casks = [
         "grandperspective"
