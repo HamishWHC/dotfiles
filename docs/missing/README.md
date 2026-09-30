@@ -21,6 +21,7 @@ Priority is an implementation suggestion, not a dependency. All tickets start op
 | [Shottr](shottr.md) | High | Owns both Shottr settings and license; needs purchased key |
 | [Burp Suite](burp-suite.md) | High | Certificate source needed for trust provisioning |
 | [Aptakube license](aptakube.md) | High | Implemented with owner-provided SOPS key; validation status in ticket |
+| [Mac Mouse Fix](mac-mouse-fix.md) | Normal | Settings and interactive native license setup during activation |
 | [Mission Control Plus license](mission-control-plus.md) | Normal | Needs entitlement material; configuration stays local |
 | [Atuin](atuin.md) | Normal | Independent |
 | [AWS CLI / AWSume](aws.md) | High | Independent; work-side profile details may remain local |
@@ -59,13 +60,14 @@ The owner prefers automatic license management through SOPS. Add real license ke
 | --- | --- | --- |
 | Shottr | `licenses/shottr/key` | Shottr ticket |
 | Aptakube | `aptakube_license_key` | Original key; runtime provisioning preserves the app's token |
+| Mac Mouse Fix | `mac_mouse_fix_license_key` | Original key; terminal prompt and native dialog during activation |
 | Mission Control Plus | `licenses/mission_control_plus/key` or `licenses/mission_control_plus/file` | Mission Control Plus ticket |
 
 These paths do not exist merely because this document lists them. If a file is binary, define its encoding and decode it only at runtime. Do not put a Nix path to a plaintext license in a derivation or decode secrets during evaluation. Do not print license values in build/activation logs or ticket text. Preserve the existing encrypted GitHub token and SOPS metadata when editing the file.
 
 Implement automatic activation when supported, not just secret-file delivery. If an app has no usable noninteractive activation/import method, implement secure secret delivery and document the exact remaining UI operation and evidence for the limitation. Do not substitute cached `isLicensed` flags for activation or repeatedly consume device activations on every rebuild.
 
-Mac Mouse Fix is an explicit exception: its existing module and licensing state are to remain unchanged. OrbStack is Free and gets no license provisioning. App Store/Microsoft purchases and service sign-ins remain local as recorded in the exclusions and setup guide.
+Mac Mouse Fix settings and SOPS key delivery are in scope; its signed app owns the Keychain license entry and runtime license caches. OrbStack is Free and gets no license provisioning. App Store/Microsoft purchases and service sign-ins remain local as recorded in the exclusions and setup guide.
 
 ## Validation
 

@@ -10,7 +10,6 @@ Status: Excluded from implementation, by owner decision or because the audit fou
 | VSCodium | The existing repo assigns its extension list and update settings here, separately from VS Code | Preserve the current separation. Do not move/copy that list to VS Code as a purported wiring fix. No editor migration ticket. |
 | Editor fonts | Local VS Code requests FiraCode Nerd Font / Fira Code; no font package is declared | Leave with the local editor setup for now; do not use the audit to expand into editor migration. |
 | Raycast | Hotkeys, extensions, snippets and other preferences are not captured | Exclude configuration and license/account automation. The owner plans to replace Raycast; this backlog does not select a replacement or remove the installed app. |
-| Mac Mouse Fix | The repo already manages the plist, including cached licensing state | Leave module, settings and license handling unchanged. The general SOPS license preference does not override this explicit exception. |
 | Aptakube preferences | Local terminal/proxy/kubeconfig/theme/column preferences exist | Keep all preferences and cluster state local. Only the [license ticket](aptakube.md) is active. |
 | Thaw hidden/always-hidden applications | Local layout, membership and order are mixed with general preferences | Must remain local even while [portable Thaw preferences](thaw.md) become managed. |
 | Wireshark | Profiles, filters and capture permissions could be documented | Rarely used; no configuration or packet-capture setup ticket. |
@@ -55,4 +54,4 @@ Status: Excluded from implementation, by owner decision or because the audit fou
 
 Firefox extensions may depend on Kagi, 1Password and AdGuard accounts or companion apps. Their extension installation/preferences are in scope for [Firefox](firefox.md), but this backlog does not add desktop applications, transfer subscriptions, or copy authenticated browser state. Document account/companion-app prerequisites in [SETUP.md](../../SETUP.md).
 
-App Store ownership and Microsoft/service account sign-ins do not become portable activation simply by storing a receipt or token in SOPS. License-key/file automation is scoped to the explicit Shottr, Aptakube and Mission Control Plus tickets. Burp's selected cask is Community Edition, so there is no Professional activation ticket.
+App Store ownership and Microsoft/service account sign-ins do not become portable activation simply by storing a receipt or token in SOPS. License-key/file automation is scoped to the explicit Shottr, Aptakube, Mac Mouse Fix and Mission Control Plus tickets. Burp's selected cask is Community Edition, so there is no Professional activation ticket.

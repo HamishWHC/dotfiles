@@ -9,7 +9,7 @@
 ## After activation
 
 1. Open Rectangle, Mac Mouse Fix, Thaw and Shottr; grant their requested Accessibility/Screen Recording permissions and enable launch at login where wanted.
-2. Activate Shottr and Mission Control Plus with your licenses. Activate Mac Mouse Fix if prompted.
+2. Activate Shottr and Mission Control Plus with your licenses.
 3. Configure Rectangle shortcuts, Thaw's hidden apps and Shottr keybindings. Disable conflicting native shortcuts in **System Settings → Keyboard → Keyboard Shortcuts → Screenshots**.
 4. Configure Firefox/Chromium, install your extensions and sign into browser services. Configure Velja and select it as the default browser.
 5. Open and configure OrbStack using the **Free** edition; complete its initial setup.

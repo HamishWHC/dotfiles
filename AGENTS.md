@@ -1,5 +1,9 @@
 # Agent Instructions
 
+## Settings ownership
+
+- Removing a setting from Nix makes it unmanaged. Preserve its existing value; do not reset or delete it.
+
 ## Testing
 
 - Only use `just build-home` and `just build-system` to test changes.
