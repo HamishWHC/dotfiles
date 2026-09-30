@@ -20,5 +20,6 @@
     self.features.hushlogin
     self.features.xdg
     self.features.ssh-client
+    self.features.fonts
   ];
 }
