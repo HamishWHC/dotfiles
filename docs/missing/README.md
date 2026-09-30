@@ -20,7 +20,7 @@ Priority is an implementation suggestion, not a dependency. All tickets start op
 | [Thaw](thaw.md) | High | Coordinate macOS utility module imports |
 | [Shottr](shottr.md) | High | Owns both Shottr settings and license; needs purchased key |
 | [Burp Suite](burp-suite.md) | High | Certificate source needed for trust provisioning |
-| [Aptakube license](aptakube.md) | High | Needs license key or supported transferable license file |
+| [Aptakube license](aptakube.md) | High | Implemented with owner-provided SOPS key; validation status in ticket |
 | [Mission Control Plus license](mission-control-plus.md) | Normal | Needs entitlement material; configuration stays local |
 | [Atuin](atuin.md) | Normal | Independent |
 | [AWS CLI / AWSume](aws.md) | High | Independent; work-side profile details may remain local |
@@ -58,7 +58,7 @@ The owner prefers automatic license management through SOPS. Add real license ke
 | Application | Proposed secret path | Owner |
 | --- | --- | --- |
 | Shottr | `licenses/shottr/key` | Shottr ticket |
-| Aptakube | `licenses/aptakube/key` or `licenses/aptakube/file` | Aptakube ticket; choose the supported format |
+| Aptakube | `aptakube_license_key` | Original key; runtime provisioning preserves the app's token |
 | Mission Control Plus | `licenses/mission_control_plus/key` or `licenses/mission_control_plus/file` | Mission Control Plus ticket |
 
 These paths do not exist merely because this document lists them. If a file is binary, define its encoding and decode it only at runtime. Do not put a Nix path to a plaintext license in a derivation or decode secrets during evaluation. Do not print license values in build/activation logs or ticket text. Preserve the existing encrypted GitHub token and SOPS metadata when editing the file.
@@ -71,4 +71,4 @@ Mac Mouse Fix is an explicit exception: its existing module and licensing state 
 
 Only use `just build-home` and `just build-system` to test changes, with the applicable `personal` or `atlassian` host argument. Run home builds for Home Manager work and system builds for Darwin settings/secrets/integration. Cover both macOS hosts when shared changes affect both; coordinate builds because these recipes share the `result` link.
 
-Never run a system switch, including through helper commands. Do not replace these checks with `nix flake check`, direct `nix build`, standalone test scripts, or application launches that mutate the live system. Explain when the human should switch. Record post-switch checks in `SETUP.md` for the human to perform; builds alone do not establish GUI permissions, certificate trust, or license validity.
+Never run a system switch, including through helper commands. Do not replace these checks with `nix flake check`, direct `nix build`, standalone test scripts, or application launches that mutate the live system. Explain when the human should switch. Record validation evidence and outstanding runtime verification in the relevant ticket; builds alone do not establish GUI permissions, certificate trust, or license validity. `SETUP.md` contains only necessary manual setup steps, never validation checks or troubleshooting for Nix-managed configuration.
