@@ -15,7 +15,7 @@
 5. Open and configure OrbStack using the **Free** edition; complete its initial setup.
 6. Sign into and configure Codex and Claude Code, including MCP servers and skills. Set up and pair Paseo.
 7. Restore SSH keys and local Git/SSH configuration.
-8. Configure AWS credentials/SSO and local Kubernetes access. Select a Rust toolchain with `rustup default <toolchain>`.
+8. Configure AWS and Kubernetes authentication as needed.
 9. Configure Atuin and sign in if using history sync.
 10. Configure VS Code/VSCodium and install your preferred editor fonts.
 11. If using Burp with an external browser, import and trust its CA certificate in Keychain and the browser as needed; configure SwitchyOmega proxy profiles.

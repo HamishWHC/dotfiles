@@ -23,7 +23,7 @@ Priority is an implementation suggestion, not a dependency. All tickets start op
 | [Aptakube license](aptakube.md) | High | Implemented with owner-provided SOPS key; validation status in ticket |
 | [Mac Mouse Fix](mac-mouse-fix.md) | Normal | Settings and interactive native license setup during activation |
 | [Atuin](atuin.md) | Normal | Independent |
-| [AWS CLI / AWSume](aws.md) | High | Independent; work-side profile details may remain local |
+| [AWS CLI / AWSume](aws.md) | High | Implemented: Zsh integration and default JSON output; regions and profiles remain local |
 | [Docker / OrbStack](orbstack.md) | High | Keep Kubernetes state local; use OrbStack Free |
 | [Shared AI options](ai-shared.md) | High | Establish the contract before merging client adapters |
 | [Codex](codex.md) | High | Shared AI options |
