@@ -1,26 +1,11 @@
-# Mission Control Plus: SOPS-managed license
+# Mission Control Plus: replaced by CloseUp
 
-Status: Open. Priority: Normal. Dependencies: Owner-provided license material.
+Status: Superseded by owner decision. Do not implement Mission Control Plus licensing.
 
-## Current state
+[closeup.nix](../../modules/features/applications/macos-necessities/closeup.nix) installs `oomol-lab/tap/closeup` from the pinned OOMOL Homebrew tap. The Mission Control Plus cask, license secret declarations and activation delay have been removed.
 
-[macos-necessities/default.nix](../../modules/features/applications/macos-necessities/default.nix) installs Mission Control Plus. The app is paid and has a trial. Local preferences include purchase-related state, but this audit did not establish a portable key or valid entitlement.
+CloseUp's enabled state, hidden menu bar icon, stable update channel, disabled automatic update checks and eight Mission Control shortcuts are managed through `system.defaults.CustomUserPreferences`. The overlay shows only the close button. Its settings are JSON stored as plist Data, which the pinned `system.defaults` cannot encode; a small user-context activation hook writes the whole `overlaySettings` value through `defaults`.
 
-Preferences, launch behaviour and shortcuts remain locally managed under the owner's macOS utility exclusion. Only license handling is in scope.
+Unrelated preferences, shortcut seeding state and updater/window state remain local. Removing a declared preference leaves its existing value unmanaged; by owner decision, `overlaySettings` is managed as a single value rather than individual fields. `SETUP.md` lists its manual permission and launch-at-login setup. CloseUp reads these preferences at launch, so an already-running instance needs to be relaunched after switching.
 
-## Work
-
-- Identify the supported activation or restoration mechanism for the installed version, including any device-bound purchase state.
-- Store usable license material under `licenses/mission_control_plus/key` or `licenses/mission_control_plus/file` in `secrets/default.yaml`.
-- Provision it at runtime and automate supported activation/import, following the [SOPS contract](README.md#license-and-secret-contract).
-- Preserve unrelated preferences and app-owned purchase state. Do not treat cached flags or analytics identifiers as license keys.
-- If only interactive activation is supported, implement secure delivery and add precise UI restoration instructions and the limitation to `SETUP.md`.
-
-## Acceptance
-
-- License restoration has a concrete implementation and documented input format.
-- Missing secrets, repeat activation and app-owned mutation are handled without exposing keys or repeatedly registering devices.
-- No ordinary Mission Control Plus configuration is added.
-- Validation uses the [allowed builds](README.md#validation); purchase/activation UI and system switching remain human tasks.
-
-Reference: [Mission Control Plus](https://www.fadel.io/missioncontrolplus).
+Validated the preferences change with `just build-system personal` and `just build-system atlassian`; both passed. No system switch or live app reload was performed.

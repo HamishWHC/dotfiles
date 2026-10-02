@@ -237,6 +237,22 @@
         "type": "github"
       }
     },
+    "homebrew-oomol": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1789707763,
+        "narHash": "sha256-354bB+9nHjdcMKW6LW+0rilJ8TwuDFMSBgXW3frUZPc=",
+        "owner": "oomol-lab",
+        "repo": "homebrew-tap",
+        "rev": "a649ea99b75bcf14d15c04a74e1040a4b545ab37",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oomol-lab",
+        "repo": "homebrew-tap",
+        "type": "github"
+      }
+    },
     "import-tree": {
       "locked": {
         "lastModified": 1788467110,
@@ -539,6 +555,7 @@
         "homebrew-acli": "homebrew-acli",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
+        "homebrew-oomol": "homebrew-oomol",
         "import-tree": "import-tree",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",

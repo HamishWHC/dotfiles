@@ -28,6 +28,10 @@
       url = "github:homebrew/homebrew-core";
       flake = false;
     };
+    homebrew-oomol = {
+      url = "github:oomol-lab/homebrew-tap";
+      flake = false;
+    };
     import-tree.url = "github:vic/import-tree";
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";

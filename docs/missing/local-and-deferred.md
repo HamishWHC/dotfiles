@@ -15,7 +15,6 @@ Status: Excluded from implementation, by owner decision or because the audit fou
 | Wireshark | Profiles, filters and capture permissions could be documented | Rarely used; no configuration or packet-capture setup ticket. |
 | Ghidra | Preferences, scripts and extensions could be captured | Rarely used; no configuration ticket. |
 | Hex Fiend | Local inspector/representation and bytes-per-line settings exist | Rarely used; no configuration ticket. |
-| Mission Control Plus preferences | Local launch/menu-bar preferences exist | Ordinary preferences stay local under the utility exclusion. Only its [license ticket](mission-control-plus.md) is active. |
 | Black Out | Potential display/shortcut preferences | Manage locally. |
 | HEIC Converter | Potential output/quality preferences | Manage locally. |
 | Shareful | Potential share action preferences | Manage locally. |
@@ -54,4 +53,4 @@ Status: Excluded from implementation, by owner decision or because the audit fou
 
 Firefox extensions may depend on Kagi, 1Password and AdGuard accounts or companion apps. Their extension installation/preferences are in scope for [Firefox](firefox.md), but this backlog does not add desktop applications, transfer subscriptions, or copy authenticated browser state. Document account/companion-app prerequisites in [SETUP.md](../../SETUP.md).
 
-App Store ownership and Microsoft/service account sign-ins do not become portable activation simply by storing a receipt or token in SOPS. License-key/file automation is scoped to the explicit Shottr, Aptakube, Mac Mouse Fix and Mission Control Plus tickets. Burp's selected cask is Community Edition, so there is no Professional activation ticket.
+App Store ownership and Microsoft/service account sign-ins do not become portable activation simply by storing a receipt or token in SOPS. License-key/file automation is scoped to the explicit Shottr, Aptakube and Mac Mouse Fix tickets. Mission Control Plus has been replaced by CloseUp. Burp's selected cask is Community Edition, so there is no Professional activation ticket.

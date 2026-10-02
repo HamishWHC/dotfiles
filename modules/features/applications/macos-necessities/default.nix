@@ -19,13 +19,13 @@
 
     darwin = {
       imports = [
+        self.features.closeup.darwin
         self.features.mac-mouse-fix.darwin
         self.features.secretive.darwin
       ];
 
       homebrew.casks = [
         "grandperspective"
-        "mission-control-plus"
         "raycast"
       ];
 
