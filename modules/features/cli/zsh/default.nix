@@ -78,6 +78,28 @@
               [[ -f "${config.xdg.configHome}/zsh/.zshrc_local" ]] && source "${config.xdg.configHome}/zsh/.zshrc_local"
 
               source ${./p10k.zsh}
+
+              # Flag to track if the terminal is still on its first prompt
+              _IS_FIRST_PROMPT=true
+
+              # Set the flag to false after the first prompt is used.
+              # Reset to true when the user runs clear.
+              autoload -Uz add-zsh-hook
+              _reset_first_prompt_flag() {
+                _IS_FIRST_PROMPT=false
+                if [[ "$1" =~ "^\s*clear\s*$" ]]; then
+                  _IS_FIRST_PROMPT=true
+                fi
+              }
+              add-zsh-hook preexec _reset_first_prompt_flag
+
+              # Clear the screen on window resize only if the flag is true.
+              function TRAPWINCH() {
+                if [[ "$_IS_FIRST_PROMPT" == true ]]; then
+                  clear
+                  zle && zle reset-prompt 2>/dev/null
+                fi
+              }
             ''
           ];
         };

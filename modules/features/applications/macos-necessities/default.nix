@@ -10,7 +10,6 @@
         with pkgs;
         [
           unstable.thaw
-          unstable.rectangle
           unstable.shottr
           unstable.hexfiend
         ]
@@ -27,6 +26,7 @@
         "grandperspective"
         "mission-control-plus"
         "raycast"
+        "rectangle"
       ];
 
       homebrew.masApps = {
