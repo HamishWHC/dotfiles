@@ -10,7 +10,6 @@
         with pkgs;
         [
           unstable.thaw
-          unstable.rectangle
           unstable.shottr
           unstable.hexfiend
         ]
@@ -21,12 +20,14 @@
       imports = [
         self.features.closeup.darwin
         self.features.mac-mouse-fix.darwin
+        self.features.raycast.darwin
         self.features.secretive.darwin
       ];
 
       homebrew.casks = [
         "grandperspective"
         "raycast"
+        "rectangle"
       ];
 
       homebrew.masApps = {
