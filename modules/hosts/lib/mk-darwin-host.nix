@@ -43,6 +43,7 @@
         overlays = [
           self.overlays.custom
           self.overlays.unstable
+          inputs.nur.overlays.default
           inputs.nix-vscode-extensions.overlays.default
         ];
         config.allowUnfree = true;
