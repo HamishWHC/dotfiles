@@ -96,8 +96,7 @@
               # Clear the screen on window resize only if the flag is true.
               function TRAPWINCH() {
                 if [[ "$_IS_FIRST_PROMPT" == true ]]; then
-                  clear
-                  zle && zle reset-prompt 2>/dev/null
+                  zle && zle clear-screen && zle reset-prompt 2>/dev/null
                 fi
               }
             ''

@@ -113,31 +113,33 @@
               force = true;
               settings = [
                 {
-                  name = "Youtube";
-                  toolbar = true;
-                  url = "https://youtube.com/feed/subscriptions";
-                }
-                {
-                  name = "GitHub";
-                  toolbar = true;
-                  url = "https://github.com";
-                }
-                {
-                  name = "HackerNews";
-                  toolbar = true;
-                  url = "https://news.ycombinator.com";
-                }
-                {
-                  name = "Nix";
+                  name = "Bookmarks Toolbar";
                   toolbar = true;
                   bookmarks = [
                     {
-                      name = "Searchix";
-                      url = "https://searchix.ovh/";
+                      name = "Youtube";
+                      url = "https://youtube.com/feed/subscriptions";
                     }
                     {
-                      name = "NixOS Search";
-                      url = "https://search.nixos.org/packages/";
+                      name = "GitHub";
+                      url = "https://github.com";
+                    }
+                    {
+                      name = "HackerNews";
+                      url = "https://news.ycombinator.com";
+                    }
+                    {
+                      name = "Nix";
+                      bookmarks = [
+                        {
+                          name = "Searchix";
+                          url = "https://searchix.ovh/";
+                        }
+                        {
+                          name = "NixOS Search";
+                          url = "https://search.nixos.org/packages/";
+                        }
+                      ];
                     }
                   ];
                 }
