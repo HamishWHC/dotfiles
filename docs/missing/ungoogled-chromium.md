@@ -1,12 +1,14 @@
 # Ungoogled Chromium: portable browser setup
 
-Status: Open. Priority: Normal. Dependencies: None; coordinate edits to [browsers.nix](../../modules/features/applications/browsers.nix).
+Status: Closed by owner decision on 2026-10-22. Keep the existing installation unchanged: Chromium is only a secondary browser for testing sites when needed. No managed preferences, profiles or extensions are required.
 
 ## Current state
 
 The macOS cask is installed, with no managed preferences, profile setup or extension-installation process. The audit did not inventory this browser's live settings; do not copy Firefox assumptions into it.
 
-## Work
+The original proposed scope below is retained for context, not as outstanding work. Do not implement it without a new request.
+
+## Original proposed work (not required)
 
 - Inventory selected local preferences, search engines and installed extensions before choosing what to manage.
 - Determine which policy/preferences mechanisms the actual ungoogled Chromium build supports on macOS. Its extension distribution differs from ordinary Google Chrome; document the supported install/update process.
@@ -14,7 +16,7 @@ The macOS cask is installed, with no managed preferences, profile setup or exten
 - Coordinate SwitchyOmega integration through [its ticket](proxy-switchyomega.md); it owns the proxy configuration artifact.
 - Preserve bookmarks, history, cookies, sessions, account data and local proxy selection. Do not manage the entire mutable `Preferences` or `Local State` file as an immutable symlink.
 
-## Acceptance
+## Original acceptance criteria (superseded)
 
 - Selected preferences and a supported extension setup process are reproducible and documented.
 - The cask remains the macOS installation source unless a concrete packaging issue requires a justified change.

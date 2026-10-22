@@ -4,7 +4,7 @@ Status: Open. Priority: Normal. Dependencies: None; coordinate browser aggregate
 
 ## Current state
 
-[browsers.nix](../../modules/features/applications/browsers.nix) installs Velja through the App Store. Local preferences include default/alternative browsers, preferred browsers, tracking-parameter behaviour and `rulesBackup`.
+[browsers/default.nix](../../modules/features/applications/browsers/default.nix) installs Velja through the App Store. Local preferences include default/alternative browsers, preferred browsers, tracking-parameter behaviour and `rulesBackup`.
 
 ## Work
 

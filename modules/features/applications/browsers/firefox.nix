@@ -102,6 +102,7 @@
               packages = with pkgs.nur.repos.rycee.firefox-addons; [
                 ublock-origin
                 onepassword-password-manager
+                react-devtools
                 refined-github
                 kagi-privacy-pass
                 kagi-search

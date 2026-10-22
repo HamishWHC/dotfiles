@@ -28,7 +28,7 @@
           url."git@github.com:".insteadOf = "https://github.com/";
           pull.rebase = false;
           init.defaultBranch = "main";
-          core.excludesfile = "${config.xdg.configHome}/ignore";
+          core.excludesfile = "${config.xdg.configHome}/git/ignore";
         };
       };
 

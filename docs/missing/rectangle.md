@@ -1,10 +1,12 @@
 # Rectangle: settings and persistent Accessibility authorization
 
-Status: Open. Priority: High. Dependencies: None; coordinate imports in [macos-necessities/default.nix](../../modules/features/applications/macos-necessities/default.nix).
+Status: Partially implemented: Homebrew installation addresses the packaging concern; preferences remain open. Reassessed from source on 2026-10-22. Priority: High. Dependencies: None; coordinate imports in [macos-necessities/default.nix](../../modules/features/applications/macos-necessities/default.nix).
 
 ## Current state
 
-Rectangle is installed from Nix without managed preferences. Local settings include shortcuts, gaps, menu-bar visibility and launch-on-login. The owner reports having to re-grant Accessibility permission after every system switch.
+Rectangle is installed through the Homebrew `rectangle` cask in [macos-necessities/default.nix](../../modules/features/applications/macos-necessities/default.nix), without managed preferences. Commit `3d6a201` moved it from the Nix package specifically to address repeated permission problems. The original statement that the Nix package still needs replacing is obsolete; do not redo that migration.
+
+Portable shortcuts, gaps, menu-bar visibility and launch-on-login remain unmanaged. The repository has no detailed app-identity diagnosis or recorded repeat-switch verification; this source review does not establish whether the permission issue still occurs. No new builds, switches or permission changes were performed.
 
 ## Work
 
