@@ -17,9 +17,9 @@ The 16 previously open tickets were reassessed against repository source on 2026
 | [Firefox](firefox.md) | High | Seven extensions declared, including React Developer Tools. Owner accepted bookmarks and Refined GitHub, excluded AdGuard/Wappalyzer/right-click extension; Unhook lacks managed-policy support. Existing-profile migration documentation remains. |
 | [Proxy SwitchyOmega](proxy-switchyomega.md) | High | Deferred by owner: skip proxy extensions for now. Policy-support research retained in ticket. |
 | [Ungoogled Chromium](ungoogled-chromium.md) | Normal | Closed by owner: keep the existing installation as a secondary browser for site testing; no additional configuration required. |
-| [Velja](velja.md) | Normal | Open: App Store installation only; routing rules, browser choices and supported preference import remain. |
-| [Rectangle](rectangle.md) | High | Partial: moved to Homebrew to address repeated permission grants. Portable preferences/shortcuts remain unmanaged; persistence is not independently verified by this review. |
-| [Thaw](thaw.md) | High | Open: package installation only; portable behaviour/hotkeys remain unmanaged. Hidden-app membership and order must stay local. |
+| [Velja](velja.md) | Normal | Implemented: Nix defaults declare Firefox, Chromium, Safari, Firefox (Private), in order. Default browser, rules and profiles stay local. Human activation remains. |
+| [Rectangle](rectangle.md) | High | Implemented: existing Homebrew cask and selected portable preferences/shortcuts in a focused feature. Human activation and permission persistence remain unverified. |
+| [Thaw](thaw.md) | High | Implemented: portable behaviour via Nix defaults. Hidden-app membership/order, displays and unassigned hotkeys stay local. Human activation remains. |
 | [Shottr](shottr.md) | High | Partial: package and encrypted `shottr_license_key` exist. Settings, shortcuts, runtime secret delivery and activation remain; macOS currently enables the conflicting native screenshot shortcuts. |
 | [Burp Suite](burp-suite.md) | High | Open: cask installation only; reusable settings/listeners, CA input, Keychain trust lifecycle and browser trust integration remain. |
 | [Aptakube license](aptakube.md) | High | Implemented and build-validated on macOS; human activation remains outstanding in the ticket. Linux license-path support is explicitly deferred. |

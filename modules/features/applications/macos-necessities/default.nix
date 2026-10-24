@@ -4,12 +4,12 @@
       imports = [
         self.features.mac-mouse-fix.homeManager
         self.features.secretive.homeManager
+        self.features.thaw.homeManager
       ];
 
       home.packages = lib.mkIf (pkgs.stdenv.isDarwin) (
         with pkgs;
         [
-          unstable.thaw
           unstable.shottr
           unstable.hexfiend
         ]
@@ -21,13 +21,14 @@
         self.features.closeup.darwin
         self.features.mac-mouse-fix.darwin
         self.features.raycast.darwin
+        self.features.rectangle.darwin
         self.features.secretive.darwin
+        self.features.thaw.darwin
       ];
 
       homebrew.casks = [
         "grandperspective"
         "raycast"
-        "rectangle"
       ];
 
       homebrew.masApps = {
