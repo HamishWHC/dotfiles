@@ -1,3 +1,8 @@
+let
+  # NSEvent/CoreGraphics modifier masks, as in macos.nix.
+  ctrl = 262144;
+  opt = 524288;
+in
 {
   flake.features.rectangle.darwin = {
     homebrew.casks = [ "rectangle" ];
@@ -17,15 +22,15 @@
 
       almostMaximize = {
         keyCode = 42;
-        modifierFlags = 786432;
+        modifierFlags = ctrl + opt;
       }; # Control-Option-Backslash.
       reflowTodo = {
         keyCode = 45;
-        modifierFlags = 786432;
+        modifierFlags = ctrl + opt;
       }; # Control-Option-N.
       toggleTodo = {
         keyCode = 11;
-        modifierFlags = 786432;
+        modifierFlags = ctrl + opt;
       }; # Control-Option-B.
 
       # Rectangle stores snap-area configuration as a JSON string.
