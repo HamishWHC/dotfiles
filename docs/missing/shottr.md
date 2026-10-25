@@ -1,43 +1,24 @@
 # Shottr: shortcuts, macOS screenshot bindings and SOPS license
 
-Status: Partially implemented: package and encrypted key exist; settings and runtime license setup remain open. Reassessed from source on 2026-10-22. Priority: High. Dependencies: The encrypted key is already supplied.
+Status: Implemented and build-validated for both macOS hosts on 2026-10-25; awaiting human activation. Priority: High.
 
-## Current state
+## Implementation
 
-Shottr is installed from Nix through [macos-necessities/default.nix](../../modules/features/applications/macos-necessities/default.nix). Local preferences include capture/OCR shortcuts, save/copy behaviour, scaling, output format and other options. The owner has bought a license key and wants SOPS-based management.
+[shottr/default.nix](../../modules/features/applications/macos-necessities/shottr/default.nix) owns the package, selected preferences, the runtime `shottr_license_key` secret and the native shortcut override. [setup.py](../../modules/features/applications/macos-necessities/shottr/setup.py) runs after `copyApps` and `sops-nix`; its synthetic tests run at build time.
 
-`secrets/default.yaml` already contains an encrypted `shottr_license_key`. No Shottr runtime secret declaration, settings management or license activation code was found. [macos.nix](../../modules/features/desktop/macos.nix) explicitly enables native screenshot shortcuts 28–31 and 184, so conditional conflict handling is still missing. No secret was decrypted, and no new builds or live activation checks were performed for this assessment.
+- Preferences: capture/OCR shortcuts (Command-Shift-1 to 4) and scrolling capture (Control-Command-Shift-4, `KeyboardShortcuts_scrolling`, name found in the binary), copy and show after capture without saving, copy on Escape, `Auto` format and no downscaling. The save folder (`defaultFolder` plus a security-scoped bookmark), upload settings, telemetry and UI state stay local.
+- Shottr is sandboxed: `defaults <bundle id>` does not reach its preferences. The script writes the container domain by path through `defaults`, writing only differing keys. Shottr reads hotkeys at launch, so a running Shottr is quit before writes and relaunched afterwards.
+- License: Shottr 1.9.2's URL handler accepts the undocumented `shottr://settings/license=<KEY>` (found by disassembly). It strips the key to `[A-Z0-9-]`, uppercases it, fills the License field and runs the Activate handler, which verifies online. The URL is passed on stdin to `NSWorkspace`, so the key is never printed or put in process arguments. Deep links are enabled only during activation, then `allowDeeplinks` is restored to its previous value or absence.
+- Activation status: a nonempty `kc-license` string. The owner confirmed on 2026-10-25 that it disappears when the license is removed, while `kc-vault` remains. Its value is never printed. Licensed hosts are skipped without reading the secret.
+- Unreadable state: when macOS blocks container access, `defaults export` returns an empty domain with exit status 0. The script first opens the plist directly; a permission error skips setup with a warning rather than treating Shottr as unlicensed. A missing container launches Shottr hidden once and waits 15 seconds.
+- Native shortcuts: with the feature included, every Screenshots shortcut is disabled with `lib.mkForce`, as Raycast does for Spotlight: 28–31 (save/copy full screen and area), 184 (toolbar) and 261 (Ask Siri about selected area, Command-Shift-6; ID read from System Settings on 2026-10-25). The owner does not need 261 at all, so it is only disabled, with no binding. Without Shottr, [macos.nix](../../modules/features/desktop/macos.nix) keeps its existing declarations.
 
-## Work
+## Validation
 
-### Assessment, 2026-10-22
+`just build-home personal hamishwhc`, `just build-home atlassian hcox`, `just build-system personal` and `just build-system atlassian` passed on 2026-10-25, and all four builds passed again after adding 29, 31, 184, 261 and the scrolling shortcut. The built system's `AppleSymbolicHotKeys` has 28–31, 184 and 261 disabled. No preferences were written, no deep link was opened and no system switch was performed.
 
-- Installed version: 1.9.2. [Official documentation](https://shottr.cc/kb/friendsclub) demonstrates individual defaults in `cc.ffitch.shottr`, such as `saveFormat` and `fileNameTemplate`. Some documented hidden settings require Friends Club; do not assume the existing license tier or adopt those settings without selecting them.
-- The [documented URL scheme](https://shottr.cc/kb/urlschemes) supports capture, OCR, opening settings and capture follow-up actions. It does not document license activation or general preference import. No supported unattended license-activation interface was found in the published documentation reviewed.
-- Prefer the existing SOPS key plus the native License settings UI unless a supported activation interface is established. Do not treat writing a cached license flag or copying device state as activation.
-- The initial sandbox preference read was denied by macOS privacy protection. After the owner granted access, `~/Library/Containers/cc.ffitch.shottr/Data/Library/Preferences/cc.ffitch.shottr.plist` became readable. Ordinary preferences and keybindings were inventoried without writing them.
-- Current global shortcuts are JSON strings in `KeyboardShortcuts_*` with Carbon modifiers `768` (Command-Shift): OCR key code 18 (1), window 19 (2), fullscreen 20 (3), area 21 (4). Current capture behaviour copies and shows the result without automatic saving; output is `Auto`, without downscaling. The local save directory is Downloads and must be parameterized if managed.
-- Native screenshot-shortcut ownership remains additional work beyond app preferences: the generic macOS module currently enables IDs 28–31 and 184. Scope disabling to the included Shottr feature and preserve unrelated entries and values when ownership ends.
-- No key was decrypted, no live preferences were written, and no license activation was attempted.
+## Remaining human verification
 
-### Remaining implementation
-
-- Owner accepted the Mac Mouse Fix-style interactive HM activation approach: skip prompting when the app records successful activation; otherwise display the runtime SOPS key only in an interactive terminal and wait for the app's recorded activation status. First identify a reliable readable status field. A key being present is not evidence of successful activation; unreadable state must not be treated as unlicensed or cause repeated prompts.
-- The now-readable plist has nonempty `kc-license` and `kc-vault` strings. These are encoded values, not JSON activation flags. Installed app strings refer to Keychain license retrieval, a license tier and a vault, but no reliable persisted success predicate was established. Presence of these entries proves stored license data exists, not that activation is valid. No polling hook has been added on that evidence alone.
-
-- Create a dedicated Shottr feature owning package inclusion, selected preferences, shortcuts and license provisioning.
-- Import chosen local keybindings as the primary configuration, with output/copy/save preferences as appropriate. Inspect the current `cc.ffitch.shottr` sandbox preference format. Do not copy upload tokens, Keychain blobs or the whole plist into Nix.
-- Disable native macOS screenshot shortcuts **only when the Shottr feature is included in the system**. Inspect the actual symbolic-hotkey IDs and representations for the installed macOS version; cover conflicting capture-to-file, capture-to-clipboard and screenshot-UI bindings as appropriate.
-- Modify only the relevant entries in `com.apple.symbolichotkeys`, preserving every unrelated shortcut. Follow [AGENTS.md](../../AGENTS.md) when ownership ends: removing a setting from Nix must preserve its existing value, not reset it. Reconcile the existing generic macOS shortcut declarations with Shottr's conditional ownership.
-- Reuse the existing encrypted `shottr_license_key` in `secrets/default.yaml`; no additional purchased key or duplicate secret path is needed. Add runtime provisioning under the [secret contract](README.md#license-and-secret-contract).
-- Find the supported license activation/import path. Prefer automatic activation using the runtime secret, and make it repeat-safe. If activation requires UI or a device-bound Keychain operation, provide secure provisioning plus the exact remaining manual step; a paid key and an upload token are different artifacts.
-
-## Acceptance
-
-- Declared Shottr keybindings work after a human grants required permissions.
-- With Shottr included, native bindings do not intercept the same shortcuts. Without it, this feature does not write native screenshot settings; removing a managed setting preserves its existing value.
-- License data never enters plaintext tracked files, the Nix store or logs. Repeated activation does not reset the license or repeatedly register a device.
-- Necessary manual permission and license operations are documented in `SETUP.md`. Capture and feature-removal verification belongs in this ticket, not `SETUP.md`.
-- Run both Home Manager and Darwin builds using only the [allowed recipes](README.md#validation), covering enabled/disabled behaviour through suitable build configurations. Never switch the system.
-
-References: [Shottr FAQ](https://shottr.cc/), [license purchase/activation information](https://shottr.cc/purchase.html).
+- After switching, confirm activation prints `Shottr: license activated.` and Shottr's License tab shows the registration. A timeout or a deep link permission prompt means the undocumented URL behaves differently than the disassembly suggested.
+- Confirm Command-Shift-1 to 4 and Control-Command-Shift-4 trigger Shottr rather than the native screenshot tool, and that a repeated switch is silent and does not restart Shottr.
+- If Shottr updates, recheck that the deep link and `kc-license` behaviour still hold; both are undocumented.

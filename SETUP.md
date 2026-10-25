@@ -8,9 +8,9 @@
 
 ## After activation
 
-1. Open Rectangle, Mac Mouse Fix, CloseUp, Thaw and Shottr; grant their requested Accessibility/Screen Recording permissions and enable launch at login where wanted.
-2. Activate Shottr with your license.
-3. Configure Thaw's hidden apps and Shottr keybindings. Disable conflicting native shortcuts in **System Settings → Keyboard → Keyboard Shortcuts → Screenshots**.
+1. If macOS asked whether your terminal may access data from other apps during activation and you declined, allow it in **System Settings → Privacy & Security** and activate again; Shottr's settings and license need it.
+2. Open Rectangle, Mac Mouse Fix, CloseUp, Thaw and Shottr; grant their requested Accessibility/Screen Recording permissions and enable launch at login where wanted.
+3. Configure Thaw's hidden apps.
 4. Configure Firefox/Chromium, install your extensions and sign into browser services. Configure Velja and select it as the default browser.
 5. Open and configure OrbStack using the **Free** edition; complete its initial setup.
 6. Sign into and configure Codex and Claude Code, including MCP servers and skills. Set up and pair Paseo.
@@ -18,5 +18,5 @@
 8. Configure AWS and Kubernetes authentication as needed.
 9. Configure Atuin and sign in if using history sync.
 10. Configure VS Code/VSCodium and install your preferred editor fonts.
-11. If using Burp with an external browser, import and trust its CA certificate in Keychain and the browser as needed; configure SwitchyOmega proxy profiles.
+11. If using Burp with an external browser, import and trust its CA certificate in Keychain and the browser as needed.
 12. Sign into and configure other apps you use, including Word/Excel. On the work Mac, complete Okta Verify, ACLI/KITT and MeetingBar setup.
