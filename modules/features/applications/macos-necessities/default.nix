@@ -38,6 +38,7 @@
         "UTC Time" = 1538245904;
         "The Unarchiver" = 425424353;
         "Presentify" = 1507246666;
+        "Amphetamine" = 937984704;
       };
     };
   };
