@@ -1,12 +1,13 @@
 {
-  flake.features.atuin.homeManager =
-    { pkgs, ... }:
-    {
-      home.packages = [ pkgs.atuin ];
-      # xdg.configFile."atuin/config".source = ./config;
-
-      programs.zsh.initContent = ''
-        eval "$(atuin init zsh)"
-      '';
+  flake.features.atuin.homeManager = {
+    programs.atuin = {
+      enable = true;
+      # Replace the existing unmanaged config; its only non-default settings are declared below.
+      forceOverwriteSettings = true;
+      settings = {
+        enter_accept = true;
+        sync.records = true;
+      };
     };
+  };
 }

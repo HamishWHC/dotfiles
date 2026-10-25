@@ -1,23 +1,20 @@
 # Atuin: declare portable history UI preferences
 
-Status: Open. Priority: Normal. Dependencies: None.
+Status: Implemented and build-validated for both macOS hosts on 2026-10-25; awaiting human activation. Priority: Normal.
 
-## Current state
+## Implementation
 
-[atuin.nix](../../modules/features/cli/atuin.nix) installs Atuin and initializes Zsh but does not manage its configuration. The audited `~/.config/atuin/config.toml` has `enter_accept = true` and a sync setting. History and login state are local.
+[atuin.nix](../../modules/features/cli/atuin.nix) uses Home Manager's `programs.atuin`, which owns installation and the single Zsh initialization (the manual `eval` was removed).
 
-## Work
+- Settings: `enter_accept = true` and `sync.records = true`, the only non-default values in the audited `config.toml` (the rest was commented defaults). The owner chose no other preferences.
+- `forceOverwriteSettings = true` replaces the existing unmanaged file instead of failing on collision; no set value is lost.
+- Home Manager also sets `logs.dir` to `~/.local/state/atuin/logs` because the profile prefers XDG directories.
+- History databases, the local encryption `key` and any future sync session stay in `~/.local/share/atuin`. The owner does not use sync yet, so `SETUP.md` has no login step.
 
-- Use the pinned Home Manager Atuin module or a focused config file for selected portable settings.
-- Preserve the owner's Enter behaviour, then capture chosen search/filter mode, appearance and sync preferences from the current file. Do not invent preferences for settings currently left at defaults.
-- If switching to Home Manager's shell integration, remove duplicate manual initialization so Atuin is initialized once.
-- Keep history databases, session IDs, account tokens and sync encryption keys outside ordinary Nix-managed configuration. Document login and history import only where needed.
+## Validation
 
-## Acceptance
+`just build-home personal hamishwhc` and `just build-home atlassian hcox` passed on 2026-10-25. The generated `config.toml` contains the declared settings and `.zshrc` initializes Atuin once. No switch was performed.
 
-- A fresh setup receives the intended portable settings and one Zsh initialization path.
-- Existing history and account state survive adoption and repeated activation.
-- Remaining login/import steps are documented in `SETUP.md`.
-- Use `just build-home` under the [backlog validation rules](README.md#validation), with no switch.
+## Remaining human verification
 
-Starting point: [Atuin configuration](https://docs.atuin.sh/configuration/config/), plus the pinned Home Manager module.
+- After switching, confirm Ctrl-R/up-arrow open Atuin with existing history and that Enter runs the selected command.

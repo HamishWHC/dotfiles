@@ -13,7 +13,7 @@ Finished, closed and dropped tickets have been removed; their implementations li
 | Ticket | Priority | Status / remaining work |
 | --- | --- | --- |
 | [Shottr](shottr.md) | High | Implemented and build-validated: preferences, native screenshot shortcut overrides and automatic license activation via deep link. Human activation remains. |
-| [Atuin](atuin.md) | Normal | Open: package and one Zsh initialization exist; portable settings such as `enter_accept` and sync preferences are not managed. |
+| [Atuin](atuin.md) | Normal | Implemented and build-validated: Home Manager module with `enter_accept` and record sync; history and keys stay local. Human activation remains. |
 | [Docker / OrbStack](orbstack.md) | High | Open: packages, client ownership and SSH include exist; runtime preferences, CLI prompt diagnosis and selective Docker context/credential-helper setup remain. Use OrbStack Free. |
 | [Shell utilities](shell-utilities.md) | Low | Optional inventory: packages, fzf-tab and bat pagers already exist. Identify an actual portable preference gap or close with evidence that the existing setup suffices. |
 
