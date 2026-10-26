@@ -1,7 +1,9 @@
 {
   flake.features.git.homeManager =
-    { config, ... }:
+    { config, pkgs, ... }:
     {
+      home.packages = [ pkgs.unstable.gh ];
+
       programs.git = {
         enable = true;
 
