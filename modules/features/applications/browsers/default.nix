@@ -9,7 +9,7 @@
     homeManager = { lib, pkgs, ... }: {
       imports = [ self.features.firefox.homeManager ];
 
-      home.packages = lib.mkIf (pkgs.stdenv.isLinux) pkgs.unstable.ungoogled-chromium;
+      home.packages = lib.mkIf (pkgs.stdenv.isLinux) [ pkgs.unstable.ungoogled-chromium ];
     };
   };
 }
