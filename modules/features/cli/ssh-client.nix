@@ -75,26 +75,43 @@
               "linkGeneration"
               "createSshSocketDirectory"
             ]
-            ''
-              # The installer invokes launchctl by name, but Home Manager's
-              # activation PATH excludes macOS system commands.
-              run ${pkgs.coreutils}/bin/env PATH="${lib.optionalString pkgs.stdenv.isDarwin "/bin:"}$PATH" \
-                ${lib.getExe pkgs.ssh-agent-mux} --install-service
-              ${
-                if pkgs.stdenv.isDarwin then
-                  ''
-                    # Version 0.2.0 installs a disabled launch agent; its restart command
-                    # also uses an invalid launchctl status target. Enable/load directly.
-                    if ! /bin/launchctl print "gui/$(id -u)/net.ross-williams.ssh-agent-mux" >/dev/null 2>&1; then
-                      run /bin/launchctl load -w ${lib.escapeShellArg "${config.home.homeDirectory}/Library/LaunchAgents/net.ross-williams.ssh-agent-mux.plist"}
+            (
+              if pkgs.stdenv.isDarwin then
+                ''
+                  # The installer invokes launchctl by name, but Home Manager's
+                  # activation PATH excludes macOS system commands.
+                  run ${pkgs.coreutils}/bin/env PATH="/bin:$PATH" \
+                    ${lib.getExe pkgs.ssh-agent-mux} --install-service
+
+                  # Version 0.2.0 installs a disabled launch agent; its restart command
+                  # also uses an invalid launchctl status target. Enable/load directly.
+                  if ! /bin/launchctl print "gui/$(id -u)/net.ross-williams.ssh-agent-mux" >/dev/null 2>&1; then
+                    run /bin/launchctl load -w ${lib.escapeShellArg "${config.home.homeDirectory}/Library/LaunchAgents/net.ross-williams.ssh-agent-mux.plist"}
+                  fi
+                ''
+              else
+                ''
+                  (
+                    # The installer only detects systemd by finding `systemctl` on PATH,
+                    # which Home Manager's NixOS activation PATH lacks. The subshell keeps
+                    # these exports out of later activation steps.
+                    export PATH="${pkgs.systemd}/bin:$PATH"
+                    export XDG_RUNTIME_DIR="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+
+                    # Activation also runs at boot, before the user manager exists. The
+                    # unit stays enabled from the last install, so it starts on login.
+                    if systemctl --user show-environment >/dev/null 2>&1; then
+                      run ${lib.getExe pkgs.ssh-agent-mux} --install-service
+                      # The unit's ExecStart is a store path; reload before restarting
+                      # so an updated binary is picked up.
+                      run systemctl --user daemon-reload
+                      run ${lib.getExe pkgs.ssh-agent-mux} --restart-service
+                    else
+                      verboseEcho "Skipping ssh-agent-mux service install: user systemd manager is not running"
                     fi
-                  ''
-                else
-                  ''
-                    run ${lib.getExe pkgs.ssh-agent-mux} --restart-service
-                  ''
-              }
-            '';
+                  )
+                ''
+            );
       };
     };
 }

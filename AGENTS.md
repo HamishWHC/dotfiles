@@ -7,7 +7,7 @@
 ## Testing
 
 - Only use `just build-home` and `just build-system` to test changes.
-- Never run a system switch. Instead, inform the human when a system switch may be appropriate so they can decide whether to perform it.
+- Never run a system switch on the host system. Instead, inform the human when a system switch may be appropriate so they can decide whether to perform it. You can run system switches on VMs when you like.
 
 ## Setup documentation
 

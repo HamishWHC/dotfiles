@@ -18,6 +18,9 @@ user:
   # lima-start replaces these placeholders with the host user and guest home.
   name: lima
   home: /home/lima
+  # Lima defaults to the host UID (501 on macOS), which Linux treats as a
+  # system account; the Noctalia greeter hides users below 1000.
+  uid: 1000
 
 mountType: virtiofs
 mounts:

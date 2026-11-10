@@ -5,8 +5,7 @@
 
     # Desktop Environment
     self.features.gnome-keyring
-    self.features.tuigreet
-    self.features.sway
+    self.features.noctalia
 
     # Desktop Apps
     self.features.ghostty

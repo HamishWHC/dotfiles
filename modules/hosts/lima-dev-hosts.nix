@@ -46,6 +46,8 @@
               mutableUsers = true;
               users.${username} = {
                 isNormalUser = true;
+                # Must match `user.uid` in lima/nixos.yaml.
+                uid = 1000;
                 home = "/home/${username}";
                 extraGroups = [ "wheel" ];
               };
