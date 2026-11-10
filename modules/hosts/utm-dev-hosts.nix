@@ -89,7 +89,7 @@ let
         # See WLR_NO_HARDWARE_CURSORS; this is Umbriel's own setting.
         input.cursor.hardware_cursor = false;
         # The VM display is a fixed native (Retina) resolution; see utm/recipes.just.
-        output.Virtual-1.scale = 2.0;
+        output.Virtual-1.scale = 1.25;
       };
     };
 

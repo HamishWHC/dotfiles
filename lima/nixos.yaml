@@ -30,10 +30,9 @@ mounts:
     mountPoint: /home/lima/dotfiles
     writable: true
 
-# Every profile has a graphical console. With the VZ backend Lima presents it
-# in a native window; the server profile can simply be treated as unmonitored.
+# lima-start enables the VZ display window for hosts with a graphical desktop.
 video:
-  display: vz
+  display: none
 
 portForwards:
   # Avoid intercepting host DHCP traffic; see nixos-lima issue #50.

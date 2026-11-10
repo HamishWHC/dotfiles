@@ -14,7 +14,7 @@ CACHE = REPOSITORY / ".just-hosts.just"
 
 def nix_eval(installable: str, description: str) -> list[str]:
     result = subprocess.run(
-        ["nix", "eval", "--json", installable, "--apply", "builtins.attrNames"],
+        ["nix", "eval", "--option", "accept-flake-config", "true", "--json", installable, "--apply", "builtins.attrNames"],
         cwd=REPOSITORY,
         check=True,
         stdout=subprocess.PIPE,
@@ -52,6 +52,28 @@ def main() -> None:
                 f"usernames for {host}",
             )
 
+    graphical_hosts = [
+        host
+        for host in sorted(hosts_by_type["nixos"])
+        if json.loads(
+            subprocess.run(
+                [
+                    "nix",
+                    "eval",
+                    "--option",
+                    "accept-flake-config",
+                    "true",
+                    "--json",
+                    f".#nixosConfigurations.{json.dumps(host)}.config.services.graphical-desktop.enable",
+                ],
+                cwd=REPOSITORY,
+                check=True,
+                stdout=subprocess.PIPE,
+                text=True,
+            ).stdout
+        )
+    ]
+
     host_pattern = "|".join(re.escape(host) for host in hosts)
     type_patterns = {
         config_type: "|".join(re.escape(host) for host in sorted(typed_hosts))
@@ -73,6 +95,7 @@ def main() -> None:
             f"nixos_hosts := {json.dumps(type_patterns['nixos'])}",
             f"lima_nixos_hosts := {json.dumps(short_hosts('lima-nixos-'))}",
             f"utm_nixos_hosts := {json.dumps(short_hosts('utm-nixos-'))}",
+            f"graphical_hosts := {json.dumps('|'.join(re.escape(host) for host in graphical_hosts))}",
             f"host_users := {json.dumps(host_users_json)}",
             "",
         ]

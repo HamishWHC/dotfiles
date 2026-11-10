@@ -14,8 +14,14 @@ lima-name host:
 [arg("host", pattern=lima_nixos_hosts, help="the shortened NixOS host to run")]
 [script]
 lima-start host:
-    host={{ quote(host) }}
-    instance="$(scripts/vm-instance-name.sh lima "$host")"
+    just lima-start-instance \
+        "$(scripts/vm-instance-name.sh lima {{ quote(host) }})" \
+        {{ if "lima-nixos-" + host =~ "^(" + graphical_hosts + ")$" { "vz" } else { "none" } }}
+
+[private]
+[script]
+lima-start-instance instance display:
+    instance={{ quote(instance) }}
     project_dir="$(pwd -P)"
     username={{ quote(lima_username) }}
     guest_home="/home/${username}"
@@ -36,11 +42,13 @@ lima-start host:
     username_json="$(jq --null-input --arg value "$username" '$value')"
     guest_home_json="$(jq --null-input --arg value "$guest_home" '$value')"
     guest_config_dir_json="$(jq --null-input --arg value "$guest_config_dir" '$value')"
+    display_json="$(jq --null-input --arg value {{ quote(display) }} '$value')"
     set_expression="
         .mounts[0].location = ${project_dir_json}
         | .mounts[0].mountPoint = ${guest_config_dir_json}
         | .user.name = ${username_json}
         | .user.home = ${guest_home_json}
+        | .video.display = ${display_json}
     "
     limactl start --yes \
         --name "$instance" \

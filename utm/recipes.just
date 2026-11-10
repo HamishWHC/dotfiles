@@ -3,13 +3,11 @@ utm_guest_config_dir := "/home/" + utm_username + "/dotfiles"
 utm_ssh_key := x'${XDG_DATA_HOME:-$HOME/.local/share}/dotfiles/utm_ed25519'
 utmctl := "/Applications/UTM.app/Contents/MacOS/utmctl"
 utm_ssh_options := "-i " + quote(utm_ssh_key) + " -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR"
-# macOS can't build aarch64-linux images, so a Lima VM builds them.
-utm_image_builder := "server"
 utm_memory := "8192"
 utm_cpus := "4"
 # UTM can't resize Wayland guests to fit the window (that needs the X11-only
-# SPICE agent), so the display is fixed. With native resolution on and the
-# guest at scale 2, this opens a sharp 1280x800-point window.
+# SPICE agent), so the display is fixed. With native resolution on, this opens
+# a 1280x800-point window; the guest's 1.25 scale gives a 2048x1280 workspace.
 utm_display_width := "2560"
 utm_display_height := "1600"
 
@@ -40,14 +38,16 @@ utm-runtime:
 [group("UTM NixOS")]
 [script]
 utm-image: utm-runtime
-    builder={{ quote(utm_image_builder) }}
-    just lima-start "$builder"
-    builder_instance="$(scripts/vm-instance-name.sh lima "$builder")"
+    # macOS can't build aarch64-linux images, so a throwaway Lima VM running the
+    # stock nixos-lima image builds it.
+    builder="$(scripts/vm-instance-name.sh lima builder)"
+    trap 'limactl delete --force "$builder" >/dev/null 2>&1 || true' EXIT
+    just lima-start-instance "$builder" none
     mkdir -p utm/images
 
     # The image's store path only exists in the builder, so copy it out through
     # the worktree mount. "auto" sizes it to fit, so grow it for the guest.
-    limactl shell --workdir {{ quote(lima_guest_config_dir) }} "$builder_instance" -- sh -eu -c '
+    limactl shell --workdir {{ quote(lima_guest_config_dir) }} "$builder" -- sh -eu -c '
         image="$(nix build --option accept-flake-config true --no-link --print-out-paths \
             "path:.#packages.aarch64-linux.utm-bootstrap-image")"
         install -m 0644 "$image"/*.qcow2 utm/images/bootstrap.qcow2
