@@ -83,7 +83,11 @@
       # installed copy so macOS does not treat them as separate applications.
       home.packages = lib.optional pkgs.stdenv.isDarwin (lib.hiPrio vscodeCli);
       programs.vscode.enable = true;
-      programs.vscode.package = pkgs.unstable.vscode;
+      # On Linux both editors install the same lib/vscode tree, which collides in
+      # the profile. Each launcher uses its own store path, so either can win.
+      # On macOS they are separate app bundles, and the CLI shim above must win.
+      programs.vscode.package =
+        if pkgs.stdenv.isLinux then lib.hiPrio pkgs.unstable.vscode else pkgs.unstable.vscode;
       programs.vscodium = shared;
       programs.zsh.shellAliases.cdf = "code ${configDir}";
 

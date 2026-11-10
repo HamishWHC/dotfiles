@@ -9,7 +9,9 @@
     homeManager = { lib, pkgs, ... }: {
       imports = [ self.features.firefox.homeManager ];
 
-      home.packages = lib.mkIf (pkgs.stdenv.isLinux) [ pkgs.unstable.ungoogled-chromium ];
+      # Stable, because Hydra builds unstable's aarch64-linux Chromium late and
+      # compiling it locally takes hours.
+      home.packages = lib.mkIf (pkgs.stdenv.isLinux) [ pkgs.ungoogled-chromium ];
     };
   };
 }

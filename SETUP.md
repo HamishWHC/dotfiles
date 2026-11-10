@@ -13,7 +13,7 @@
 3. Configure Thaw's hidden apps.
 4. Configure Firefox/Chromium, install your extensions and sign into browser services. Configure Velja and select it as the default browser.
 5. Open and configure OrbStack using the **Free** edition; complete its initial setup.
-6. Sign into and configure Codex and Claude Code, including MCP servers and skills.
+6. Sign into and configure Codex and Claude Code, including MCP servers and skills. Install T3 Code from https://t3.codes/.
 7. Restore SSH keys and local Git/SSH configuration.
 8. Configure AWS and Kubernetes authentication as needed.
 9. Configure Atuin and sign in if using history sync.
