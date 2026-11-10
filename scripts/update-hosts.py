@@ -57,13 +57,13 @@ def main() -> None:
         config_type: "|".join(re.escape(host) for host in sorted(typed_hosts))
         for config_type, typed_hosts in hosts_by_type.items()
     }
-    lima_nixos_prefix = "lima-nixos-"
-    lima_nixos_hosts = sorted(
-        host.removeprefix(lima_nixos_prefix)
-        for host in hosts_by_type["nixos"]
-        if host.startswith(lima_nixos_prefix)
-    )
-    lima_nixos_host_pattern = "|".join(re.escape(host) for host in lima_nixos_hosts)
+    def short_hosts(prefix: str) -> str:
+        return "|".join(
+            re.escape(host.removeprefix(prefix))
+            for host in sorted(hosts_by_type["nixos"])
+            if host.startswith(prefix)
+        )
+
     host_users_json = json.dumps(host_users, separators=(",", ":"))
     contents = "\n".join(
         [
@@ -71,7 +71,8 @@ def main() -> None:
             f"valid_hosts := {json.dumps(host_pattern)}",
             f"darwin_hosts := {json.dumps(type_patterns['darwin'])}",
             f"nixos_hosts := {json.dumps(type_patterns['nixos'])}",
-            f"lima_nixos_hosts := {json.dumps(lima_nixos_host_pattern)}",
+            f"lima_nixos_hosts := {json.dumps(short_hosts('lima-nixos-'))}",
+            f"utm_nixos_hosts := {json.dumps(short_hosts('utm-nixos-'))}",
             f"host_users := {json.dumps(host_users_json)}",
             "",
         ]

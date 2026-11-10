@@ -2,3 +2,5 @@
 /lima/runtime.json
 .DS_Store
 .decrypted~*
+/utm/runtime.json
+/utm/images/

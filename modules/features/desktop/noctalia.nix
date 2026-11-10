@@ -1,4 +1,16 @@
 { inputs, ... }:
+let
+  caches = {
+    extra-substituters = [
+      "https://noctalia.cachix.org"
+      "https://umbriel.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+      "umbriel.cachix.org-1:JfNq/2yg2S6D6z4Z2dVSZrZlDPQTKtexB6GAVLD98nw="
+    ];
+  };
+in
 {
   # No `inputs.nixpkgs.follows`: overriding nixpkgs changes the derivations and
   # misses the Cachix caches. The `cachix` branches only advance once CI has
@@ -12,6 +24,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
+
+  # A fresh VM's nix.conf lacks the caches until its first switch, and
+  # compiling the stack from source runs an 8 GiB VM out of memory. The build
+  # recipes accept this flake config so the first build is cached too.
+  flake-file.nixConfig = caches;
 
   flake.features.noctalia = {
     nixos =
@@ -29,16 +46,7 @@
           inputs.noctalia-greeter.nixosModules.default
         ];
 
-        nix.settings = {
-          extra-substituters = [
-            "https://noctalia.cachix.org"
-            "https://umbriel.cachix.org"
-          ];
-          extra-trusted-public-keys = [
-            "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
-            "umbriel.cachix.org-1:JfNq/2yg2S6D6z4Z2dVSZrZlDPQTKtexB6GAVLD98nw="
-          ];
-        };
+        nix.settings = caches;
 
         programs.umbriel.enable = true;
 

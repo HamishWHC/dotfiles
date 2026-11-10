@@ -26,6 +26,7 @@
     self.features.cybersec
     self.features.ai
     self.features.lima
+    self.features.utm
     self.features.just
     self.features.secretspec
   ];
