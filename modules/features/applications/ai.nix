@@ -1,17 +1,11 @@
 {
-  flake.features.ai = {
-    darwin = {
-      homebrew.casks = [
-        "paseo"
+  flake.features.ai.homeManager =
+    { pkgs, ... }:
+    {
+      home.packages = [
+        pkgs.unstable.claude-code
+        pkgs.unstable.codex
+        pkgs.unstable.t3code
       ];
     };
-    homeManager =
-      { pkgs, ... }:
-      {
-        home.packages = [
-          pkgs.unstable.claude-code
-          pkgs.unstable.codex
-        ];
-      };
-  };
 }

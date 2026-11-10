@@ -11,6 +11,9 @@
     self.features.ghostty
     self.features.browsers
 
+    # Enables local dotfiles development
+    self.features.vscode
+
     # MacOS Configuration
     self.features.macos
     self.features.macos-necessities

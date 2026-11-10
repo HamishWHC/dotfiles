@@ -18,9 +18,13 @@
     in
     {
       imports = [
+        # Tools needed (or heavily recommended) to develop in the repo.
+        # Enables tweaking config from the gaming setup, etc.
         self.features.just.homeManager
         self.features.nix-tools.homeManager
         self.features.jq.homeManager
+        self.features.uv.homeManager
+        self.features.ai.homeManager
       ];
 
       # Used as the default targets by the repository justfile.

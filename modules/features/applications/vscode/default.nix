@@ -81,7 +81,7 @@
       # The VS Code package's CLI resolves its app bundle in the Nix store, while
       # Home Manager copies the bundle into Applications. Point the CLI at that
       # installed copy so macOS does not treat them as separate applications.
-      home.packages = [ (lib.hiPrio vscodeCli) ];
+      home.packages = lib.optional pkgs.stdenv.isDarwin (lib.hiPrio vscodeCli);
       programs.vscode.enable = true;
       programs.vscode.package = pkgs.unstable.vscode;
       programs.vscodium = shared;
