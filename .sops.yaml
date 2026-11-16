@@ -9,6 +9,8 @@ definitions:
     - &atlassian_old age10uqazprqk5jfkvh2snlc8yavmacmzhlsxhn0tdpxa5j9ptf97q4sejxehq
     # Atlassian Work Laptop (HH9RR9V792)
     - &atlassian age19fpe8z9dr0gyz3c32c0rhd6rt9jvgqzp4wjwz5gxhxj9m89cq45qxskf2v
+    # Gaming PC
+    - &gaming age1t6xfgv9narx5vs58lqq5n73sqzkxc64d2r0xgn66w4vqa0khk58s722frq
 
 creation_rules:
   # Secrets default to all devices.
