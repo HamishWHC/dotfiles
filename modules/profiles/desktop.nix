@@ -10,6 +10,7 @@
     # Desktop Apps
     self.features.ghostty
     self.features.browsers
+    self.features.one-password
 
     # Enables local dotfiles development
     self.features.vscode
