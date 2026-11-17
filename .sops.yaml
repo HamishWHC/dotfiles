@@ -3,10 +3,8 @@
 definitions:
   keys: &all_devices
     # Personal Macbook Pro
-    - &personal age1q4xrt58ufwd422kcefqumqmtnf4lc344cytdejzfm86vlm4aavfq9tve68
-    - &personal-secure-enclave age1tag1qdx0qngaq4yel29a38p527fvlpnsdku2u6zekpnn3g3qtmjuqchh7amzegf
-    # Old Atlassian Work Laptop (NWNNHQ73P7)
-    - &atlassian_old age10uqazprqk5jfkvh2snlc8yavmacmzhlsxhn0tdpxa5j9ptf97q4sejxehq
+    - &personal_old age1q4xrt58ufwd422kcefqumqmtnf4lc344cytdejzfm86vlm4aavfq9tve68
+    - &personal age1rqfcpyckp42kpytqmd6k5l2nzxjf4zx0d3nncy84g7kxg0rgvdks4r9wsx
     # Atlassian Work Laptop (HH9RR9V792)
     - &atlassian age19fpe8z9dr0gyz3c32c0rhd6rt9jvgqzp4wjwz5gxhxj9m89cq45qxskf2v
     # Gaming PC
