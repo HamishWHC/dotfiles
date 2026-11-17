@@ -1,10 +1,10 @@
 {
   flake.features.thaw = {
-    homeManager = { lib, pkgs, ... }: {
-      home.packages = lib.mkIf pkgs.stdenv.isDarwin [ pkgs.unstable.thaw ];
-    };
-
     darwin = {
+      homebrew.casks = [
+        "thaw@beta"
+      ];
+
       system.defaults.CustomUserPreferences."com.stonerl.Thaw" = {
         ShowIceIcon = true;
         ShowOnClick = true;
