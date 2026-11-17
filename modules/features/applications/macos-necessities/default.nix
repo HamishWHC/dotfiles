@@ -5,7 +5,6 @@
         self.features.mac-mouse-fix.homeManager
         self.features.secretive.homeManager
         self.features.shottr.homeManager
-        self.features.thaw.homeManager
       ];
 
       home.packages = lib.mkIf (pkgs.stdenv.isDarwin) (
