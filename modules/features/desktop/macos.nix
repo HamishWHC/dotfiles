@@ -47,6 +47,7 @@
             mineffect = "genie"; # Window minimization animation
             minimize-to-application = false; # Minimize into application icon
             mru-spaces = false; # Reorder Spaces by recent use
+            show-recents = false; # Show suggested and recent apps
             showAppExposeGestureEnabled = true; # Gesture shows application windows
           };
 
@@ -76,6 +77,8 @@
             Clicking = false; # Tap trackpad to click
             TrackpadRightClick = true; # Two-finger secondary click
             ForceSuppressed = false; # Suppress trackpad Force Click
+            FirstClickThreshold = 0; # Light click pressure
+            SecondClickThreshold = 0; # Light Force Click pressure
             TrackpadThreeFingerDrag = false; # Drag with three fingers
             TrackpadThreeFingerVertSwipeGesture = 2; # Three-finger vertical window gestures
             TrackpadFourFingerVertSwipeGesture = 2; # Four-finger vertical window gestures
@@ -106,6 +109,8 @@
               NSAutomaticTextCompletionCollapsed = false; # Collapsed text completion setting
               WebAutomaticSpellingCorrectionEnabled = false; # Automatically correct web spelling
             };
+
+            "com.apple.controlcenter".NumberOfRecents = 0; # Recent documents, applications and servers
 
             # Hold Option while scrolling to zoom
             # TODO: Figure out why this fails on Atlassian laptops.
@@ -242,6 +247,17 @@
         ...
       }:
       lib.mkIf pkgs.stdenv.isDarwin {
+        # Menu bar items. nix-darwin's controlcenter options cannot express
+        # "Show When Active", so write the raw ByHost values instead.
+        # 2 = Show When Active, 8 = hidden, 18 = Always Show.
+        targets.darwin.currentHostDefaults."com.apple.controlcenter" = {
+          Spotlight = 8;
+          WiFi = 8;
+          Bluetooth = 8;
+          FocusModes = 2;
+          Sound = 18;
+        };
+
         home.activation.macosPreferences = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
           run mkdir -p ${lib.escapeShellArg "${config.home.homeDirectory}/Desktop/Screen Captures"}
         '';

@@ -11,6 +11,7 @@
     self.features.ghostty
     self.features.browsers
     self.features.one-password
+    self.features.discord
 
     # Enables local dotfiles development
     self.features.vscode

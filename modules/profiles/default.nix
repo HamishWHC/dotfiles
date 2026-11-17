@@ -21,5 +21,6 @@
     self.features.xdg
     self.features.ssh-client
     self.features.fonts
+    self.features.rclone
   ];
 }
