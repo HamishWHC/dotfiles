@@ -52,6 +52,47 @@
               })
             ];
 
+            # Audeze Maxwell: the dongle has two hardware outputs, hw:N,0
+            # "Chat" (with the mic) and hw:N,1 "Game", and mixes them itself
+            # according to the headset's Game/Chat dial. PipeWire's bundled
+            # usb-gaming-headset profile set exposes both as separate sinks.
+            services.pipewire.wireplumber.extraConfig."51-audeze-maxwell" = {
+              "monitor.alsa.rules" = [
+                {
+                  matches = [ { "device.name" = "~alsa_card\\.usb-Audeze_LLC_Audeze_Maxwell.*"; } ];
+                  actions.update-props = {
+                    "device.profile-set" = "usb-gaming-headset.conf";
+                    "device.profile" = "output:stereo-game+output:stereo-chat+input:mono-chat";
+                  };
+                }
+                {
+                  matches = [ { "node.name" = "~alsa_output\\.usb-Audeze_LLC_Audeze_Maxwell.*\\.stereo-game$"; } ];
+                  actions.update-props = {
+                    "node.description" = "Audeze Maxwell Game";
+                    "node.nick" = "Maxwell Game";
+                    "priority.session" = 1100;
+                    "priority.driver" = 1100;
+                  };
+                }
+                {
+                  matches = [ { "node.name" = "~alsa_output\\.usb-Audeze_LLC_Audeze_Maxwell.*\\.stereo-chat$"; } ];
+                  actions.update-props = {
+                    "node.description" = "Audeze Maxwell Chat";
+                    "node.nick" = "Maxwell Chat";
+                    "priority.session" = 1000;
+                    "priority.driver" = 1000;
+                  };
+                }
+                {
+                  matches = [ { "node.name" = "~alsa_input\\.usb-Audeze_LLC_Audeze_Maxwell.*"; } ];
+                  actions.update-props = {
+                    "node.description" = "Audeze Maxwell Microphone";
+                    "node.nick" = "Maxwell Mic";
+                  };
+                }
+              ];
+            };
+
             # RTX 4070 Ti.
             services.xserver.videoDrivers = [ "nvidia" ];
             hardware = {

@@ -96,6 +96,7 @@ Workspaces belong to individual monitors.
 | Mod+Space | Toggle launcher/search |
 | Mod+grave (backtick key) | Open Ghostty |
 | Mod+Shift+A | Screenshot and annotate |
+| Mod+Shift+Space | 1Password Quick Access |
 | Mod+/ | Toggle live keybind cheatsheet |
 | Mod+Escape | Quit session (confirmation) |
 | Mod+Shift+Escape | Toggle shortcut inhibition for the focused app |
