@@ -4,6 +4,9 @@ My personal dotfiles for my macOS devices as a nix flake configured with nix-dar
 
 See [SETUP.md](SETUP.md) for manual setup notes.
 
+See [the NixOS desktop reference](docs/nixos-desktop.md) for Umbriel keybinds,
+monitor scaling, Noctalia controls, and browser defaults.
+
 ## Secrets
 
 Secrets are encrypted with [sops-nix](https://github.com/Mic92/sops-nix) and age.

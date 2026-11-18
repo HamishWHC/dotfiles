@@ -1,0 +1,19 @@
+id = "dotfiles/browser-selector"
+name = "Default Browser"
+version = "1.0.0"
+plugin_api = 24
+author = "dotfiles"
+description = "Choose the browser and privacy mode used for links."
+icon = "world"
+
+[[widget]]
+id = "browser"
+entry = "widget.luau"
+
+[[panel]]
+id = "picker"
+entry = "panel.luau"
+width = 300
+height = 250
+placement = "attached"
+open_near_click = true

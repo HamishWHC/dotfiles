@@ -6,6 +6,7 @@
         ...
       }:
       {
+        time.timeZone = "Australia/Sydney";
         system.primaryUser = username;
         users.users.${username}.home = "/Users/${username}";
         system.stateVersion = 7;

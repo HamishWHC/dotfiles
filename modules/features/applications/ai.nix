@@ -2,6 +2,10 @@
   flake.features.ai.homeManager =
     { lib, pkgs, ... }:
     {
+      xdg.mimeApps.defaultApplications = lib.mkIf pkgs.stdenv.isLinux {
+        "x-scheme-handler/t3code" = [ "com.t3tools.T3Code.desktop" ];
+      };
+
       home.packages = [
         pkgs.unstable.claude-code
         pkgs.unstable.codex

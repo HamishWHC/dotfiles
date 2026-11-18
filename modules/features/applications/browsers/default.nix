@@ -7,7 +7,10 @@
       };
     };
     homeManager = { lib, pkgs, ... }: {
-      imports = [ self.features.firefox.homeManager ];
+      imports = [
+        self.features.firefox.homeManager
+        ./selector/_home.nix
+      ];
 
       # Stable, because Hydra builds unstable's aarch64-linux Chromium late and
       # compiling it locally takes hours.

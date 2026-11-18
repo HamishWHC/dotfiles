@@ -79,13 +79,66 @@ in
 
     homeManager =
       {
+        config,
         lib,
         pkgs,
         osConfig,
         ...
       }:
+      let
+        # Remove unused inherited bindings so the live cheatsheet stays concise.
+        startingConfig = builtins.fromTOML (builtins.readFile "${inputs.umbriel}/examples/config.toml");
+        baseConfig = (pkgs.formats.toml { }).generate "umbriel-base.toml" (
+          startingConfig
+          // {
+            keybinds = builtins.removeAttrs startingConfig.keybinds [
+              "Mod+Return"
+              "Mod"
+              "Mod+H"
+              "Mod+J"
+              "Mod+K"
+              "Mod+L"
+              "Mod+F1"
+              "Mod+M"
+              "Mod+Ctrl+Minus"
+              "Mod+Ctrl+Equal"
+              "Mod+Shift+Space"
+              "Mod+Space"
+              "Mod+Ctrl+Space"
+              "Mod+Tab"
+            ];
+          }
+        );
+      in
       {
-        imports = [ inputs.umbriel.homeModules.default ];
+        imports = [
+          inputs.umbriel.homeModules.default
+          inputs.noctalia.homeModules.default
+        ];
+
+        home.pointerCursor = lib.mkIf pkgs.stdenv.isLinux {
+          package = pkgs.bibata-cursors;
+          name = "Bibata-Modern-Classic";
+          size = 32;
+          gtk.enable = true;
+          x11.enable = true;
+        };
+        gtk.enable = lib.mkIf pkgs.stdenv.isLinux true;
+
+        programs.noctalia = lib.mkIf pkgs.stdenv.isLinux {
+          enable = true;
+          package = osConfig.programs.noctalia.package;
+          settings = {
+            bar.default.start = [
+              "launcher"
+              "wallpaper"
+              "workspaces"
+              "browser"
+            ];
+            plugins.enabled = [ "dotfiles/browser-selector" ];
+            widget.browser.type = "dotfiles/browser-selector:browser";
+          };
+        };
 
         # The desktop profile is shared with Darwin hosts.
         programs.umbriel = lib.mkIf pkgs.stdenv.isLinux {
@@ -94,19 +147,64 @@ in
           package = null;
           # Layer overrides on top of Umbriel's packaged starting config.
           settings = {
-            include.files = [ "${osConfig.programs.umbriel.package}/share/umbriel/config.toml" ];
+            include.files = [ baseConfig ];
             general.autostart = [ "noctalia" ];
-            keybinds = {
-              "Mod+Return" = {
-                action = "spawn ghostty";
-                repeat = false;
-              };
-              "Mod+S" = "spawn noctalia msg panel-toggle control-center";
-              "Mod+Shift+Comma" = "spawn noctalia msg settings-toggle";
-              "Alt+Tab" = "spawn noctalia msg window-switcher hold";
-              "Alt+Shift+Tab" = "spawn noctalia msg window-switcher hold reverse";
-              "Mod+Shift+A" = "spawn noctalia msg screenshot-annotate";
+            input.cursor = {
+              theme = config.home.pointerCursor.name;
+              size = config.home.pointerCursor.size;
             };
+            keybinds =
+              (builtins.listToAttrs (
+                map (index: {
+                  name = "Mod+Alt+${toString index}";
+                  value = "column-focus-tab ${toString index}";
+                }) (lib.range 1 9)
+              ))
+              // {
+                "Mod+Space" = {
+                  action = "spawn noctalia msg panel-toggle launcher";
+                  repeat = false;
+                };
+                "Mod+Left" = "window-focus-or-output-left";
+                "Mod+Right" = "window-focus-or-output-right";
+                "Mod+Alt+Left" = "column-move-tab-previous";
+                "Mod+Alt+Right" = "column-move-tab-next";
+                "Mod+Shift+Left" = "window-move-or-output-left";
+                "Mod+Shift+Right" = "window-move-or-output-right";
+                "Mod+Shift+Minus" = "window-modify-secondary-extent -0.02";
+                "Mod+Shift+Equal" = "window-modify-secondary-extent +0.02";
+                "Mod+F" = {
+                  action = "window-toggle-maximize";
+                  repeat = false;
+                };
+                "Mod+Ctrl+F" = {
+                  action = "window-toggle-fullscreen";
+                  repeat = false;
+                };
+                "Mod+grave" = {
+                  action = "spawn ghostty";
+                  repeat = false;
+                };
+                "Alt+Tab" = "spawn noctalia msg window-switcher hold";
+                "Alt+Shift+Tab" = "spawn noctalia msg window-switcher hold reverse";
+                "Mod+Shift+A" = "spawn noctalia msg screenshot-annotate";
+                "Mod+Slash" = {
+                  action = "cheatsheet-toggle";
+                  repeat = false;
+                };
+                "Mod+Ctrl+Left" = "output-focus-left";
+                "Mod+Ctrl+Right" = "output-focus-right";
+                "Mod+Ctrl+Shift+Left" = "window-move-to-output-left";
+                "Mod+Ctrl+Shift+Right" = "window-move-to-output-right";
+                "Mod+Comma" = {
+                  action = "window-consume-or-expel-left";
+                  repeat = false;
+                };
+                "Mod+Period" = {
+                  action = "window-consume-or-expel-right";
+                  repeat = false;
+                };
+              };
           };
         };
       };

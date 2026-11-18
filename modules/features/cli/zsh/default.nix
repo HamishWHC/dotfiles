@@ -1,10 +1,20 @@
 {
   flake.features.zsh = {
-    darwin = {
+    darwin = { lib, pkgs, username, ... }: {
+      programs.zsh.enable = true;
       programs.zsh.enableGlobalCompInit = false;
+      users.users.${username}.shell = pkgs.zsh;
+      # Existing macOS accounts are not in users.knownUsers. Set only their
+      # login shell rather than taking ownership of their UID and groups.
+      system.activationScripts.postActivation.text = lib.mkAfter ''
+        /usr/bin/dscl . -create ${lib.escapeShellArg "/Users/${username}"} UserShell /run/current-system/sw/bin/zsh
+      '';
     };
-    nixos = {
+    nixos = { pkgs, username, ... }: {
+      programs.zsh.enable = true;
       programs.zsh.enableGlobalCompInit = false;
+      users.defaultUserShell = pkgs.zsh;
+      users.users.${username}.shell = pkgs.zsh;
     };
 
     homeManager =
