@@ -20,6 +20,9 @@
               scale = 1.5;
             };
           };
+
+          # Lock screen on the Dell only, matched by model rather than port.
+          programs.noctalia.settings.lockscreen.monitors = [ "AW3225QF" ];
         };
 
         nixos =
@@ -28,6 +31,10 @@
             imports = [ ./_hardware-configuration.nix ];
 
             networking.hostName = "gaming";
+
+            # Show the login screen on the main monitor only.
+            services.displayManager.noctalia-greeter.settings.output.name =
+              "Dell Inc. AW3225QF 67R8YZ3";
 
             boot.loader = {
               efi.canTouchEfiVariables = true;

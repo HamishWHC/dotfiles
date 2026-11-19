@@ -129,11 +129,48 @@ in
           enable = true;
           package = osConfig.programs.noctalia.package;
           settings = {
-            bar.default.start = [
-              "wallpaper"
-              "workspaces"
-              "browser"
-            ];
+            bar.default = {
+              start = [
+                "session"
+                "workspaces"
+              ];
+              center = [ ];
+              end = [
+                "browser"
+                "clipboard"
+                "tray"
+                "notifications"
+                "volume"
+                "control-center"
+                "clock"
+              ];
+              margin_ends = 0;
+              shadow = false;
+            };
+            idle = {
+              behavior_order = [
+                "lock"
+                "screen-off"
+                "lock-and-suspend"
+              ];
+              behavior = {
+                lock = {
+                  action = "lock";
+                  enabled = true;
+                  timeout = 300.0;
+                };
+                screen-off = {
+                  action = "screen_off";
+                  enabled = true;
+                  timeout = 360.0;
+                };
+                lock-and-suspend = {
+                  action = "lock_and_suspend";
+                  enabled = true;
+                  timeout = 600.0;
+                };
+              };
+            };
             plugins.enabled = [ "dotfiles/browser-selector" ];
             widget.browser.type = "dotfiles/browser-selector:browser";
           };

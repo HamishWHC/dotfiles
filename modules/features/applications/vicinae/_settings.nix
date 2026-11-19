@@ -11,6 +11,10 @@ let
   # Agents are run through an absolute npx: apps launched by the desktop do
   # not get the shell's PATH, so Vicinae cannot find Node.js on its own.
   npx = lib.getExe' pkgs.nodejs_26 "npx";
+
+  # The Claude adapter otherwise runs the generic Linux binary it downloads,
+  # which NixOS cannot execute, so point it at the Nix-built CLI.
+  claudeEnv = lib.optionalString pkgs.stdenv.isLinux "${lib.getExe' pkgs.coreutils "env"} CLAUDE_CODE_EXECUTABLE=${lib.getExe pkgs.unstable.claude-code} ";
 in
 {
   # Shortcuts live in Vicinae's data rather than its settings. They are added
@@ -46,7 +50,7 @@ in
             type = "acp";
             fields = {
               name = "Claude Code";
-              command = "${npx} -y @agentclientprotocol/claude-agent-acp@0.101.0";
+              command = "${claudeEnv}${npx} -y @agentclientprotocol/claude-agent-acp@0.101.0";
             };
           };
           codex = {
