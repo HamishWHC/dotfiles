@@ -100,6 +100,9 @@
               nvidia = {
                 open = true;
                 modesetting.enable = true;
+                # Save video memory across suspend; otherwise GPU clients crash
+                # on resume.
+                powerManagement.enable = true;
                 package = config.boot.kernelPackages.nvidiaPackages.stable;
               };
             };

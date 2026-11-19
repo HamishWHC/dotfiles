@@ -148,7 +148,12 @@ in
           # Layer overrides on top of Umbriel's packaged starting config.
           settings = {
             include.files = [ baseConfig ];
-            general.autostart = [ "noctalia" ];
+            general = {
+              autostart = [ "noctalia" ];
+              # Let X11 apps (e.g. Steam) render at full resolution instead of
+              # being upscaled; XSETTINGS tells them the output scale.
+              xwayland_native_resolution = true;
+            };
             input.cursor = {
               theme = config.home.pointerCursor.name;
               size = config.home.pointerCursor.size;
