@@ -6,6 +6,7 @@
     configDir = "/home/hamishwhc/Documents/Projects/dotfiles";
     features = [
       self.profiles.gaming
+      self.features.one-password
       {
         homeManager = {
           programs.umbriel.settings.output = {
@@ -40,6 +41,9 @@
               efi.canTouchEfiVariables = true;
               systemd-boot = {
                 enable = true;
+                # Use the firmware's highest display mode, so early boot text
+                # is drawn at native resolution rather than stretched.
+                consoleMode = "max";
                 configurationLimit = 10;
                 # Windows keeps its own ESP on the other drive, so systemd-boot
                 # chainloads its boot manager through the EDK2 shell.

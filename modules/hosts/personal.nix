@@ -6,6 +6,7 @@
     configDir = "/Users/hamishwhc/Documents/Projects/dotfiles";
     features = [
       self.profiles.workstation
+      self.features.one-password
       self.features.microslop
       {
         darwin = {

@@ -28,6 +28,9 @@
         settings = {
           url."git@bitbucket.org:".insteadOf = "https://bitbucket.org/";
           url."git@github.com:".insteadOf = "https://github.com/";
+          # Git uses the longest matching rule, so this keeps Noctalia's public
+          # plugin and template fetches on HTTPS instead of prompting for SSH keys.
+          url."https://github.com/noctalia-dev/".insteadOf = "https://github.com/noctalia-dev/";
           pull.rebase = false;
           init.defaultBranch = "main";
           core.excludesfile = "${config.xdg.configHome}/git/ignore";

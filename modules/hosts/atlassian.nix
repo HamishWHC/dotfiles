@@ -14,6 +14,8 @@
     usesCyberark = true;
     features = [
       self.profiles.workstation
+      # 1Password is not allowed on the work machine.
+      self.features.secretive
       {
         # Enable sudo Touch ID.
         darwin = {

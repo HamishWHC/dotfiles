@@ -10,7 +10,6 @@
     # Desktop Apps
     self.features.ghostty
     self.features.browsers
-    self.features.one-password
     self.features.discord
     self.features.vicinae
 

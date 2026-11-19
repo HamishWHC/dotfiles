@@ -6,9 +6,82 @@
       pkgs,
       ...
     }:
+    let
+      agents = config.dotfiles.ssh-client.agents;
+      # SSH talks to a single agent directly, so the agent sees the real
+      # requesting process. SSH Agent Mux only runs to combine several.
+      useMux = builtins.length agents > 1;
+      mux = lib.getExe pkgs.ssh-agent-mux;
+      muxPlist = "${config.home.homeDirectory}/Library/LaunchAgents/net.ross-williams.ssh-agent-mux.plist";
+      muxUnit = "ross-williams-ssh-agent-mux.service";
+
+      # The installer only detects systemd by finding `systemctl` on PATH,
+      # which Home Manager's NixOS activation PATH lacks. Each script runs in a
+      # subshell to keep these exports out of later activation steps.
+      systemdEnv = ''
+        export PATH="${pkgs.systemd}/bin:$PATH"
+        export XDG_RUNTIME_DIR="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+      '';
+
+      installMux =
+        if pkgs.stdenv.isDarwin then
+          ''
+            # The installer invokes launchctl by name, but Home Manager's
+            # activation PATH excludes macOS system commands.
+            run ${pkgs.coreutils}/bin/env PATH="/bin:$PATH" ${mux} --install-service
+
+            # Version 0.2.0 installs a disabled launch agent; its restart command
+            # also uses an invalid launchctl status target. Enable/load directly.
+            if ! /bin/launchctl print "gui/$(id -u)/net.ross-williams.ssh-agent-mux" >/dev/null 2>&1; then
+              run /bin/launchctl load -w ${lib.escapeShellArg muxPlist}
+            fi
+          ''
+        else
+          ''
+            (
+              ${systemdEnv}
+              # Activation also runs at boot, before the user manager exists. The
+              # unit stays enabled from the last install, so it starts on login.
+              if systemctl --user show-environment >/dev/null 2>&1; then
+                run ${mux} --install-service
+                # The unit's ExecStart is a store path; reload before restarting
+                # so an updated binary is picked up.
+                run systemctl --user daemon-reload
+                run ${mux} --restart-service
+              else
+                verboseEcho "Skipping ssh-agent-mux service install: user systemd manager is not running"
+              fi
+            )
+          '';
+
+      # Removes a service left by an earlier generation that used the mux.
+      uninstallMux =
+        if pkgs.stdenv.isDarwin then
+          ''
+            if [ -e ${lib.escapeShellArg muxPlist} ]; then
+              run /bin/launchctl unload -w ${lib.escapeShellArg muxPlist} || true
+              run ${pkgs.coreutils}/bin/env PATH="/bin:$PATH" ${mux} --uninstall-service
+            fi
+          ''
+        else
+          ''
+            (
+              ${systemdEnv}
+              if [ -e "${config.xdg.configHome}/systemd/user/${muxUnit}" ]; then
+                if systemctl --user show-environment >/dev/null 2>&1; then
+                  run systemctl --user disable --now ${muxUnit} || true
+                  run ${mux} --uninstall-service
+                  run systemctl --user daemon-reload
+                else
+                  verboseEcho "Skipping ssh-agent-mux service removal: user systemd manager is not running"
+                fi
+              fi
+            )
+          '';
+    in
     {
       options.dotfiles.ssh-client.agents = lib.mkOption {
-        description = "Upstream SSH agent socket paths for SSH Agent Mux, in the order keys should be offered.";
+        description = "Upstream SSH agent socket paths, in the order keys should be offered. With more than one, SSH Agent Mux combines them.";
         type = lib.types.listOf lib.types.str;
         default = [ ];
         example = [
@@ -34,8 +107,13 @@
             };
 
             "*" = {
-              # Use SSH agent mux to combine multiple agents.
-              IdentityAgent = "${config.home.homeDirectory}/.ssh/ssh-agent-mux.sock";
+              IdentityAgent = lib.mkIf (agents != [ ]) (
+                if useMux then
+                  "${config.home.homeDirectory}/.ssh/ssh-agent-mux.sock"
+                else
+                  # Quoted, as the macOS 1Password path contains a space.
+                  ''"${builtins.head agents}"''
+              );
 
               # Connection persistence options.
               ControlMaster = "auto";
@@ -61,57 +139,18 @@
             run ${pkgs.coreutils}/bin/chmod 0700 ${socketDirectory}
           '';
 
-        home.packages = [ pkgs.ssh-agent-mux ];
+        home.packages = lib.mkIf useMux [ pkgs.ssh-agent-mux ];
 
-        xdg.configFile."ssh-agent-mux/ssh-agent-mux.toml".source =
-          (pkgs.formats.toml { }).generate "ssh-agent-mux.toml"
-            {
-              agent_sock_paths = config.dotfiles.ssh-client.agents;
-            };
+        xdg.configFile."ssh-agent-mux/ssh-agent-mux.toml" = lib.mkIf useMux {
+          source = (pkgs.formats.toml { }).generate "ssh-agent-mux.toml" {
+            agent_sock_paths = agents;
+          };
+        };
 
-        home.activation.installSshAgentMuxService =
-          lib.hm.dag.entryAfter
-            [
-              "linkGeneration"
-              "createSshSocketDirectory"
-            ]
-            (
-              if pkgs.stdenv.isDarwin then
-                ''
-                  # The installer invokes launchctl by name, but Home Manager's
-                  # activation PATH excludes macOS system commands.
-                  run ${pkgs.coreutils}/bin/env PATH="/bin:$PATH" \
-                    ${lib.getExe pkgs.ssh-agent-mux} --install-service
-
-                  # Version 0.2.0 installs a disabled launch agent; its restart command
-                  # also uses an invalid launchctl status target. Enable/load directly.
-                  if ! /bin/launchctl print "gui/$(id -u)/net.ross-williams.ssh-agent-mux" >/dev/null 2>&1; then
-                    run /bin/launchctl load -w ${lib.escapeShellArg "${config.home.homeDirectory}/Library/LaunchAgents/net.ross-williams.ssh-agent-mux.plist"}
-                  fi
-                ''
-              else
-                ''
-                  (
-                    # The installer only detects systemd by finding `systemctl` on PATH,
-                    # which Home Manager's NixOS activation PATH lacks. The subshell keeps
-                    # these exports out of later activation steps.
-                    export PATH="${pkgs.systemd}/bin:$PATH"
-                    export XDG_RUNTIME_DIR="''${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
-
-                    # Activation also runs at boot, before the user manager exists. The
-                    # unit stays enabled from the last install, so it starts on login.
-                    if systemctl --user show-environment >/dev/null 2>&1; then
-                      run ${lib.getExe pkgs.ssh-agent-mux} --install-service
-                      # The unit's ExecStart is a store path; reload before restarting
-                      # so an updated binary is picked up.
-                      run systemctl --user daemon-reload
-                      run ${lib.getExe pkgs.ssh-agent-mux} --restart-service
-                    else
-                      verboseEcho "Skipping ssh-agent-mux service install: user systemd manager is not running"
-                    fi
-                  )
-                ''
-            );
+        home.activation.installSshAgentMuxService = lib.hm.dag.entryAfter [
+          "linkGeneration"
+          "createSshSocketDirectory"
+        ] (if useMux then installMux else uninstallMux);
       };
     };
 }

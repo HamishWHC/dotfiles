@@ -185,11 +185,7 @@ in
           settings = {
             include.files = [ baseConfig ];
             general = {
-              autostart = [
-                "noctalia"
-                # Tray only, so the SSH agent and Quick Access are available.
-                "1password --silent"
-              ];
+              autostart = [ "noctalia" ];
               # Let X11 apps (e.g. Steam) render at full resolution instead of
               # being upscaled; XSETTINGS tells them the output scale.
               xwayland_native_resolution = true;
@@ -233,12 +229,6 @@ in
                 "Alt+Tab" = "spawn noctalia msg window-switcher hold";
                 "Alt+Shift+Tab" = "spawn noctalia msg window-switcher hold reverse";
                 "Mod+Shift+A" = "spawn noctalia msg screenshot-annotate";
-                # Native Wayland apps cannot grab global shortcuts here, so the
-                # compositor opens 1Password Quick Access instead.
-                "Mod+Shift+Space" = {
-                  action = "spawn 1password --quick-access";
-                  repeat = false;
-                };
                 "Mod+Slash" = {
                   action = "cheatsheet-toggle";
                   repeat = false;
