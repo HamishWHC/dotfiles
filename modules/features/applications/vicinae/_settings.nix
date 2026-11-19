@@ -30,7 +30,7 @@ in
   ];
 
   shared = {
-    close_on_focus_loss = false;
+    close_on_focus_loss = true;
     pop_to_root_on_close = false;
     # Empty navigates back; "close_window" closes the launcher.
     escape_key_behavior = "";
