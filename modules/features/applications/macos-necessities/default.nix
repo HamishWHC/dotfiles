@@ -19,7 +19,6 @@
       imports = [
         self.features.closeup.darwin
         self.features.mac-mouse-fix.darwin
-        self.features.raycast.darwin
         self.features.rectangle.darwin
         self.features.secretive.darwin
         self.features.shottr.darwin

@@ -12,6 +12,7 @@
     self.features.browsers
     self.features.one-password
     self.features.discord
+    self.features.vicinae
 
     # Enables local dotfiles development
     self.features.vscode
