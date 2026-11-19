@@ -1,6 +1,5 @@
 # command = /opt/homebrew/bin/tmux attach
 
-font-size = 16
 theme = Monokai Remastered
 minimum-contrast = 3
 background = #000000

@@ -119,7 +119,7 @@ in
         home.pointerCursor = lib.mkIf pkgs.stdenv.isLinux {
           package = pkgs.bibata-cursors;
           name = "Bibata-Modern-Classic";
-          size = 32;
+          size = 24;
           gtk.enable = true;
           x11.enable = true;
         };
