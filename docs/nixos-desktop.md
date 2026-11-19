@@ -95,6 +95,9 @@ Workspaces belong to individual monitors.
 | --- | --- |
 | Mod+Space | Toggle launcher/search |
 | Mod+grave (backtick key) | Open Ghostty |
+| Print | Screenshot an area |
+| Shift+Print | Screenshot the focused monitor |
+| Alt+Print | Screenshot the focused window |
 | Mod+Shift+A | Screenshot and annotate |
 | Mod+Shift+Space | 1Password Quick Access |
 | Mod+/ | Toggle live keybind cheatsheet |

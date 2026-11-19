@@ -171,6 +171,8 @@ in
                 };
               };
             };
+            # Like Shottr on macOS: screenshots go to the clipboard, not a file.
+            shell.screenshot.save_to_file = false;
             plugins.enabled = [ "dotfiles/browser-selector" ];
             widget.browser.type = "dotfiles/browser-selector:browser";
           };
@@ -208,6 +210,11 @@ in
                 };
                 "Mod+Left" = "window-focus-or-output-left";
                 "Mod+Right" = "window-focus-or-output-right";
+                # Mouse navigation, matching Mac Mouse Fix: back goes right and
+                # forward goes left. These and Mod+WheelUp/Down from the
+                # starting config stay on the monitor under the pointer.
+                "Mod+MouseBack" = "window-focus-right";
+                "Mod+MouseForward" = "window-focus-left";
                 "Mod+Alt+Left" = "column-move-tab-previous";
                 "Mod+Alt+Right" = "column-move-tab-next";
                 "Mod+Shift+Left" = "window-move-or-output-left";
@@ -229,6 +236,18 @@ in
                 "Alt+Tab" = "spawn noctalia msg window-switcher hold";
                 "Alt+Shift+Tab" = "spawn noctalia msg window-switcher hold reverse";
                 "Mod+Shift+A" = "spawn noctalia msg screenshot-annotate";
+                "Print" = {
+                  action = "spawn noctalia msg screenshot-region";
+                  repeat = false;
+                };
+                "Shift+Print" = {
+                  action = "spawn noctalia msg screenshot-fullscreen";
+                  repeat = false;
+                };
+                "Alt+Print" = {
+                  action = "spawn noctalia msg screenshot-window";
+                  repeat = false;
+                };
                 "Mod+Slash" = {
                   action = "cheatsheet-toggle";
                   repeat = false;
