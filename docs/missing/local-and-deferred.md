@@ -9,7 +9,6 @@ Status: Excluded from implementation, by owner decision or because the audit fou
 | VS Code | Extensive local settings, three keybinding entries, some stale settings such as an iTerm reference | Keep editor settings local. Do not import settings, keybindings, snippets or profiles into Nix. |
 | VSCodium | The existing repo assigns its extension list and update settings here, separately from VS Code | Preserve the current separation. Do not move/copy that list to VS Code as a purported wiring fix. No editor migration ticket. |
 | Editor fonts | Local VS Code requests FiraCode Nerd Font / Fira Code; no font package is declared | Leave with the local editor setup for now; do not use the audit to expand into editor migration. |
-| Raycast | Hotkeys, extensions, snippets and other preferences are not captured | Exclude configuration and license/account automation. The owner plans to replace Raycast; this backlog does not select a replacement or remove the installed app. |
 | Ungoogled Chromium | Installed as a secondary Chromium-based browser for site testing | Keep the existing installation as-is. No additional policies, extensions or profile configuration. |
 | Aptakube preferences | Local terminal/proxy/kubeconfig/theme/column preferences exist | Keep all preferences and cluster state local. Only the license is managed. |
 | Thaw hidden/always-hidden applications | Local layout, membership and order are mixed with general preferences | Must remain local even while portable Thaw preferences are managed. |

@@ -130,7 +130,6 @@ in
           package = osConfig.programs.noctalia.package;
           settings = {
             bar.default.start = [
-              "launcher"
               "wallpaper"
               "workspaces"
               "browser"
@@ -167,7 +166,7 @@ in
               ))
               // {
                 "Mod+Space" = {
-                  action = "spawn noctalia msg panel-toggle launcher";
+                  action = "spawn vicinae toggle";
                   repeat = false;
                 };
                 "Mod+Left" = "window-focus-or-output-left";

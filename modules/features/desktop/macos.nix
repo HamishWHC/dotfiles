@@ -211,7 +211,7 @@
                   };
                 };
                 "65" = {
-                  enabled = true; # Spotlight Finder search
+                  enabled = false; # Spotlight Finder search
                   value = {
                     parameters = [
                       # Command-Option-Space
