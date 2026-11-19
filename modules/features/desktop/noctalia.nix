@@ -148,7 +148,11 @@ in
           settings = {
             include.files = [ baseConfig ];
             general = {
-              autostart = [ "noctalia" ];
+              autostart = [
+                "noctalia"
+                # Tray only, so the SSH agent and Quick Access are available.
+                "1password --silent"
+              ];
               # Let X11 apps (e.g. Steam) render at full resolution instead of
               # being upscaled; XSETTINGS tells them the output scale.
               xwayland_native_resolution = true;
