@@ -5,5 +5,6 @@
 
     # Games
     self.features.steam
+    self.features.prism-launcher
   ];
 }

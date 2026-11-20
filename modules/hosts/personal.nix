@@ -6,6 +6,7 @@
     configDir = "/Users/hamishwhc/Documents/Projects/dotfiles";
     features = [
       self.profiles.workstation
+      self.profiles.gaming
       self.features.one-password
       self.features.microslop
       {
