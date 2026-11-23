@@ -25,6 +25,8 @@
         ...
       }:
       {
+        programs.zoxide.enable = true;
+
         programs.zsh = {
           enable = true;
           autosuggestion.enable = true;
@@ -67,11 +69,6 @@
               file = "share/fzf-tab/fzf-tab.plugin.zsh";
             }
             {
-              name = "z";
-              src = pkgs.zsh-z;
-              file = "share/zsh-z/zsh-z.plugin.zsh";
-            }
-            {
               name = "powerlevel10k";
               src = pkgs.zsh-powerlevel10k;
               file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
@@ -88,6 +85,21 @@
               [[ -f "${config.xdg.configHome}/zsh/.zshrc_local" ]] && source "${config.xdg.configHome}/zsh/.zshrc_local"
 
               source ${./p10k.zsh}
+
+              # nix-darwin's /etc/zshrc doesn't bind these keys the way
+              # Apple's does, so zsh would type the trailing `~` of e.g.
+              # Delete. Bind the normal and application-mode forms here.
+              bindkey '^[[3~' delete-char           # Delete
+              bindkey '^[[3;5~' kill-word           # Ctrl+Delete
+              bindkey '^[[3;3~' kill-word           # Alt+Delete
+              bindkey '^[[H' beginning-of-line      # Home
+              bindkey '^[OH' beginning-of-line
+              bindkey '^[[F' end-of-line            # End
+              bindkey '^[OF' end-of-line
+              bindkey '^[[1;5D' backward-word       # Ctrl+Left
+              bindkey '^[[1;5C' forward-word        # Ctrl+Right
+              bindkey '^[[1;3D' backward-word       # Alt+Left
+              bindkey '^[[1;3C' forward-word        # Alt+Right
 
               # Flag to track if the terminal is still on its first prompt
               _IS_FIRST_PROMPT=true
