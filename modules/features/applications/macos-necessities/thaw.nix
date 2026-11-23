@@ -1,8 +1,10 @@
 {
   flake.features.thaw = {
-    darwin = {
+    darwin = { host, ... }: {
       homebrew.casks = [
-        "thaw@beta"
+        # TODO: Temporary. The atlassian host is on an older macOS that the
+        # beta doesn't support; drop this once it's upgraded.
+        (if host == "atlassian" then "thaw" else "thaw@beta")
       ];
 
       system.defaults.CustomUserPreferences."com.stonerl.Thaw" = {
