@@ -44,7 +44,8 @@
           ${pkgs.python3}/bin/python3 ${./test-setup.py} ${./setup.py}
           cp ${./setup.py} "$out"
         '';
-        app = "${config.home.homeDirectory}/${config.targets.darwin.copyApps.directory}/Shottr.app";
+        # Installed by the Homebrew cask below, into Homebrew's default appdir.
+        app = "/Applications/Shottr.app";
       in
       lib.mkIf pkgs.stdenv.isDarwin {
         sops.secrets.shottr-license-key = {
@@ -53,11 +54,7 @@
         };
 
         home.activation.setupShottr =
-          lib.hm.dag.entryAfter
-            [
-              "copyApps"
-              "sops-nix"
-            ]
+          lib.hm.dag.entryAfter [ "sops-nix" ]
             ''
               run ${pkgs.python3}/bin/python3 ${setup} \
                 ${settings} \
