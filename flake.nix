@@ -33,6 +33,10 @@
       url = "github:atlassian/homebrew-acli";
       flake = false;
     };
+    homebrew-acsandmann-tap = {
+      url = "github:acsandmann/homebrew-tap";
+      flake = false;
+    };
     homebrew-cask = {
       url = "github:homebrew/homebrew-cask";
       flake = false;

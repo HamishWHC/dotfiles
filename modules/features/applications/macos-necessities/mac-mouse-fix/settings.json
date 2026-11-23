@@ -15,8 +15,9 @@
     "Remaps": [
         {
             "effect": {
-                "type": "symbolicHotkey",
-                "variant": 81
+                "type": "keyboardShortcut",
+                "keycode": 124,
+                "flags": 786432
             },
             "modifiers": {},
             "trigger": {
@@ -27,8 +28,9 @@
         },
         {
             "effect": {
-                "type": "symbolicHotkey",
-                "variant": 79
+                "type": "keyboardShortcut",
+                "keycode": 123,
+                "flags": 786432
             },
             "modifiers": {},
             "trigger": {

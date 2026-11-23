@@ -3,6 +3,7 @@
     homeManager = { lib, pkgs, ... }: {
       imports = [
         self.features.mac-mouse-fix.homeManager
+        self.features.rift.homeManager
         self.features.shottr.homeManager
       ];
 
@@ -18,7 +19,7 @@
       imports = [
         self.features.closeup.darwin
         self.features.mac-mouse-fix.darwin
-        self.features.rectangle.darwin
+        self.features.rift.darwin
         self.features.shottr.darwin
         self.features.thaw.darwin
       ];
