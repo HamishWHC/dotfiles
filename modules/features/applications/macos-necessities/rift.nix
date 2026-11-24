@@ -76,7 +76,9 @@
         settings = {
           settings = {
             animate = true;
-            focus_follows_mouse = true;
+            # Hover focus raises tiled windows over floating ones; focus on
+            # click or keybind only.
+            focus_follows_mouse = false;
             mouse_follows_focus = true;
             mouse_hides_on_focus = true;
             # Manage every Space without activating it first.
@@ -96,7 +98,10 @@
                   0.667
                 ];
                 preserve_window_sizes = false;
-                gestures.enabled = true;
+                gestures = {
+                  enabled = true;
+                  invert_horizontal = true;
+                };
               };
               # Matches Rectangle's gapSize.
               gaps = {
@@ -145,11 +150,9 @@
               move_window_to_workspace = index;
             })
             // {
-              # Umbriel's shortcut inhibitor; here, stop managing the current Space.
-              "${modShift} + Escape" = "toggle_space_activated";
-
-              "${mod} + T" = "toggle_window_floating";
-              "${modShift} + T" = "toggle_focus_floating";
+              # Shift moves, so it floats the window; plain T moves focus.
+              "${mod} + T" = "toggle_focus_floating";
+              "${modShift} + T" = "toggle_window_floating";
               "${mod} + F" = "toggle_fullscreen_within_gaps"; # Umbriel's maximize
               "${modCtrl} + F" = "toggle_fullscreen";
 
@@ -164,11 +167,6 @@
               "${mod} + Period".consume_or_expel_window = "right";
 
               "${mod} + O" = "show_mission_control_all";
-              "${mod} + Backquote".exec = [
-                "/usr/bin/open"
-                "-a"
-                "Ghostty"
-              ];
             };
         };
       in

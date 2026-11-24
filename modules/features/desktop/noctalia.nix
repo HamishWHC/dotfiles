@@ -221,6 +221,15 @@ in
                 "Mod+Shift+Right" = "window-move-or-output-right";
                 "Mod+Shift+Minus" = "window-modify-secondary-extent -0.02";
                 "Mod+Shift+Equal" = "window-modify-secondary-extent +0.02";
+                # Shift moves, so it floats the window; plain T moves focus.
+                "Mod+T" = {
+                  action = "window-focus-switch-floating";
+                  repeat = false;
+                };
+                "Mod+Shift+T" = {
+                  action = "window-toggle-floating";
+                  repeat = false;
+                };
                 "Mod+F" = {
                   action = "window-toggle-maximize";
                   repeat = false;

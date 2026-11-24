@@ -10,7 +10,7 @@
 
 1. If macOS asked whether your terminal may access data from other apps during activation and you declined, allow it in **System Settings → Privacy & Security** and activate again; Shottr's settings and license need it.
 2. Open Mac Mouse Fix, CloseUp, Thaw and Shottr; grant their requested Accessibility/Screen Recording permissions and enable launch at login where wanted.
-3. Grant Rift Accessibility access in **System Settings → Privacy & Security → Accessibility**, then run `rift service restart`.
+3. Grant Rift Accessibility and Screen Recording access in **System Settings → Privacy & Security**, then run `rift service restart`.
 4. For side-by-side monitors, arrange them diagonally in **System Settings → Displays → Arrange**: the left monitor up and to the left, touching the right monitor only at a corner.
 5. Configure Thaw's hidden apps.
 6. Configure Firefox/Chromium, install your extensions and sign into browser services. Configure Velja and select it as the default browser.
